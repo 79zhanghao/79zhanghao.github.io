@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>【学习笔记】html结构化元素html标签的学习html5的学习-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="HTML,个人笔记,基础知识,学习笔记,">
+<meta name="description" content="对html基础标签的学习与认识html5的了解性的学习">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/HTML">HTML</a></li>
+            
+            <li><a href="/tags/个人笔记">个人笔记</a></li>
+            
+            <li><a href="/tags/基础知识">基础知识</a></li>
+            
+            <li><a href="/tags/学习笔记">学习笔记</a></li>
+            
+            
+        </ul>
+        <h1>【学习笔记】html结构化元素html标签的学习html5的学习</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-01-05 15:47:09</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="什么是结构化元素"><a href="#什么是结构化元素" class="headerlink" title="什么是结构化元素"></a>什么是结构化元素</h2><p><strong>结构化元素</strong>就是指 HTML 元素中具有明确含义和作用的元素，例如 <p>元素表示段落。相对于 HTML 4.01 版本而言，HTML5 版本新增了一系列结构化元素。</p>
+<p>HTML4.01版本的结构化元素</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>代码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>标题元素</td>
+<td><code>&lt;h1&gt;</code>~`<h6>`</td>
+</tr>
+<tr>
+<td>段落元素</td>
+<td><code>&lt;p&gt;</code></td>
+</tr>
+<tr>
+<td>粗体元素</td>
+<td><code>&lt;b&gt;</code></td>
+</tr>
+<tr>
+<td>斜体元素</td>
+<td><code>&lt;i&gt;</code></td>
+</tr>
+<tr>
+<td>上标/下标元素</td>
+<td><code>&lt;sup&gt;</code>/<code>&lt;sub&gt;</code></td>
+</tr>
+<tr>
+<td>换行符</td>
+<td><code>&lt;br&gt;</code></td>
+</tr>
+<tr>
+<td>水平线元素</td>
+<td><code>&lt;hr&gt;</code></td>
+</tr>
+</tbody></table>
+<p>HTML5新增的结构元素</p>
+<ul>
+<li><code>&lt;article&gt;</code> 元素</li>
+<li><code>&lt;section&gt;</code> 元素</li>
+<li><code>&lt;nav&gt;</code> 元素</li>
+<li><code>&lt;aside&gt;</code> 元素</li>
+<li><code>&lt;header&gt;</code> 元素</li>
+<li><code>&lt;main&gt;</code> 元素</li>
+<li><code>&lt;footer&gt;</code> 元素</li>
+</ul>
+<h3 id="标题元素"><a href="#标题元素" class="headerlink" title="标题元素"></a>标题元素</h3><figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>这是标题一<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>这是标题二<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>这是标题三<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>这是标题四<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">h5</span>&gt;</span>这是标题五<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">h6</span>&gt;</span>这是标题六<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>关于标题元素在开发中的使用时需要注意如下要点：</p>
+<ul>
+<li>对于搜索引擎抓取 HTML 页面的内容，<code>&lt;h1&gt;</code> 元素仅次于<code>&lt;title&gt;</code>元素。为了可以被搜索引擎抓取，建议一个 HTML 页面只包含一个 <code>&lt;h1&gt;</code> 元素。</li>
+<li>不要为了减小标题的字体而使用低级别的标题， 而是通过使用 CSS font-size 属性实现。</li>
+<li>避免跳过某级标题，始终要从 <code>&lt;h1&gt;</code> 元素开始，依次使用 <code>&lt;h2&gt;</code> 元素、<code>&lt;h3&gt;</code> 元素、… …</li>
+</ul>
+<h3 id="段落元素"><a href="#段落元素" class="headerlink" title="段落元素"></a>段落元素</h3><p>HTML <code>&lt;p&gt;</code> 元素表示一个段落，该元素通常呈现出当前段落的文本与其他段落的文本之间会以空白进行隔离。如下示例代码展示了 <code>&lt;p&gt;</code> 元素的用法：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>这是第一个段落内容.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>这是第二个段落内容.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：如果想要改变段落之间的间隔空间，建议使用 CSS margin 属性实现，而不是插入空的段落元素或者 <code> br</code> 元素。</p>
+<h3 id="粗体元素"><a href="#粗体元素" class="headerlink" title="粗体元素"></a>粗体元素</h3><p>HTML <code>&lt;b&gt;</code> 元素用来定义需要提醒注意的内容。该元素在过去被认为是<strong>粗体元素</strong>，因为绝大多数浏览器解析该元素呈现的是粗体效果。</p>
+<blockquote>
+<p>如果不是出于语义目的而使用 <code>&lt;b&gt;</code> 元素，那么让文本显示粗体更好的方式是使用将 CSS 的 font-weight 属性设置为 bold。</p>
+</blockquote>
+<p><code>&lt;b&gt;</code> 元素的应用场景例如摘要中的<strong>关键字、评论中的产品名称</strong>，或其他<strong>典型的应该加粗显示的文字</strong>。</p>
+<p>以前 <code>&lt;b&gt;</code> 元素的含义就是让文本变成粗体效果。但从 HTML4 版本开始，不赞成标签表示带样式信息，于是 <code>&lt;b&gt;</code> 元素的含义发生了变化。</p>
+<h3 id="斜体元素"><a href="#斜体元素" class="headerlink" title="斜体元素"></a>斜体元素</h3><p>HTML<code> &lt;i&gt;</code> 元素用来定义表现因某些原因需要区分普通文本的一系列文本，例如技术术语、外文短语或是小说中人物的思想活动等。浏览器运行解析 <code>&lt;i&gt;</code> 元素一般呈现的效果是斜体。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1galpwavfnzj20qu071t90.jpg"></p>
+<h3 id="上标-下标元素"><a href="#上标-下标元素" class="headerlink" title="上标/下标元素"></a>上标/下标元素</h3><p>HTML <code>&lt;sup&gt;</code> 元素表示为上标元素，HTML <code>&lt;sub&gt;</code> 元素表示为下标元素。这两个元素的特点如下：</p>
+<p><code>&lt;sup&gt;</code> 元素定义的文本内容与主体内容相比，显示更高更小。<br><code>&lt;sub&gt;</code> 元素定义的文本内容与主体内容相比，显示更低更小。<br>如下示例代码展示了 <code>&lt;sup&gt;</code> 元素和 <code>&lt;sub&gt;</code> 元素的用法：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>你将在下学期学习到 E=MC<span class="hljs-tag">&lt;<span class="hljs-name">sup</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">sup</span>&gt;</span> 公式。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>水的化学成分叫做H<span class="hljs-tag">&lt;<span class="hljs-name">sub</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">sub</span>&gt;</span>O。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>你将在下学期学习到 E=MC<sup>2</sup> 公式。</p>
+<p>水的化学成分叫做H<sub>2</sub>O。</p>
+
+<h3 id="换行符"><a href="#换行符" class="headerlink" title="换行符"></a>换行符</h3><p>HTML <code>&lt;br&gt;</code> 元素会在 HTML 页面中生成一个换行符。编写在 <code>&lt;br&gt;</code> 元素后的文本内容会呈现在第二行中。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>哈哈哈<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>呵呵呵<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>哈哈哈<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>呵呵呵<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1gakledrw18j207q02owe9.jpg"></p>
+<h3 id="水平线元素"><a href="#水平线元素" class="headerlink" title="水平线元素"></a>水平线元素</h3><p>HTML <code>&lt;hr&gt;</code> 元素用来表示段落元素之间的主题转换。在较早版本的 HTML 中，<code>&lt;hr&gt;</code> 元素表示一个水平线，并且浏览器运行解析也是水平线效果。但目前 <code>&lt;hr&gt;</code> 元素被定义为语义上的，而不是表现上。</p>
+<p>如下示例代码展示了 <code>&lt;br&gt;</code> 元素的用法：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>§1: 这是一个段落内容.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>§2: 这是另一个段落内容.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1gaklhf69vxj20mo034dfo.jpg"></p>
+<h2 id="HTML5-版本的结构化元素"><a href="#HTML5-版本的结构化元素" class="headerlink" title="HTML5 版本的结构化元素"></a>HTML5 版本的结构化元素</h2><h3 id="article-元素"><a href="#article-元素" class="headerlink" title="article 元素"></a><code>article</code> 元素</h3><p>HTML <code>article</code> 元素用来定义 HTML 页面中的可独立分配或可复用结构，例如论坛的帖子、新闻网站的文章等。</p>
+<p>如下示例代码展示了 <code>article</code> 元素的用法：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>前端开发<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>前端开发现在已经是软件开发领域中的主流。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">small</span>&gt;</span>版权归属 *** 公司所有。<span class="hljs-tag">&lt;/<span class="hljs-name">small</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>上述示例代码运行效果如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img15b3b160-23d4-461d-a837-87832dc56407.png" alt="0109.png"></p>
+<h3 id="section-元素"><a href="#section-元素" class="headerlink" title="section 元素"></a><code>section</code> 元素</h3><p>HTML <code>section</code> 元素用来定义 HTML 页面中的独立部分，该独立部分没有更具体的的语义元素来描述该元素。</p>
+<p>如下示例代码展示了 <code>section</code> 元素的用法：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>前端开发<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>前端开发现在已经是软件开发领域中的主流。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>上述示例代码运行效果如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img6834267e-61af-4496-b59e-042dc030533a.png" alt="0110.png"></p>
+<p>关于 <code>section</code> 元素在开发中的使用时需要注意如下要点：</p>
+<ul>
+<li><p>一般通过是否包含一个标题元素（  <code>&lt;h1&gt;</code> ~<h6> <code>）作为子级元素来识别每一个 </code> 元素。</p>
+</li>
+<li><p>如果元素内容可以分为几个部分的话，应该使用 <code>元素 而不是</code> 元素。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>这是第一个测试内容.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>这是第二个测试内容.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>不要将 <code>元素作为一个普通容器使用，这应该是</code> 元素的用法。</p>
+</li>
+</ul>
+<h4 id="lt-nav-gt-元素"><a href="#lt-nav-gt-元素" class="headerlink" title="&lt;nav&gt; 元素"></a><code>&lt;nav&gt;</code> 元素</h4><p>HTML <code>&lt;nav&gt;</code> 元素用来定义 HTML 页面中的导航链接，比较常见的是菜单，目录和索引。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>设计与构建静态网站<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>JavaScript基础核心语法<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>DOM编程艺术<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1gakltaf2tuj207u02p0sl.jpg"></p>
+<blockquote>
+<p>上述示例所示效果是 <code>&lt;ul&gt;</code> 列表元素的呈现效果，因为没有为 <code>&lt;nav&gt;</code> 元素设定任何 CSS 样式，默认是没有任何效果的。</p>
+</blockquote>
+<p>关于<code> &lt;nav&gt;</code> 元素在开发中的使用时需要注意如下要点：</p>
+<p>并不是所有的链接都必须使用 <code>&lt;nav&gt;</code> 元素，该元素只用于将一些热门的链接放入导航栏。<br>一个 HTML 页面可能存在多个 <code>&lt;nav&gt;</code> 元素。</p>
+<h4 id="lt-aside-gt-元素"><a href="#lt-aside-gt-元素" class="headerlink" title="&lt;aside&gt; 元素"></a><code>&lt;aside&gt;</code> 元素</h4><p>HTML <code>&lt;aside&gt;</code> 元素用来定义一个和 HTML 页面中其余内容几乎无关的内容，被认为是独立于该内容的一部分并且可以被单独的拆分出来而不会使整体受影响。通常比较常见的是侧边栏或者标注框。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>aside元素<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>    aside &#123;<br>      width: 40%;<br><span class="css">      <span class="hljs-selector-tag">padding-left</span>: <span class="hljs-selector-class">.5rem</span>;</span><br><span class="css">      <span class="hljs-selector-tag">margin-left</span>: <span class="hljs-selector-class">.5rem</span>;</span><br>      float: right;<br><span class="css">      <span class="hljs-selector-tag">box-shadow</span>: <span class="hljs-selector-tag">inset</span> 5<span class="hljs-selector-tag">px</span> 0 5<span class="hljs-selector-tag">px</span> <span class="hljs-selector-tag">-5px</span> <span class="hljs-selector-id">#29627e</span>;</span><br>      font-style: italic;<br><span class="css">      <span class="hljs-selector-tag">color</span>: <span class="hljs-selector-id">#29627e</span>;</span><br>    &#125;<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><br>      迪斯尼电影<span class="hljs-tag">&lt;<span class="hljs-name">cite</span>&gt;</span>海的女儿<span class="hljs-tag">&lt;/<span class="hljs-name">cite</span>&gt;</span>（<span class="hljs-tag">&lt;<span class="hljs-name">cite</span>&gt;</span>The Little Mermaid<span class="hljs-tag">&lt;/<span class="hljs-name">cite</span>&gt;</span>）于 1989 年首次登上银幕。<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">aside</span>&gt;</span><br>      在首次发行期间，该片便收获了 8700 万美元的票房。<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">aside</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><br>      更多有关该电影的信息…<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1gaklw0hvrfj20tt02ywei.jpg"></p>
+<h4 id="lt-header-gt-元素"><a href="#lt-header-gt-元素" class="headerlink" title="&lt;header&gt; 元素"></a><code>&lt;header&gt;</code> 元素</h4><p>HTML <code>&lt;header&gt;</code> 元素用来定义 HTML 页面中的具有引导和导航作用的内容，比较常见的是 Logo、搜索框、作者名称等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1galqbil3tsj20v00ccq3y.jpg"></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">header</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>主页标题<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span> <br><span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">header</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>前端开发<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>前端开发现在已经是软件开发领域中的主流。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>这是第一个测试内容.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>更多内容....<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一个 HTML 页面并没有限制只能出现一个 <code>&lt;header&gt;</code> 元素，可以为每个内容区块添加一个 <code>&lt;header&gt;</code> 元素。</p>
+</blockquote>
+<h4 id="lt-main-gt-元素"><a href="#lt-main-gt-元素" class="headerlink" title="&lt;main&gt; 元素"></a><code>&lt;main&gt;</code> 元素</h4><p>HTML <code>&lt;main&gt;</code> 元素用来定义 HTML 页面中的主要内容。主内容区块指与页面标题或主要功能直接相关的内容。这部分内容在HTML页面中应当是独一无二的，不包含任何任何重复的内容。</p>
+<blockquote>
+<p>关于 <code>&lt;main&gt;</code> 元素在开发中的使用时需要注意如下要点：</p>
+<p>一个 HTML 页面中只能出现一个 <code>&lt;main&gt;</code> 元素。<br><code>&lt;mian&gt;</code> 元素不能出现在 <code>&lt;article&gt;</code> 元素、<code>&lt;aside&gt;</code> 元素、<code>&lt;nav&gt;</code> 元素、<code>&lt;header&gt;</code> 元素和 <code>&lt;footer&gt;</code> 元素的内部。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">main</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Coder 比赛<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>目前正在紧张进行中...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1galqe69gylj20u508tt94.jpg" alt="6.png"></p>
+<h4 id="lt-footer-gt-元素"><a href="#lt-footer-gt-元素" class="headerlink" title="&lt;footer&gt; 元素"></a><code>&lt;footer&gt;</code> 元素</h4><p>HTML <code>&lt;footer&gt;</code> 元素用来定义 HTML 元素中的一个章节内容或根元素的页脚。一个页脚通常包含该章节作者、版权数据或文档相关链接等信息。</p>
+<p>关于<code> &lt;footer&gt;</code> 元素在开发中的使用时需要注意 <code>&lt;footer&gt;</code>元素中的作者信息应该包含在 <code>&lt;address&gt;</code> 元素中。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>版权信息<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>站点地图<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>联系方式<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1galqetg1ktj20sh0aawex.jpg" alt="7.png"></p>
+<h3 id="空白"><a href="#空白" class="headerlink" title="空白"></a>空白</h3><p>当浏览器运行并解析 HTML 页面时，遇到两个或两个以上的连续空格时，只将其显示为一个空格效果。这种特性叫做<strong>白色空间折叠</strong>。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>多个空格        但只会显示一个空格<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1galqh4fa14j20sq09ejro.jpg" alt="8.png"></p>
+<h3 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h3><table>
+<thead>
+<tr>
+<th><strong>原义字符</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>转义字符</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code> </code></td>
+<td>空格</td>
+<td><code>&amp;nbsp;</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>小于号</td>
+<td><code>&amp;lt;</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>大于号</td>
+<td><code>&amp;gt;</code></td>
+</tr>
+<tr>
+<td><code>&amp;</code></td>
+<td>和号</td>
+<td><code>&amp;amp;</code></td>
+</tr>
+<tr>
+<td><code>&quot;</code></td>
+<td>引号</td>
+<td><code>&amp;quot;</code></td>
+</tr>
+<tr>
+<td><code>©</code></td>
+<td>版权（copyright）</td>
+<td><code>&amp;copy;</code></td>
+</tr>
+<tr>
+<td><code>®</code></td>
+<td>注册商标</td>
+<td><code>&amp;reg;</code></td>
+</tr>
+<tr>
+<td><code>™</code></td>
+<td>商标</td>
+<td><code>&amp;trade;</code></td>
+</tr>
+<tr>
+<td><code>×</code></td>
+<td>乘号</td>
+<td><code>&amp;times;</code></td>
+</tr>
+<tr>
+<td><code>÷</code></td>
+<td>除号</td>
+<td><code>&amp;divide;</code></td>
+</tr>
+</tbody></table>
+<h2 id="语义化元素"><a href="#语义化元素" class="headerlink" title="语义化元素"></a>语义化元素</h2><p><strong>语义化元素</strong>与结构化元素类似，都是具有具体含义的元素，区别在于语义化元素更多定义一个单词、一行内容的语义或样式。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>语义化元素<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>		<span class="hljs-comment">&lt;!-- 加粗元素 --&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>说明：<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>HTML声明并不是一个HTML元素。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>		<span class="hljs-comment">&lt;!-- 强调元素 --&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>在HTML中，有些内容是需要<span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>着重<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>来阅读的.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>		<span class="hljs-comment">&lt;!-- 引用元素 --&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span>&gt;</span><br>		  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><br>		    这是一段用来引用的文本内容.<br>		  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">blockquote</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>说明：<span class="hljs-tag">&lt;<span class="hljs-name">q</span>&gt;</span>声明并不是一个HTML元素。<span class="hljs-tag">&lt;/<span class="hljs-name">q</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>		<span class="hljs-comment">&lt;!-- 引文元素 --&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>更多信息可以阅读<span class="hljs-tag">&lt;<span class="hljs-name">cite</span>&gt;</span>[ISO-0000]<span class="hljs-tag">&lt;/<span class="hljs-name">cite</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>		<span class="hljs-comment">&lt;!-- 定义元素 --&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><br>		  <span class="hljs-tag">&lt;<span class="hljs-name">dfn</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;def-internet&quot;</span>&gt;</span>The Internet<span class="hljs-tag">&lt;/<span class="hljs-name">dfn</span>&gt;</span> is a global system of interconnected networks that use the Internet Protocol Suite (TCP/IP) to serve billions of users worldwide.<br>		<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>		<span class="hljs-comment">&lt;!-- 地址元素 --&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">address</span>&gt;</span><br>		  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;mailto:jim@rock.com&quot;</span>&gt;</span>jim@rock.com<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>		  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;tel:+13115552368&quot;</span>&gt;</span>(311) 555-2368<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">address</span>&gt;</span><br>		<span class="hljs-comment">&lt;!-- 内容修改元素 --&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>前端好<span class="hljs-tag">&lt;<span class="hljs-name">del</span>&gt;</span>难<span class="hljs-tag">&lt;/<span class="hljs-name">del</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">ins</span>&gt;</span>容易<span class="hljs-tag">&lt;/<span class="hljs-name">ins</span>&gt;</span>学习啊<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1galqudohm0j213l0lz417.jpg"></p>
+<p>如下列表所示展示了部分语义化元素：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>代码</th>
+<th>释义</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>加粗元素</td>
+<td><code>&lt;strong&gt;</code></td>
+<td>HTML 页面中的十分重要的文本内容</td>
+<td>浏览器运行 HTML 页面默认呈现的是粗体效果</td>
+</tr>
+<tr>
+<td>强调元素</td>
+<td><code>&lt;em&gt;</code></td>
+<td>HTML 页面中的需要用户着重阅读的文本内容</td>
+<td>浏览器运行 HTML 页面默认呈现的是斜体效果</td>
+</tr>
+<tr>
+<td>引用元素</td>
+<td><code>&lt;blockquote&gt;</code> 和 <code>&lt;q&gt;</code></td>
+<td>HTML <code>blockquote</code> 元素用来定义 HTML 页面中的标记较长的引用内容，一般浏览器解析后会对其进行缩进。HTML <code>q</code> 元素用来定义 HTML 页面中的较短的引用内容，浏览器解析后会在其两侧使用引号包裹。</td>
+<td>代码1</td>
+</tr>
+<tr>
+<td>引文元素</td>
+<td><code>&lt;cite&gt;</code></td>
+<td>HTML 页面中的对一个作品的引用，该元素必须包含引用作品的符合简写格式的标题或者 URL，可能是一个根据添加引用元数据的约定的简写形式。</td>
+<td>浏览器解析后会呈现斜体效果</td>
+</tr>
+<tr>
+<td>定义元素</td>
+<td><code>&lt;dfn&gt;</code></td>
+<td>定义 HTML 页面中的术语</td>
+<td>有些浏览器会将 <code>&lt;dfn&gt;</code> 元素解析后呈现为斜体，但 Safari 和 Chrome 浏览器则不会改变其样式。</td>
+</tr>
+<tr>
+<td>地址元素</td>
+<td><code>&lt;address&gt;</code></td>
+<td>HTML 页面中提供了某个人或某个组织的联系信息</td>
+<td>浏览器解析后会呈现为斜体效果</td>
+</tr>
+<tr>
+<td>内容修改元素</td>
+<td><code>&lt;del&gt;</code> 和 <code>&lt;ins&gt;</code></td>
+<td>HTML <code>del</code>元素用来定义 HTML 页面中删除的文字内容，HTML <code>ins</code> 元素用来定义 HTML 页面中插入的文字内容。</td>
+<td>代码2</td>
+</tr>
+</tbody></table>
+<p>代码1</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><br>    这是一段用来引用的文本内容.<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">blockquote</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>说明：<span class="hljs-tag">&lt;<span class="hljs-name">q</span>&gt;</span>声明并不是一个HTML元素。<span class="hljs-tag">&lt;/<span class="hljs-name">q</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1gakmglsqzsj20a002p744.jpg" alt="QQ截图20200104164342.png"></p>
+<p>引文元素</p>
+<p>代码2</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>前端好<span class="hljs-tag">&lt;<span class="hljs-name">del</span>&gt;</span>难<span class="hljs-tag">&lt;/<span class="hljs-name">del</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">ins</span>&gt;</span>容易<span class="hljs-tag">&lt;/<span class="hljs-name">ins</span>&gt;</span>学习啊<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1gakmkd01qtj205f01bq2p.jpg"></p>
+<h2 id="字体样式"><a href="#字体样式" class="headerlink" title="字体样式"></a>字体样式</h2><h3 id="设置字体"><a href="#设置字体" class="headerlink" title="设置字体"></a>设置字体</h3><p>CSS <code>font-family</code> 属性通过一个字体名或字体族名组成的列表来设置 HTML 页面中的字体。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html">p &#123;<br>  font-family: 宋体;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="设置一个字体名或字体族名"><a href="#设置一个字体名或字体族名" class="headerlink" title="设置一个字体名或字体族名"></a>设置一个字体名或字体族名</h4><p>两种设置方法。并不推荐只为 font-family 属性设置一个值。因为这样的话，浏览器运行 HTML 页面时很可能找不到这种字体或字体族，从而导致字体不能按照预期的效果进行展示。</p>
+<h5 id="字体族名字"><a href="#字体族名字" class="headerlink" title="字体族名字"></a>字体族名字</h5><p>字体族名必须是<strong>有效</strong>的。具体可以划分成如下几种情况：</p>
+<ul>
+<li>如果字体族名是一个或多个合法标识串构成的话，是可以没有引号的。</li>
+<li>如果字体族名是一个或多个非合法标识串构成的话，是需要使用引号的。</li>
+<li>在没有带引号的字体族名的开头是不能使用标点符号字符和数字字符的。</li>
+</ul>
+<h5 id="通用字体族名字"><a href="#通用字体族名字" class="headerlink" title="通用字体族名字"></a>通用字体族名字</h5><p>通用字体族名是用来在指定的字体不可用时给出较好的字体。通用字体族名都是关键字，所以不可以加引号。通用字体族名由如下几种：</p>
+<ul>
+<li>serif：带衬线字体，笔画结尾有特殊的装饰线或衬线。</li>
+<li>sans-serif：无衬线字体，即笔画结尾是平滑的字体。</li>
+<li>monospace：等宽字体，即字体中每个字宽度相同。</li>
+<li>cursive：草书字体。这种字体有的有连笔，有的还有特殊的斜体效果。</li>
+<li>fantasy：主要是那些具有特殊艺术效果的字体。</li>
+</ul>
+<h4 id="设置多个字体名或字体族名"><a href="#设置多个字体名或字体族名" class="headerlink" title="设置多个字体名或字体族名"></a>设置多个字体名或字体族名</h4><p>为 font-family 属性设置多个值时，值之间需要使用逗号进行分隔。浏览器会选择列表中<strong>第一个</strong>该计算机上有安装的字体。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html">p &#123;<br>  font-family: &quot;Gill Sans Extrabold&quot;, Helvetica, sans-serif;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="字体大小"><a href="#字体大小" class="headerlink" title="字体大小"></a>字体大小</h3><figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html">p &#123;<br>  font-size: 24px;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>font-size 属性的值</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>代码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>绝对大小值</td>
+<td><code>xx-small</code>、<code>x-small</code>、<code>small</code>、<code>medium</code>、<code>large</code>、<code>x-large</code>、<code>x-large</code></td>
+</tr>
+<tr>
+<td>相对大小值</td>
+<td><code>larger</code>、<code>smaller</code></td>
+</tr>
+<tr>
+<td>长度值</td>
+<td><code>px</code>、<code>em</code>、<code>rem</code>、<code>ex</code></td>
+</tr>
+<tr>
+<td>百分比值</td>
+<td>该值是相对于父级元素的字体大小的百分比。</td>
+</tr>
+</tbody></table>
+<p>关于标题元素在开发中的使用时需要注意如下要点：</p>
+<ul>
+<li>建议最好使用用户默认字体大小的相对大小，避免使用除了 <code>em</code> 或 <code>ex</code> 的绝对大小单位。</li>
+<li>如果一定要使用绝对大小的话，<code>px</code> 是众多单位中最好的选择。</li>
+</ul>
+<h3 id="粗细程度"><a href="#粗细程度" class="headerlink" title="粗细程度"></a>粗细程度</h3><figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html">p &#123;<br>  font-weight: bolder;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>font-weight 属性的值</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>代码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>绝对值</td>
+<td><code>normal</code> 和 <code>bold</code> 两个值。<code>normal</code> 与数字值 400 等价，<code>bold</code> 与数字值 700 等价。</td>
+</tr>
+<tr>
+<td>相对值</td>
+<td><code>lighter</code> 和 <code>bolder</code> 两个值。比从父元素继承来的值更细（lighter）/粗（bolder）（处在字体可行的粗细值范围内）。</td>
+</tr>
+<tr>
+<td>数字值</td>
+<td>介于 100 ~ 900 之间的值。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>注意</strong>：一些字体只提供 <code>normal</code> 和 <code>bold</code> 两种值。</p>
+</blockquote>
+<h3 id="设置斜体"><a href="#设置斜体" class="headerlink" title="设置斜体"></a>设置斜体</h3><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.italic</span> &#123;<br>  <span class="hljs-attribute">font-style</span>: italic;<br>&#125;<br><br><span class="hljs-selector-class">.oblique</span> &#123;<br>  <span class="hljs-attribute">font-style</span>: oblique;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>不是所有的字体都有确切的 <code>oblique</code> 和 <code>italic</code> 字形。即便如此，浏览器也会通过使用现有的字形来模拟所缺少的字形。</p>
+</blockquote>
+<h3 id="font属性"><a href="#font属性" class="headerlink" title="font属性"></a>font属性</h3><p>CSS font 属性是用来作为 font-family、font-size、font-weight、font-style、font-variant 和 line-height 属性的简写形式，或将 HTML 元素的字体设置为系统字体。</p>
+<blockquote>
+<p> 如果将 font 属性作为简写形式的话，该属性必须包含 font-family 和 font-size 属性的值。而且指定相关属性的值时，需要注意如下要点：</p>
+<ul>
+<li>font-style、font-variant 和 font-weight 属性必须定义在 font-size 属性之前。</li>
+<li>line-height 属性必须定义在 font-size 属性后面，由 <code>/</code> 分隔，例如 <code>16px/3</code>。</li>
+<li>font-family 属性必须最后定义。</li>
+</ul>
+</blockquote>
+<h4 id="系统字体"><a href="#系统字体" class="headerlink" title="系统字体"></a>系统字体</h4><p>如果将 font 属性的值指定为系统关键字的话，必须是如下系统关键字之一：</p>
+<ul>
+<li>caption：用于标题控件（如按钮，下拉列表等）的系统字体。</li>
+<li>icon：用于标签图标的系统字体。</li>
+<li>menu：菜单中（如下拉菜单和菜单列表）使用的系统字体。</li>
+<li>message-box：用于对话框的系统字体。</li>
+<li>small-caption：用于小标题控件的系统字体。</li>
+<li>status-bar：用于窗口状态栏的系统字体。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.p1</span> &#123;<br>  <span class="hljs-attribute">font</span>: <span class="hljs-number">12px</span>/<span class="hljs-number">14px</span> sans-serif;<br>&#125;<br><br><span class="hljs-selector-class">.p2</span> &#123;<br>  <span class="hljs-attribute">font</span>: <span class="hljs-number">80%</span> sans-serif;<br>&#125;<br><br><span class="hljs-selector-class">.p3</span> &#123;<br>  <span class="hljs-attribute">font</span>: bold italic large serif;<br>&#125;<br><br><span class="hljs-selector-class">.p4</span> &#123;<br>  <span class="hljs-attribute">font</span>: status-bar;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="嵌入web字体"><a href="#嵌入web字体" class="headerlink" title="嵌入web字体"></a>嵌入web字体</h3><p><strong>@font-face</strong> 是 CSS 的 @规则 中的一种，用来为 HTML 页面引入在线字体。通过 @font-face 我们可以自己来准备字体文件，从而可以消除对用户电脑字体的依赖。</p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><code class="hljs gherkin"><span class="hljs-meta">@font-face</span> &#123;<br>  [ font-family: <span class="hljs-variable">&lt;family-name&gt;</span>; ] ||<br>  [ src: <span class="hljs-variable">&lt;src&gt;</span>; ] ||<br>  [ unicode-range: <span class="hljs-variable">&lt;unicode-range&gt;</span>; ] ||<br>  [ font-variant: <span class="hljs-variable">&lt;font-variant&gt;</span>; ] ||<br>  [ font-feature-settings: <span class="hljs-variable">&lt;font-feature-settings&gt;</span>; ] ||<br>  [ font-variation-settings: <span class="hljs-variable">&lt;font-variation-settings&gt;</span>; ] ||<br>  [ font-stretch: <span class="hljs-variable">&lt;font-stretch&gt;</span>; ] ||<br>  [ font-weight: <span class="hljs-variable">&lt;font-weight&gt;</span>; ] ||<br>  [ font-style: <span class="hljs-variable">&lt;font-style&gt;</span>; ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>font-family：所指定的字体名字将会被用于 font 或 font-family 属性。</li>
+<li>src：通过 <code>url()</code> 函数指定远程字体文件的位置，或者通过 <code>local()</code> 函数指定用户的本地计算机上的字体。</li>
+<li>font-variant：同 font-variant 属性。</li>
+<li>font-stretch：同 font-stretch 属性。</li>
+<li>font-weight：同 font-weight 属性。</li>
+<li>font-style：同 font-style 属性。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@font-face</span> &#123;<br>  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&quot;Alibaba PuHuiTi&quot;</span>;<br>  <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&quot;/fonts/Alibaba-PuHuiTi-Regular.ttf&quot;</span>);<br>&#125;<br><br><span class="hljs-selector-tag">body</span> &#123;<br>  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&quot;Alibaba PuHuiTi&quot;</span>, serif<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1galrf4o8okg210y0gfq3q.gif"></p>
+<h2 id="文本样式"><a href="#文本样式" class="headerlink" title="文本样式"></a>文本样式</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>代码</th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文本修饰</td>
+<td><code>text-decoration</code></td>
+<td>设置 HTML 页面中文本排版</td>
+</tr>
+<tr>
+<td>行间距</td>
+<td><code>line-height</code></td>
+<td>设置 HTML 页面中多行元素之间的空间量</td>
+</tr>
+<tr>
+<td>字母/单词间距</td>
+<td><code>letter-spacing</code>/<code>word-spacing</code></td>
+<td>字距是印刷行业用来描述字母之间空隙的一个术语</td>
+</tr>
+<tr>
+<td>水平对齐方式</td>
+<td><code>text-align</code></td>
+<td>设置 HTML 页面中文本内容相对于其所在元素在水平方式的对齐方式</td>
+</tr>
+<tr>
+<td>垂直对齐方式</td>
+<td><code>vertical-align</code></td>
+<td>设置 HTML 页面中内联元素或表格单元格元素在垂直方向上的对齐方式</td>
+</tr>
+<tr>
+<td>文本缩进</td>
+<td><code>text-indent</code></td>
+<td>设置 HTML 页面中块级元素首行文本内容之前的缩进量</td>
+</tr>
+<tr>
+<td>文本阴影</td>
+<td><code>text-shadow</code></td>
+<td>设置 HTML 页面中文本内容的阴影</td>
+</tr>
+<tr>
+<td>文本换行</td>
+<td><code>word-wrap</code>和<code>word-break</code></td>
+<td>让文本和浏览器的右端自动实现换行</td>
+</tr>
+<tr>
+<td>处理空白</td>
+<td><code>white-space</code></td>
+<td>设置如何处理 HTML 元素中的空白</td>
+</tr>
+</tbody></table>
+<h3 id="文本修饰（text-decoration）"><a href="#文本修饰（text-decoration）" class="headerlink" title="文本修饰（text-decoration）"></a>文本修饰（text-decoration）</h3><p>CSS text-decoration 属性用来设置 HTML 页面中文本排版（下划线、顶划线、删除线或者闪烁）。text-decoration 属性是一个简写属性，并且可以使用普通属性三个值中的任何一个。普通属性如下所示：</p>
+<ul>
+<li>text-decoration-line属性：用于设置元素中的文本的修饰类型。</li>
+<li>text-decoration-color属性：用于设置文本修饰线的颜色。</li>
+<li>text-decoration-style属性：用于设置由 text-decoration-line 设定的线的样式。</li>
+</ul>
+<p>如下示例代码展示了 text-decoration 的 3 个普通属性的用法：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">p</span> &#123;<br>  <span class="hljs-attribute">text-decoration-color</span>: lightcoral; <span class="hljs-comment">/* 下划线颜色 */</span><br>  <span class="hljs-attribute">text-decoration-line</span>: underline; <span class="hljs-comment">/* 下划线 */</span><br>  <span class="hljs-attribute">text-decoration-style</span>: solid; <span class="hljs-comment">/* 实线 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>text-decoration 属性会延伸到后代元素。这意味着如果祖先元素指定了文本修饰属性，后代元素则不能将其删除</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1galrw7skv7j20o80ec3z0.jpg"></p>
+<h3 id="行间距（line-height）"><a href="#行间距（line-height）" class="headerlink" title="行间距（line-height）"></a>行间距（line-height）</h3><p>使用印刷机印刷出来的每一个字都位于一个块中，而控制两行文字之间的垂直距离就是<strong>行间距</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1gakpmjbdmfj216t0tetcj.jpg"></p>
+<p>如上图所示，红色线是顶线、紫色线是中线、绿色线是基线、黄色线是底线，在本小节后面中会讲解到的 vertical-align 属性的 top、middle、baseline、bottom 指的就是这 4 条线。</p>
+<ul>
+<li><strong>行间距</strong>也称为<strong>行高</strong>指的是两行文本内容中基线的距离，即两条绿色线之间的距离。也就是上图中的 1、2、3 和 4 的区域。</li>
+<li><strong>行距</strong>指的是上一行的底线到下一行的顶线之间的距离，即上一行的黄色线到下一行的红色线之间的距离。</li>
+<li><strong>字体大小</strong>值的是顶线到底线的距离，即红色线到黄色线之间的距离。也是就是上图中的 1、2 和 4 的区域。</li>
+<li></li>
+</ul>
+<p>line-height属性值</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>normal 关键字</td>
+<td>该值取决于用户电脑。一般情况下，浏览器使用的默认值为 1.2。</td>
+</tr>
+<tr>
+<td>数字值</td>
+<td>最终的效果值是该数字值乘以该元素的字体大小（font-size 属性值）</td>
+</tr>
+<tr>
+<td>长度值</td>
+<td>如果使用 <code>em</code> 单位的可能会产生不确定的效果。</td>
+</tr>
+<tr>
+<td>百分比值</td>
+<td>最终的效果值是该百分比值乘以该元素的字体大小（font-size 属性值）。</td>
+</tr>
+</tbody></table>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.div1</span> &#123;<br>      <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.2</span>;<br>      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10pt</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/* 无单位数值 number/unitless */</span><br>    <span class="hljs-selector-class">.div2</span> &#123;<br>      <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.2em</span>;<br>      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10pt</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/* 长度 length */</span><br>    <span class="hljs-selector-class">.div3</span> &#123;<br>      <span class="hljs-attribute">line-height</span>: <span class="hljs-number">120%</span>;<br>      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10pt</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/* 百分比 percentage */</span><br>    <span class="hljs-selector-class">.div4</span> &#123;<br>      <span class="hljs-attribute">font</span>: <span class="hljs-number">10pt</span>/<span class="hljs-number">1.2</span> Georgia, <span class="hljs-string">&quot;Bitstream Charter&quot;</span>, serif;<br>    &#125;<br> <br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="字母间距（letter-spacing）与单词间距（word-spacing）"><a href="#字母间距（letter-spacing）与单词间距（word-spacing）" class="headerlink" title="字母间距（letter-spacing）与单词间距（word-spacing）"></a>字母间距（letter-spacing）与单词间距（word-spacing）</h3><h4 id="字母间距"><a href="#字母间距" class="headerlink" title="字母间距"></a>字母间距</h4><p>CSS letter-spacing 属性原意是用来设置文本字符之间的间距。在英文中是可以分为单词和字符的，但在中文中只有文字，中文中的文字就相当于英文的字符，所以 letter-spacing 属性可以适用于中文环境。</p>
+<p>letter-spacing 属性的值</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>normal</td>
+<td>该值是按照当前字体的正常间距确定的。</td>
+</tr>
+<tr>
+<td>长度值</td>
+<td>指定文字间的间距以替代默认间距，可以是负值。</td>
+</tr>
+</tbody></table>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.first-example</span> &#123;<br>  <span class="hljs-attribute">letter-spacing</span>: <span class="hljs-number">0.4em</span>;<br>&#125;<br><br><span class="hljs-selector-class">.second-example</span> &#123;<br>  <span class="hljs-attribute">letter-spacing</span>: <span class="hljs-number">1em</span>;<br>&#125;<br><br><span class="hljs-selector-class">.third-example</span> &#123;<br>  <span class="hljs-attribute">letter-spacing</span>: -<span class="hljs-number">0.05em</span>;<br>&#125;<br><br><span class="hljs-selector-class">.fourth-example</span> &#123;<br>  <span class="hljs-attribute">letter-spacing</span>: <span class="hljs-number">6px</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="单词间距"><a href="#单词间距" class="headerlink" title="单词间距"></a>单词间距</h4><p>CSS word-spacing 属性用来设置 HTML 页面中标签之间或单词之间的距离，<strong>该属性对英文是有效的，但对中文是无效的。</strong></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>normal</td>
+<td>该值是按照当前字体的正常间距确定的。</td>
+</tr>
+<tr>
+<td>长度值</td>
+<td>指定单词间的间距以替代默认间距。</td>
+</tr>
+<tr>
+<td>百分比值</td>
+<td>指定单词之间的间距以替代默认间距的百分比。</td>
+</tr>
+</tbody></table>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.first-example</span> &#123;<br>  <span class="hljs-attribute">word-spacing</span>: <span class="hljs-number">15px</span>;<br>&#125;<br><br><span class="hljs-selector-class">.second-example</span> &#123;<br>  <span class="hljs-attribute">word-spacing</span>: <span class="hljs-number">5em</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="水平对齐方式（text-align）"><a href="#水平对齐方式（text-align）" class="headerlink" title="水平对齐方式（text-align）"></a>水平对齐方式（text-align）</h3><p>CSS text-align 属性用来设置 HTML 页面中文本内容相对于其所在元素在水平方式的对齐方式。值得注意的是，text-align 属性并不能设置 HTML 元素本身在水平方向的对齐，而是设置 HTML 元素内部的文本内容在其元素内水平方向的对齐。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.example</span> &#123;<br>  <span class="hljs-attribute">text-align</span>: right;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>text-align 属性的值具有 7 种类型</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>start</code></td>
+<td>如果内容方向是左至右的话则等于 left，反之则为 right。</td>
+</tr>
+<tr>
+<td><code>end</code></td>
+<td>如果内容方向是左至右的话则等于 right，反之则为 left。</td>
+</tr>
+<tr>
+<td><code>left</code></td>
+<td>行内内容向左侧边对齐。</td>
+</tr>
+<tr>
+<td><code>right</code></td>
+<td>行内内容向右侧边对齐。</td>
+</tr>
+<tr>
+<td><code>center</code></td>
+<td>行内内容居中。</td>
+</tr>
+<tr>
+<td><code>justify</code></td>
+<td>文字向两侧对齐，对最后一行无效。</td>
+</tr>
+<tr>
+<td><code>justify-all</code></td>
+<td>和 <code>justify</code> 一致，但是强制使最后一行两端对齐。</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1gakpycxtnzj21320tsajs.jpg"></p>
+<h3 id="垂直对齐方式（vertical-align）"><a href="#垂直对齐方式（vertical-align）" class="headerlink" title="垂直对齐方式（vertical-align）"></a>垂直对齐方式（vertical-align）</h3><p>CSS vertical-align 属性用来设置 HTML 页面中内联元素或表格单元格元素在垂直方向上的对齐方式。vertical-align 属性可以被应用于 2 种环境：</p>
+<ul>
+<li>设置某个内联元素的盒子模型与该内联元素的父级容器元素的垂直对齐方式。</li>
+<li>设置表格中某个单元格中内容的垂直对齐方式。</li>
+</ul>
+<blockquote>
+<p>vertical-align 属性只针对内联元素和表单单元格有效，对块级元素是无效的。</p>
+</blockquote>
+<p>vertical-align 属性的值根据 2 种应用环境会有所不同：</p>
+<ul>
+<li>应用于内联元素的值<ul>
+<li>相对于父级元素的值<ul>
+<li>baseline：使元素的基线与父元素的基线对齐。</li>
+<li>sub：使元素的基线与父元素的下标基线对齐。</li>
+<li>super：使元素的基线与父元素的上标基线对齐。</li>
+<li>text-top：使元素的顶部与父元素的字体顶部对齐。</li>
+<li>text-bottom：使元素的底部与父元素的字体底部对齐。</li>
+<li>middle：使元素的中部与父元素的基线加上父元素 x-height 的一半对齐。</li>
+</ul>
+</li>
+<li>相对于行的值<ul>
+<li>top：使元素及其后代元素的顶部与整行的顶部对齐。</li>
+<li>bottom：使元素及其后代元素的底部与整行的底部对齐。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>应用于表单单元格的值<ul>
+<li>baseline：使单元格的基线，与该行中所有以基线对齐的其它单元格的基线对齐。</li>
+<li>top：使单元格内边距的上边缘与该行顶部对齐。</li>
+<li>middle：使单元格内边距盒模型在该行内居中对齐。</li>
+<li>bottom：使单元格内边距的下边缘与该行底部对齐。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">img</span><span class="hljs-selector-class">.top</span> &#123;<br>  <span class="hljs-attribute">vertical-align</span>: text-top;<br>&#125;<br><br><span class="hljs-selector-tag">img</span><span class="hljs-selector-class">.bottom</span> &#123;<br>  <span class="hljs-attribute">vertical-align</span>: text-bottom;<br>&#125;<br><br><span class="hljs-selector-tag">img</span><span class="hljs-selector-class">.middle</span> &#123;<br>  <span class="hljs-attribute">vertical-align</span>: middle;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="文本缩进（text-indent）"><a href="#文本缩进（text-indent）" class="headerlink" title="文本缩进（text-indent）"></a>文本缩进（text-indent）</h3><p>CSS text-indent 属性用来设置 HTML 页面中块级元素首行文本内容之前的缩进量.</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.example</span> &#123;<br>  <span class="hljs-attribute">text-indent</span>: <span class="hljs-number">5em</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长度值</td>
+<td>允许使用负值</td>
+</tr>
+<tr>
+<td>百分比值</td>
+<td>使用所在块级元素的宽度的百分比作为缩进</td>
+</tr>
+<tr>
+<td>each-line</td>
+<td>文本缩进会影响第一行，以及使用 <code>&lt;br&gt;</code> 元素强制断行后的第一行。</td>
+</tr>
+<tr>
+<td>hanging</td>
+<td>该值会对所有的行进行反转缩进：除了第一行之外的所有的行都会被缩进，看起来就像第一行设置了一个负的缩进值。</td>
+</tr>
+</tbody></table>
+<h3 id="文本阴影（text-shadow）"><a href="#文本阴影（text-shadow）" class="headerlink" title="文本阴影（text-shadow）"></a>文本阴影（text-shadow）</h3><p>CSS text-shadow 属性用来设置 HTML 页面中文本内容的阴影。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">selector</span> &#123;<br>	<span class="hljs-attribute">text-shadow</span>: color offset-x offet-y blur-raduis;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>color：可选项，设置文本内容的阴影颜色。</p>
+</li>
+<li><p>offset-x：必选项，设置文本内容的阴影在水平方向的偏移量。</p>
+<ul>
+<li>如果值小于 0 的话，则表示向左偏移。</li>
+<li>如果值等于 0 的话，则表示水平方向不发生任何偏移。</li>
+<li>如果值大于 0 的话，则表示向右偏移。</li>
+</ul>
+</li>
+<li><p>offset-y：必选项，设置文本内容的阴影在垂直方向的偏移量。</p>
+<ul>
+<li>如果值小于 0 的话，则表示向上偏移。</li>
+<li>如果值等于 0 的话，则表示垂直方向不发生任何偏移。</li>
+<li>如果值大于 0 的话，则表示向下偏移。</li>
+</ul>
+</li>
+<li><p>blur-raduis：可选项，设置文本内容的阴影模糊半径。</p>
+<p>如果没有指定，则默认为 0。值越大，模糊半径越大，阴影也就越大越淡。</p>
+</li>
+</ul>
+<h4 id="设置单一阴影"><a href="#设置单一阴影" class="headerlink" title="设置单一阴影"></a>设置单一阴影</h4><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css">&lt;!<span class="hljs-selector-tag">DOCTYPE</span> <span class="hljs-selector-tag">html</span>&gt;<br>&lt;<span class="hljs-selector-tag">html</span>&gt;<br>	&lt;<span class="hljs-selector-tag">head</span>&gt;<br>		&lt;meta charset=&quot;utf-8&quot;&gt;<br>		&lt;title&gt;&lt;/title&gt;<br>		&lt;style type=&quot;text/css&quot;&gt;<br>			<span class="hljs-selector-class">.example</span> &#123;<br>			  <span class="hljs-attribute">text-shadow</span>: red <span class="hljs-number">0</span> -<span class="hljs-number">2px</span>;<br>			&#125;<br>		&lt;/style&gt;<br>	&lt;/head&gt;<br>	&lt;<span class="hljs-selector-tag">body</span>&gt;<br>		&lt;p class=&quot;example&quot;&gt;这是文本阴影测试&lt;/p&gt;<br>	&lt;/body&gt;<br>&lt;/html&gt;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="设置多重阴影"><a href="#设置多重阴影" class="headerlink" title="设置多重阴影"></a>设置多重阴影</h4><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.example</span> &#123;<br>  <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> black, <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">1em</span> blue, <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0.2em</span> blue;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当通过 text-shadow 属性为文本内容设置多重阴影时，阴影的应用顺序是从左到右的，第一个指定的阴影在顶部。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1gals0huobjj20r10cgwfh.jpg"></p>
+<h3 id="文本换行（word-wrap-和-word-break）"><a href="#文本换行（word-wrap-和-word-break）" class="headerlink" title="文本换行（word-wrap 和 word-break）"></a>文本换行（word-wrap 和 word-break）</h3><ul>
+<li>对于西方文本，浏览器会在半角空格或连字符的地方自动换行。</li>
+<li>对于中文文本，可以在任何文字后面换行。通常标点符号以及前面的文字作为整体统一换行。</li>
+</ul>
+<h4 id="word-wrap属性"><a href="#word-wrap属性" class="headerlink" title="word-wrap属性"></a>word-wrap属性</h4><p>word-wrap 属性属于微软的一个私有属性，在 CSS3 的文本规范中被重命名为 overflow-wrap。word-wrap 作为 overflow-wrap 的<em>别名</em>。</p>
+<p>overflow-wrap 属性的值具有如下 2 种：</p>
+<ul>
+<li>normal：表示在正常的单词结束处换行。</li>
+<li>break-word：表示如果行内没有多余的地方容纳该单词到结尾，则那些正常的不能被分割的单词会被强制分割换行。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>overflow-wrap属性<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-selector-class">.example</span> &#123;</span><br>      width: 13em;<br>      background: gold;<br>    &#125;<br><br><span class="css">    <span class="hljs-selector-class">.break</span> &#123;</span><br>      overflow-wrap: break-word;<br>    &#125;<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example&quot;</span>&gt;</span><br>    FStrPrivFinÄndG (Gesetz zur Änderung des Fernstraßenbauprivatfinanzierungsgesetzes und straßenverkehrsrechtlicher<br>    Vorschriften)<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example break&quot;</span>&gt;</span><br>    FStrPrivFinÄndG (Gesetz zur Änderung des Fernstraßenbauprivatfinanzierungsgesetzes und straßenverkehrsrechtlicher<br>    Vorschriften)<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1galsf3702wj20u50knabm.jpg"></p>
+<h4 id="word-break-属性"><a href="#word-break-属性" class="headerlink" title="word-break 属性"></a>word-break 属性</h4><p>CSS word-break 属性用来设置 HTML 页面中文本内容自动换行的处理方式。通过具体的属性值设置，可以告知浏览器实现任意位置的换行。</p>
+<p>word-break 属性的值具有如下 3 种：</p>
+<ul>
+<li>normal：使用默认的断行规则。</li>
+<li>break-all：对于除中文、日文和韩文外的文本内容，设置可以在任意字符间断行。</li>
+<li>keep-all：中文、日文和韩文的文本内容不断行，其他语言的文本内容等同于 normal。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>word-break属性<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-selector-class">.narrow</span> &#123;</span><br>      width: 60%;<br>      padding: 20px;<br>      text-align: start;<br><span class="css">      <span class="hljs-selector-tag">border</span>: <span class="hljs-selector-tag">solid</span> 1<span class="hljs-selector-tag">px</span> <span class="hljs-selector-id">#a9a9a9</span>;</span><br>    &#125;<br><br><span class="css">    <span class="hljs-selector-class">.normal</span> &#123;</span><br>      word-break: normal;<br>    &#125;<br><br><span class="css">    <span class="hljs-selector-class">.breakAll</span> &#123;</span><br>      word-break: break-all;<br>    &#125;<br><br><span class="css">    <span class="hljs-selector-class">.keepAll</span> &#123;</span><br>      word-break: keep-all;<br>    &#125;<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>1. <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>word-break: normal<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;normal narrow&quot;</span>&gt;</span>This is a long and<br>    Honorificabilitudinitatibus califragilisticexpialidocious<br>    Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu<br>    グレートブリテンおよび北アイルランド連合王国という言葉は本当に長い言葉<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>2. <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>word-break: break-all<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;breakAll narrow&quot;</span>&gt;</span>This is a long and<br>    Honorificabilitudinitatibus califragilisticexpialidocious<br>    Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu<br>    グレートブリテンおよび北アイルランド連合王国という言葉は本当に長い言葉<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>3. <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>word-break: keep-all<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;keepAll narrow&quot;</span>&gt;</span>This is a long and<br>    Honorificabilitudinitatibus califragilisticexpialidocious<br>    Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu<br>    グレートブリテンおよび北アイルランド連合王国という言葉は本当に長い言葉<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1galsf3fikcj216i0nptbh.jpg"></p>
+<h3 id="处理空白（white-space）"><a href="#处理空白（white-space）" class="headerlink" title="处理空白（white-space）"></a>处理空白（white-space）</h3><p>CSS white-space 属性用来设置如何处理 HTML 元素中的空白</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>white-space属性<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-selector-class">.example-element</span> &#123;</span><br>      width: 16rem;<br>    &#125;<br><br><span class="css">    <span class="hljs-selector-class">.example-element</span> <span class="hljs-selector-tag">p</span> &#123;</span><br><span class="css">      <span class="hljs-selector-tag">background-color</span>: <span class="hljs-selector-id">#eee</span>;</span><br><span class="css">      <span class="hljs-selector-tag">padding</span>: <span class="hljs-selector-class">.75rem</span>;</span><br>      text-align: left;<br>    &#125;<br><br><span class="css">    <span class="hljs-selector-id">#example1</span> &#123;</span><br>	  white-space: normal;<br>    &#125;<br><span class="css">	<span class="hljs-selector-id">#example2</span>&#123;</span><br>		white-space: nowrap;<br>	&#125;<br><span class="css">	<span class="hljs-selector-id">#example3</span>&#123;</span><br>		white-space: pre;<br>	&#125;<br><span class="css">	<span class="hljs-selector-id">#example4</span>&#123;</span><br>		white-space: pre-wrap;<br>	&#125;<br><span class="css">	<span class="hljs-selector-id">#example5</span>&#123;</span><br>		white-space: pre-line;<br>	&#125;<br><span class="css">	<span class="hljs-selector-id">#example6</span>&#123;</span><br>		white-space: normal;<br>	&#125;<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example-element&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;example1&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>But ere she from the church-door stepped<br>      She smiled and told us why:<br>      &#x27;It was a wicked woman&#x27;s curse,&#x27;<br>      Quoth she, &#x27;and what care I?&#x27;<br><br>      She smiled, and smiled, and passed it off<br>      Ere from the door she stept—<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example-element&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;example2&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>But ere she from the church-door stepped<br>      She smiled and told us why:<br>      &#x27;It was a wicked woman&#x27;s curse,&#x27;<br>      Quoth she, &#x27;and what care I?&#x27;<br>  <br>      She smiled, and smiled, and passed it off<br>      Ere from the door she stept—<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example-element&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;example3&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>But ere she from the church-door stepped<br>      She smiled and told us why:<br>      &#x27;It was a wicked woman&#x27;s curse,&#x27;<br>      Quoth she, &#x27;and what care I?&#x27;<br>  <br>      She smiled, and smiled, and passed it off<br>      Ere from the door she stept—<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example-element&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;example4&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>But ere she from the church-door stepped<br>      She smiled and told us why:<br>      &#x27;It was a wicked woman&#x27;s curse,&#x27;<br>      Quoth she, &#x27;and what care I?&#x27;<br>  <br>      She smiled, and smiled, and passed it off<br>      Ere from the door she stept—<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example-element&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;example5&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>But ere she from the church-door stepped<br>      She smiled and told us why:<br>      &#x27;It was a wicked woman&#x27;s curse,&#x27;<br>      Quoth she, &#x27;and what care I?&#x27;<br>  <br>      She smiled, and smiled, and passed it off<br>      Ere from the door she stept—<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example-element&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;example6&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>But ere she from the church-door stepped<br>      She smiled and told us why:<br>      &#x27;It was a wicked woman&#x27;s curse,&#x27;<br>      Quoth she, &#x27;and what care I?&#x27;<br>  <br>      She smiled, and smiled, and passed it off<br>      Ere from the door she stept—<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>white-space属性<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-selector-id">#example-element</span> &#123;</span><br>      width: 16rem;<br>    &#125;<br><br><span class="css">    <span class="hljs-selector-id">#example-element</span> <span class="hljs-selector-tag">p</span> &#123;</span><br><span class="css">      <span class="hljs-selector-tag">background-color</span>: <span class="hljs-selector-id">#eee</span>;</span><br><span class="css">      <span class="hljs-selector-tag">padding</span>: <span class="hljs-selector-class">.75rem</span>;</span><br>      text-align: left;<br>    &#125;<br><br><span class="css">    <span class="hljs-selector-class">.example</span> &#123;</span><br><span class="css">      <span class="hljs-comment">/* 设置 white-space 属性不同的值用于测试效果 */</span></span><br>    &#125;<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;example-element&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;example&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>But ere she from the church-door stepped<br>      She smiled and told us why:<br>      &#x27;It was a wicked woman&#x27;s curse,&#x27;<br>      Quoth she, &#x27;and what care I?&#x27;<br><br>      She smiled, and smiled, and passed it off<br>      Ere from the door she stept—<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img832afe33ly1galsp7owcbg213u0nx15k.gif"></p>
+<p>如下列表总结了各种 white-space 属性值的行为：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">换行符</th>
+<th align="left">空格和制表符</th>
+<th align="left">文字转行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>normal</code></td>
+<td align="left">合并</td>
+<td align="left">合并</td>
+<td align="left">转行</td>
+</tr>
+<tr>
+<td align="left"><code>nowrap</code></td>
+<td align="left">合并</td>
+<td align="left">合并</td>
+<td align="left">不转行</td>
+</tr>
+<tr>
+<td align="left"><code>pre</code></td>
+<td align="left">保留</td>
+<td align="left">保留</td>
+<td align="left">不转行</td>
+</tr>
+<tr>
+<td align="left"><code>pre-wrap</code></td>
+<td align="left">保留</td>
+<td align="left">保留</td>
+<td align="left">转行</td>
+</tr>
+<tr>
+<td align="left"><code>pre-line</code></td>
+<td align="left">保留</td>
+<td align="left">合并</td>
+<td align="left">转行</td>
+</tr>
+<tr>
+<td align="left"><code>break-spaces</code></td>
+<td align="left">保留</td>
+<td align="left">保留</td>
+<td align="left">转行</td>
+</tr>
+</tbody></table>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/c9c1a18c9e6c4006/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>【学习笔记】css实现抖音类型字体样式</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/4589175460a30905/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>【学习笔记】对htm&gt;css颜色的认识与了解对rgb有个初步的认识</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

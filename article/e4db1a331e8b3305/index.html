@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>Ajax,XMLHttpRequest,FormData学习进度条和上传速率的展示-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="Ajax,XMLHttpRequest,FormData,">
+<meta name="description" content="学习XMLHttpRequest的基础用法利用FormData完成文件的上传和使用upload事件完成上传进度和速率的展示">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/Ajax">Ajax</a></li>
+            
+            <li><a href="/tags/XMLHttpRequest">XMLHttpRequest</a></li>
+            
+            <li><a href="/tags/FormData">FormData</a></li>
+            
+            
+        </ul>
+        <h1>Ajax,XMLHttpRequest,FormData学习进度条和上传速率的展示</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-10-05 14:35:33</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="XMLHttpRequest"><a href="#XMLHttpRequest" class="headerlink" title="XMLHttpRequest"></a>XMLHttpRequest</h2><p>对象用于与服务器交互通过 XMLHttpRequest 可以在不刷新页面的情况下请求特定 URL，获取数据。</p>
+<p>Ajax 即“<code>Asynchronous Javascript And XML</code>”（异步 JavaScript 和 XML）</p>
+<h3 id="Ajax的基本使用"><a href="#Ajax的基本使用" class="headerlink" title="Ajax的基本使用"></a>Ajax的基本使用</h3><ul>
+<li><p>新建XMLHttpRequest对象</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> xhr = <span class="hljs-keyword">new</span> <span class="hljs-constructor">XMLHttpRequest()</span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置请求参数</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><code class="hljs lua">xhr.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;get&quot;</span>,<span class="hljs-string">&quot;/checkUser&quot;</span>,<span class="hljs-literal">true</span>); //<span class="hljs-literal">true</span>是异步，<span class="hljs-literal">false</span>是同步<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>接收返还值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">let</span> res = <span class="hljs-built_in">JSON</span>.parse(xhr.responseText);<br> &#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>发送服务器</p>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><code class="hljs abnf">xhr.send()<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h3><p>有两种传递参数的方法</p>
+<p><strong>第一种</strong></p>
+<p>在请求地址后拼接上参数如：</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">xhr.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;get&quot;</span>, <span class="hljs-string">&quot;/checkUserName?username=&#x27;JoeBlog&#x27;&quot;</span>, <span class="hljs-literal">true</span>);<br></code></pre></td></tr></table></figure>
+
+<p>上面是ES6的写法 用拼接变量的方法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">xhr.open(<span class="hljs-string">&quot;get&quot;</span>, <span class="hljs-string">`/checkUserName?username=<span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.value&#125;</span>`</span>, <span class="hljs-literal">true</span>);<br></code></pre></td></tr></table></figure>
+
+<p><strong>第二种</strong></p>
+<p>在请求地址后端用斜杠进行分割 这种需要配合后端进行接收参数</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">xhr.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;get&quot;</span>,<span class="hljs-string">&quot;/get/4&quot;</span>,<span class="hljs-literal">true</span>);<br></code></pre></td></tr></table></figure>
+
+<p>Node 后端路由</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript">router.get(<span class="hljs-string">&quot;/get/:id&quot;</span>, <span class="hljs-function"><span class="hljs-params">(ctx, next)</span> =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(ctx.params);<br>    ctx.body = &#123;<br>        status: <span class="hljs-number">1</span>,<br>        info: <span class="hljs-string">&quot;请求成功&quot;</span><br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>如果没有这个路由进行配置会进行报错</p>
+<p>而且在前端请求的时候必须加上参数 如果没有也会报错而第一种不拼接上参数也是可以请求的</p>
+<h3 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h3><figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">xhr.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;post&quot;</span>, <span class="hljs-string">&quot;/post&quot;</span>, <span class="hljs-literal">true</span>);<br></code></pre></td></tr></table></figure>
+
+<p>但是POST传递参数的方式就有点特别了</p>
+<p>发送数据时候需要设置http正文头格式</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">xhr</span><span class="hljs-selector-class">.setRequestHeader</span>()<br></code></pre></td></tr></table></figure>
+
+<p>里面写上头信息 </p>
+<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">xhr</span><span class="hljs-selector-class">.setRequestHeader</span>(<span class="hljs-string">&quot;Content-Type&quot;</span>,<span class="hljs-string">&quot;application/x-www-form-urlencoded&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>那么我们传递数据就应该是下面这个样子然后我们在send过去</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">let data</span> = <span class="hljs-string">&quot;username=王五&amp;age=20&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>发送到服务器</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">xhr</span>.send(<span class="hljs-class"><span class="hljs-keyword">data</span>);</span><br></code></pre></td></tr></table></figure>
+
+<p>如果我们的头信息写的是 Json 格式</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">xhr</span><span class="hljs-selector-class">.setRequestHeader</span>(<span class="hljs-string">&quot;content-type&quot;</span>,<span class="hljs-string">&quot;application/json&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>那么我们就可以写json数据</p>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><code class="hljs lasso"><span class="hljs-keyword">let</span> <span class="hljs-built_in">data</span> = JSON.stringify(&#123;<br>    username:<span class="hljs-string">&quot;王五&quot;</span>,<br>    age:<span class="hljs-number">20</span><br>&#125;)<br><span class="hljs-comment">//发送数据</span><br>xhr.send(<span class="hljs-built_in">data</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="setRequestHeader"><a href="#setRequestHeader" class="headerlink" title="setRequestHeader()"></a>setRequestHeader()</h3><p>是设置HTTP请求头部的方法。此方法必须在  <code>open()</code> 方法和 <code>send()</code>之间调用。</p>
+<p>如果多次对同一个请求头赋值，只会生成一个合并了多个值的请求头。</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">xhr.set<span class="hljs-constructor">RequestHeader(<span class="hljs-params">header</span>, <span class="hljs-params">value</span>)</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="getAllResponseHeaders"><a href="#getAllResponseHeaders" class="headerlink" title="getAllResponseHeaders()"></a>getAllResponseHeaders()</h3><p>返回所有的响应头，以 CRLF分割的字符串，或者 <code>null</code> 如果没有收到任何响应。</p>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><code class="hljs abnf">var headers = xhr.getAllResponseHeaders()<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>返回结果就是 相应头里面的内容</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><code class="hljs latex">date: Fri, 08 Dec 2017 21:04:30 GMT<span class="hljs-tag">\<span class="hljs-name">r</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span><br>content-encoding: gzip<span class="hljs-tag">\<span class="hljs-name">r</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span><br>x-content-type-options: nosniff<span class="hljs-tag">\<span class="hljs-name">r</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span><br>server: meinheld/0.6.1<span class="hljs-tag">\<span class="hljs-name">r</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span><br>x-frame-options: DENY<span class="hljs-tag">\<span class="hljs-name">r</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span><br>content-type: text/html; charset=utf-8<span class="hljs-tag">\<span class="hljs-name">r</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span><br>connection: keep-alive<span class="hljs-tag">\<span class="hljs-name">r</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span><br>strict-transport-security: max-age=63072000<span class="hljs-tag">\<span class="hljs-name">r</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span><br>vary: Cookie, Accept-Encoding<span class="hljs-tag">\<span class="hljs-name">r</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span><br>content-length: 6502<span class="hljs-tag">\<span class="hljs-name">r</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span><br>x-xss-protection: 1; mode=block<span class="hljs-tag">\<span class="hljs-name">r</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span><br></code></pre></td></tr></table></figure>
+
+<p>编码格式 实例</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">xhr.setRequestHeader(<span class="hljs-string">&quot;Content-type&quot;</span>,<span class="hljs-string">&quot;application/x-www-form-urlencoded&quot;</span>);  <span class="hljs-regexp">//</span>默认编码<br>xhr.setRequestHeader(<span class="hljs-string">&quot;Content-type&quot;</span>,<span class="hljs-string">&quot;multipart/form-data&quot;</span>);  <span class="hljs-regexp">//</span>二进制编码<br>xhr.setRequestHeader(<span class="hljs-string">&quot;Content-type&quot;</span>,<span class="hljs-string">&quot;application/json&quot;</span>);  <span class="hljs-regexp">//</span>json编码<br></code></pre></td></tr></table></figure>
+
+<h3 id="getResponseHeader"><a href="#getResponseHeader" class="headerlink" title="getResponseHeader()"></a>getResponseHeader()</h3><p>返回包含指定响应头文本的字符串</p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><code class="hljs delphi"><span class="hljs-keyword">var</span> myHeader = xhr.getResponseHeader(<span class="hljs-keyword">name</span>);<br></code></pre></td></tr></table></figure>
+
+<p>实例</p>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><code class="hljs actionscript"><span class="hljs-keyword">var</span> myHeader = xhr.getResponseHeader(<span class="hljs-string">&quot;content-type&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="onreadystatechange"><a href="#onreadystatechange" class="headerlink" title="onreadystatechange"></a>onreadystatechange</h3><p>只要 <code>readyState</code> 属性发生变化，onreadystatechange 函数就会被执行。</p>
+<p>readyState：存有服务器响应的状态信息</p>
+<ul>
+<li>0: 请求未初始化（代理被创建，但尚未调用 open() 方法）</li>
+<li>1: 服务器连接已建立（<code>open</code>方法已经被调用）</li>
+<li>2: 请求已接收（<code>send</code>方法已经被调用，并且头部和状态已经可获得）</li>
+<li>3: 请求处理中（下载中，<code>responseText</code> 属性已经包含部分数据）</li>
+<li>4: 请求已完成，且响应已就绪（下载操作已完成）</li>
+</ul>
+<p>status常用状态码</p>
+<table>
+<thead>
+<tr>
+<th>HTTP状态码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>100</td>
+<td>继续。继续响应剩余部分，进行提交请求</td>
+</tr>
+<tr>
+<td>200</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>301</td>
+<td>永久移动。请求资源永久移动到新位置</td>
+</tr>
+<tr>
+<td>302</td>
+<td>临时移动。请求资源零时移动到新位置</td>
+</tr>
+<tr>
+<td>304</td>
+<td>未修改。请求资源对比上次未被修改，响应中不包含资源内容</td>
+</tr>
+<tr>
+<td>401</td>
+<td>未授权，需要身份验证</td>
+</tr>
+<tr>
+<td>403</td>
+<td>禁止。请求被拒绝</td>
+</tr>
+<tr>
+<td>404</td>
+<td>未找到，服务器未找到需要资源</td>
+</tr>
+<tr>
+<td>500</td>
+<td>服务器内部错误。服务器遇到错误，无法完成请求</td>
+</tr>
+<tr>
+<td>503</td>
+<td>服务器不可用。临时服务过载，无法处理请求</td>
+</tr>
+</tbody></table>
+<h3 id="返回数据"><a href="#返回数据" class="headerlink" title="返回数据"></a>返回数据</h3><p>可以返回 json 和xml数据</p>
+<ul>
+<li><p>服务器返还json数据</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js">xhr.responseText  <span class="hljs-comment">//来获取</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>服务器返还xml数据</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js">xhr.responseXML <span class="hljs-comment">//获取值</span><br></code></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<p>而当我们返回的是 XML格式的 就需要在 服务端进行定义</p>
+<p>Node 服务端</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">router.get(&quot;/xml&quot;, (ctx, next) =&gt; &#123;<br>    ctx.set(&quot;content-type&quot;,&quot;text/xml&quot;);<br>    ctx.body = `<span class="hljs-meta">&lt;?xml version=&#x27;1.0&#x27; encoding=&#x27;utf-8&#x27; ?&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">books</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">nodejs</span>&gt;</span><br>                            <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>nodejs实战<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>                            <span class="hljs-tag">&lt;<span class="hljs-name">price</span>&gt;</span>56元<span class="hljs-tag">&lt;/<span class="hljs-name">price</span>&gt;</span><br>                        <span class="hljs-tag">&lt;/<span class="hljs-name">nodejs</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">react</span>&gt;</span><br>                            <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>react入门<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>                            <span class="hljs-tag">&lt;<span class="hljs-name">price</span>&gt;</span>50元<span class="hljs-tag">&lt;/<span class="hljs-name">price</span>&gt;</span><br>                        <span class="hljs-tag">&lt;/<span class="hljs-name">react</span>&gt;</span><br>                    <span class="hljs-tag">&lt;/<span class="hljs-name">books</span>&gt;</span><br>                `<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>我们需要设置 <code>content-type</code> 为 <code>text/xml</code></p>
+<p>如果后端没有进行设置 我们前端又知道传递的是 xml 那么我们前端也是可以重写response里的content-type内容</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 重写content-type；<br>xhr.overrideMimeType(<span class="hljs-string">&quot;text/xml&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="同步及异步Ajax"><a href="#同步及异步Ajax" class="headerlink" title="同步及异步Ajax"></a>同步及异步Ajax</h2><p>我们将 <code>open</code> 设置为 <code>false</code> 这时候就为同步的Ajax了</p>
+<p>我们将网速设置为 3G 在我们的浏览器控制台中找到 <code>Online</code>  然后选择 <code>slow 3G</code> 这时候的网速就被限制了 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201005153541157.png" alt="Online"></p>
+<p>我们运行下面的代码 然后在网速慢的时候 进行快速点击 按钮一个和二 观看 控制台打印的内容 会有很明显的差异</p>
+<p>如果是同步的 我们不管点多少次 按钮二 都需要等待按钮一 执行完成才能</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>按钮一<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>按钮二<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">        <span class="hljs-keyword">let</span> btns = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&quot;button&quot;</span>);</span><br><span class="javascript">        btns[<span class="hljs-number">0</span>].onclick = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">            <span class="hljs-keyword">let</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();</span><br><span class="javascript">            xhr.open(<span class="hljs-string">&quot;get&quot;</span>, <span class="hljs-string">&quot;/get/4&quot;</span>, <span class="hljs-literal">false</span>);</span><br><span class="javascript">            xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">                <span class="hljs-built_in">console</span>.log(xhr.responseText);</span><br>            &#125;<br>            xhr.send();<br>        &#125;<br><span class="javascript">        btns[<span class="hljs-number">1</span>].onclick = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;我是按钮二&quot;</span>);</span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="FormData"><a href="#FormData" class="headerlink" title="FormData"></a>FormData</h2><p>提供了一种表示表单数据的键值对 <code>key/value</code> 的构造方式</p>
+<p>可以轻松的将数据通过<code>XMLHttpRequest.send()</code>方法发送出去</p>
+<h4 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h4><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> form = <span class="hljs-keyword">new</span> <span class="hljs-constructor">FormData()</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="append"><a href="#append" class="headerlink" title="append()"></a>append()</h4><p>添加一个新值到 <code>FormData</code> 对象内的一个已存在的键中，如果键不存在则会添加该键。</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">form</span>.<span class="hljs-keyword">append</span>(<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;张三&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="delete"><a href="#delete" class="headerlink" title="delete()"></a>delete()</h4><p>会从 <code>FormData</code> 对象中删除指定键，即 key，和它对应的值，即 value。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">form.<span class="hljs-keyword">delete</span>(name);<br><span class="hljs-regexp">//</span> name 要删除的键（Key）的名字。<br></code></pre></td></tr></table></figure>
+
+<h4 id="get"><a href="#get" class="headerlink" title="get()"></a>get()</h4><p>用于返回FormData对象中和指定的键关联的第一个值</p>
+<figure class="highlight fortran"><table><tr><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">form</span><span class="hljs-number">.</span>get(<span class="hljs-keyword">name</span>)<br>// <span class="hljs-keyword">name</span> 要获取的键（Key）的名字。<br></code></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>创建对象<br>var formData = new FormData();<br><span class="hljs-regexp">//</span>添加数据<br>formData.append(<span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-string">&#x27;Chris&#x27;</span>);<br>formData.append(<span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-string">&#x27;Bob&#x27;</span>);<br><span class="hljs-regexp">//</span>获取一个<br>formData.get(<span class="hljs-string">&#x27;username&#x27;</span>); <span class="hljs-regexp">//</span> Returns <span class="hljs-string">&quot;Chris&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="getAll"><a href="#getAll" class="headerlink" title="getAll()"></a>getAll()</h4><p>会返回该 <code>FormData</code>对象指定 key 的所有值。</p>
+<figure class="highlight fortran"><table><tr><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">form</span><span class="hljs-number">.</span>getAll(<span class="hljs-keyword">name</span>);<br>// <span class="hljs-keyword">name</span>表示要检索的 key 名称。<br></code></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>下列代码会先创建一个空的 FormData 对象：<br>var formData = new FormData();<br><span class="hljs-regexp">//</span>使用 FormData.append 添加两个 username 的值：<br>formData.append(<span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-string">&#x27;Chris&#x27;</span>);<br>formData.append(<span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-string">&#x27;Bob&#x27;</span>);<br><span class="hljs-regexp">//</span>下列 getAll() 方法会返回一个数组，包含了所有 username 的值：<br>formData.getAll(<span class="hljs-string">&#x27;username&#x27;</span>); <span class="hljs-regexp">//</span> Returns [<span class="hljs-string">&quot;Chris&quot;</span>, <span class="hljs-string">&quot;Bob&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<h4 id="has"><a href="#has" class="headerlink" title="has()"></a>has()</h4><p>查询 <code>FormData</code>  里面是否包含某个key </p>
+<figure class="highlight fortran"><table><tr><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">form</span><span class="hljs-number">.</span>has(<span class="hljs-keyword">name</span>);<br>// <span class="hljs-keyword">name</span> 要查询的 key 名称。<br></code></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> formData = <span class="hljs-built_in">new</span> FormData();<br><br>formData.has(<span class="hljs-string">&#x27;username&#x27;</span>); <span class="hljs-comment">// Returns false</span><br>formData.<span class="hljs-built_in">append</span>(<span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-string">&#x27;Chris&#x27;</span>);<br>formData.has(<span class="hljs-string">&#x27;username&#x27;</span>); <span class="hljs-comment">// Returns true</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="keys"><a href="#keys" class="headerlink" title="keys()"></a>keys()</h4><p>返回一个迭代器（<code>iterator</code>），遍历了该 formData  包含的所有key</p>
+<p>示例</p>
+<figure class="highlight processing"><table><tr><td class="code"><pre><code class="hljs processing"><span class="hljs-comment">// 先创建一个 FormData 对象</span><br>var formData = <span class="hljs-keyword">new</span> FormData();<br>formData.<span class="hljs-built_in">append</span>(<span class="hljs-string">&#x27;key1&#x27;</span>, <span class="hljs-string">&#x27;value1&#x27;</span>);<br>formData.<span class="hljs-built_in">append</span>(<span class="hljs-string">&#x27;key2&#x27;</span>, <span class="hljs-string">&#x27;value2&#x27;</span>);<br><br><span class="hljs-comment">// 输出所有的 key</span><br><span class="hljs-keyword">for</span> (var <span class="hljs-built_in">key</span> of formData.keys()) &#123;<br>   console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">key</span>); <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight"><table><tr><td class="code"><pre><code class="hljs">key1<br>key2<br></code></pre></td></tr></table></figure>
+
+<h4 id="values"><a href="#values" class="headerlink" title="values()"></a>values()</h4><p>返回一个允许遍历该对象中所有值的 迭代器 </p>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><code class="hljs abnf">form.values()<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><code class="hljs csharp"><span class="hljs-comment">//创建一个FormData测试对象</span><br><span class="hljs-keyword">var</span> formData = <span class="hljs-keyword">new</span> FormData();<br>formData.append(<span class="hljs-string">&#x27;key1&#x27;</span>, <span class="hljs-string">&#x27;value1&#x27;</span>);<br>formData.append(<span class="hljs-string">&#x27;key2&#x27;</span>, <span class="hljs-string">&#x27;value2&#x27;</span>);<br><br><span class="hljs-comment">//显示值</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> <span class="hljs-keyword">value</span> of formData.values()) &#123;<br>   console.log(<span class="hljs-keyword">value</span>); <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight ceylon"><table><tr><td class="code"><pre><code class="hljs ceylon"><span class="hljs-keyword">value</span><span class="hljs-number">1</span><br><span class="hljs-keyword">value</span><span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="upload事件"><a href="#upload事件" class="headerlink" title="upload事件"></a>upload事件</h2><p><strong>返回一个</strong> <code>XMLHttpRequestUpload</code>对象，用来表示上传的进度。</p>
+<p>可以被绑定在upload对象上的事件监听器如下：</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>相应属性的信息类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onloadstart</td>
+<td>获取开始</td>
+</tr>
+<tr>
+<td>onprogress</td>
+<td>数据传输进行中</td>
+</tr>
+<tr>
+<td>onabort</td>
+<td>获取操作终止</td>
+</tr>
+<tr>
+<td>onerror</td>
+<td>获取失败</td>
+</tr>
+<tr>
+<td>onload</td>
+<td>获取成功</td>
+</tr>
+<tr>
+<td>ontimeout</td>
+<td>获取操作在用户规定的时间内未完成</td>
+</tr>
+<tr>
+<td>onloadend</td>
+<td>获取完成（不论成功与否）</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">xhr.upload.onloadstart = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;开始上传&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">xhr.upload.onprogress = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">evt</span>)</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;正在上传&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">xhr.upload.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;上传成功&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">xhr.upload.onloadend = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;上传完成&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">xhr.upload.onabort = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;取消上传&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>而在我们的 <code>onprogress</code> 数据传输中 有两个数据可以获取</p>
+<ul>
+<li>evt.total ：需要传输的总大小</li>
+<li>evt.loaded :当前上传的文件大小</li>
+</ul>
+<p>这样我们可以计算出来当前上传的百分比</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> percent =  (evt.loaded/evt.total*<span class="hljs-number">100</span>).<span class="hljs-keyword">to</span><span class="hljs-constructor">Fixed(0)</span>;<br></code></pre></td></tr></table></figure>
+
+<p>我们也可以计算出来当时上传的速率</p>
+<p>我们需要计算出来时间差和在这段时间内上传文件的大小然后进行计算</p>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/2381da97511d0606/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>CORS和后端代理模式解决跨域了解预检请求</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/c5cf45d9ebfe3304/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>本地存储的三种方案学习Cookie,Storage之localStorage和sessionStorage的相同与不同点</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

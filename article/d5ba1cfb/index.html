@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>TypeScript泛型的基本使用和理解-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="面向对象,TypeScript,泛型,">
+<meta name="description" content="TypeScript泛型的基本使用和理解">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/面向对象">面向对象</a></li>
+            
+            <li><a href="/tags/TypeScript">TypeScript</a></li>
+            
+            <li><a href="/tags/泛型">泛型</a></li>
+            
+            
+        </ul>
+        <h1>TypeScript泛型的基本使用和理解</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-11-06 18:52:40</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p>许多时候，标注的具体类型并不能确定，比如一个函数的参数类型</p>
+<p>在像C#和Java这样的语言中，可以使用<code>泛型</code>来创建可重用的组件，一个组件可以支持多种类型的数据。 这样用户就可以以自己的数据类型来使用组件。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">function</span> <span class="hljs-title">getVal</span>(obj, k) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-type">obj[k]</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的函数，我们想实现的是获取一个对象指定的 k 所对应的值</p>
+<p>那么实际使用的时候，obj 的类型是 不确定的 自然 k 的取值范围也是不确定的</p>
+<p>它需要我们在具体调用的时候才能确定</p>
+<p>这个时候这种定 义过程不确定类型的需求就可以通过泛型来解决</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">function</span> <span class="hljs-title">getVal&lt;T&gt;</span>(obj: T, k: keyof T) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-type">obj[k]</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>所谓的泛型，就是给可变(不定)的类型定义变量(参数)， &lt;&gt; 类似 ()</p>
+<h3 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h3><p>在面向对象章节中，我们曾经给大家讲过一个基于泛型使用的例子:模拟组件</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-symbol">Component</span>&lt;<span class="hljs-symbol">T1, <span class="hljs-symbol">T2</span></span>&gt; &#123;<br>    props: T1;<br>		state: T2;<br>    constructor(props: T1) &#123; <br>        <span class="hljs-keyword">this</span>.props = props;<br>    &#125;<br>   	<span class="hljs-keyword">abstract</span> render(): <span class="hljs-built_in">string</span>;<br>&#125;<br><br><span class="hljs-keyword">interface</span> <span class="hljs-symbol">IMyComponentProps</span> &#123;<br>    val: number;<br>&#125;<br><br><span class="hljs-keyword">interface</span> <span class="hljs-symbol">IMyComponentState</span> &#123;<br>		x: number; <br>&#125;<br><span class="hljs-keyword">class</span> <span class="hljs-symbol">MyComponent</span> <span class="hljs-symbol">extends</span> <span class="hljs-symbol">Component</span>&lt;<span class="hljs-symbol">IMyComponentProps, <span class="hljs-symbol">IMyComponentState</span></span>&gt; &#123;<br>    constructor(props: IMyComponentProps) &#123;<br>        <span class="hljs-keyword">super</span>(props);<br>				<span class="hljs-keyword">this</span>.state = &#123; <br>						x: <span class="hljs-number">1</span><br>				&#125; <br>		&#125;<br><br>    render() &#123; <br>        <span class="hljs-keyword">this</span>.props.val;<br>        <span class="hljs-keyword">this</span>.state.x;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&lt;myComponent /&gt;&#x27;</span>;<br>     &#125;<br>&#125;<br>let myComponent = new MyComponent(&#123;val: <span class="hljs-number">1</span>&#125;); <br>myComponent.render();<br></code></pre></td></tr></table></figure>
+
+<h3 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h3><p>我们还可以在接口中使用泛型 后端提供了一些接口 用以返回一些数据</p>
+<p>依据返回的数据格式定义如下接口:</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">interface</span> IResponseData &#123;<br>    code: <span class="hljs-built_in">number</span>;<br>    message?: <span class="hljs-built_in">string</span>;<br>		data: <span class="hljs-built_in">any</span>; <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>根据接口，我们封装对应的一些方法</p>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><code class="hljs arcade"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getData</span>(<span class="hljs-params">url: string</span>) </span>&#123; <br>	<span class="hljs-keyword">return</span> fetch(url).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>		<span class="hljs-keyword">return</span> res.json();<br>	&#125;).then( <span class="hljs-function">(<span class="hljs-params">data: IResponseData</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">return</span> data;<br>  &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>但是，我们会发现该接口的 data 项的具体格式不确定，不同的接口会返回的数据是不一样的，当我们 想根据具体当前请求的接口返回具体 data 格式的时候，就比较麻烦了，因为 getData 并不清楚你调 用的具体接口是什么，对应的数据又会是什么样的</p>
+<p>这个时候我们可以对 IResponseData 使用泛型</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">interface</span> <span class="hljs-symbol">IResponseData</span>&lt;<span class="hljs-symbol">T</span>&gt; &#123;<br>    code: number;<br>    message?: <span class="hljs-built_in">string</span>;<br>		data: T; <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight arcade"><table><tr><td class="code"><pre><code class="hljs arcade"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getData</span>&lt;<span class="hljs-title">U</span>&gt;(<span class="hljs-params">url: string</span>) </span>&#123; <br>	<span class="hljs-keyword">return</span> fetch(url).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>  			<span class="hljs-keyword">return</span> res.json();<br>  &#125;).then( <span class="hljs-function">(<span class="hljs-params">data: IResponseData&lt;U&gt;</span>) =&gt;</span> &#123;<br>       <span class="hljs-keyword">return</span> data;<br>  &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>定义不同的数据接口</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript"><span class="hljs-comment">// 用户接口</span><br><span class="hljs-keyword">interface</span> <span class="hljs-symbol">IResponseUserData</span> &#123;<br>    id: number;<br>    username: <span class="hljs-built_in">string</span>;<br>    email: <span class="hljs-built_in">string</span>;<br>&#125;<br><span class="hljs-comment">// 文章接口</span><br><span class="hljs-keyword">interface</span> <span class="hljs-symbol">IResponseArticleData</span> &#123;<br>    id: number;<br>    title: <span class="hljs-built_in">string</span>;<br>    author: IResponseUserData;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>调用具体代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">~(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">let</span> user = <span class="hljs-keyword">await</span> getData&lt;IResponseUserData&gt;(<span class="hljs-string">&#x27;&#x27;</span>); <br>    <span class="hljs-keyword">if</span> (user.code === <span class="hljs-number">1</span>) &#123;<br>    		<span class="hljs-built_in">console</span>.log(user.message); <br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>    		<span class="hljs-built_in">console</span>.log(user.data.username); <br>    &#125;<br>    <span class="hljs-keyword">let</span> articles = <span class="hljs-keyword">await</span> getData&lt;IResponseArticleData&gt;(<span class="hljs-string">&#x27;&#x27;</span>); <br>    <span class="hljs-keyword">if</span> (articles.code === <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-built_in">console</span>.log(articles.message); <br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-built_in">console</span>.log(articles.data.id);<br>        <span class="hljs-built_in">console</span>.log(articles.data.author.username); <br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/33363a25/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>Vue-Router导航守卫使用方法的理解</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/e5d79585/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>TypeScript类型系统深入了解-类型保护,操作,兼容</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

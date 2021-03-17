@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>TypeScript类型系统是什么如何标注类型-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="TypeScript,类型系统,">
+<meta name="description" content="TypeScript类型系统是什么如何标注类型">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/TypeScript">TypeScript</a></li>
+            
+            <li><a href="/tags/类型系统">类型系统</a></li>
+            
+            
+        </ul>
+        <h1>TypeScript类型系统是什么如何标注类型</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-11-06 09:57:43</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>程序 = 数据结构 + 算法 = 各种格式的数据 + 处理数据的逻辑</p>
+<p>如：数字,字符,数组,集合等</p>
+<p>在我们编码的时候可能遇到的错误就是 计算错误（对非数字类型数据进行一些数学运算）两个变量一个是<code>number</code>类型一个类型这样就会出<code>string</code>现一个错误</p>
+<p>不同类型的数据有不同的操作方式或方法，如：字符串类型的数据就不应该直接参与数学运算</p>
+<p>而我们的<code>javascript</code>只有在程序运行期间才做数据类型检查的语言</p>
+<p>而向<code>java</code>等语言在编译期间做数据类型检查</p>
+<p>而他们的核心就是 类型系统</p>
+<h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><ul>
+<li>类型标注（定义,注解）- typing</li>
+<li>类型监测（检查）- type-checking</li>
+</ul>
+<h4 id="类型标注"><a href="#类型标注" class="headerlink" title="类型标注"></a>类型标注</h4><p>类型标注就是在代码中给数据（变量、函数（参数、返回值））添加类型说明</p>
+<p>当一个变量或者函数（参数）等被标注以后就不能存储或传入与标注类型不符合的类型</p>
+<p>有了标注，<code>TypeScript</code> 编译器就能按照标注对这些数据进行类型合法检测。</p>
+<p>有了标注，各种编辑器、IDE等就能进行智能提示</p>
+<p>比如我们编写ts的时候 声明一个变量</p>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">let</span> src: <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;qiaoBlog&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>我需要给这个变量声明一个类型</p>
+<h4 id="类型监测"><a href="#类型监测" class="headerlink" title="类型监测"></a>类型监测</h4><p>顾名思义，就是对数据的类型进行检测。</p>
+<p>注意这里，重点是<strong>类型</strong>两字。</p>
+<p>类型系统检测的是类型，不是具体值（虽然，某些时候也可以检测值）</p>
+<p>比如某个参数的取值范围（1-100之间）我们不能依靠类型系统来完成这个检测，它应该是我们的业务层具体逻辑，类型系统检测的是它的值类型是否为数字！</p>
+<h2 id="类型标注-1"><a href="#类型标注-1" class="headerlink" title="类型标注"></a>类型标注</h2><h3 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h3><p>基础类型包含：string，number，boolean</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">let</span> title: <span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;乔越博客&#x27;</span>;<br><span class="hljs-keyword">let</span> n: <span class="hljs-built_in">number</span> = <span class="hljs-number">100</span>;<br><span class="hljs-keyword">let</span> isOk: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span>;<br></code></pre></td></tr></table></figure>
+
+<p>在使用这些的时候我们如果标注了类型 那么就一定要赋值相对应的类型 如赋值别的类型就会报错</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201106104608817.png" alt="typescript"></p>
+<p>我们个一个<code>string</code>类型进行赋值<code>number 1</code>那么就会给你提示报错</p>
+<h3 id="空和未定义类型"><a href="#空和未定义类型" class="headerlink" title="空和未定义类型"></a>空和未定义类型</h3><p>因为在 <code>Null</code> 和 <code>Undefined</code> 这两种类型有且只有一个值，在标注一个变量为 <code>Null</code> 和 <code>Undefined</code> 类型，那就表示该变量不能修改了</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">let a:</span> <span class="hljs-literal">null</span><span class="hljs-string">;</span><br><span class="hljs-string">//</span> <span class="hljs-string">ok</span><br><span class="hljs-string">a</span> <span class="hljs-string">=</span> <span class="hljs-literal">null</span><span class="hljs-string">;</span><br><span class="hljs-string">//</span> <span class="hljs-string">error</span><br><span class="hljs-string">a</span> <span class="hljs-string">=</span> <span class="hljs-number">1</span><span class="hljs-string">;</span><br></code></pre></td></tr></table></figure>
+
+<p>默认情况下 <code>null</code> 和 <code>undefined</code> 是所有类型的子类型。 就是说你可以把 <code>null</code> 和 <code>undefined</code> 其它类型的变量</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">let</span> a: <span class="hljs-built_in">number</span>;<br><span class="hljs-comment">// ok</span><br>a = <span class="hljs-literal">null</span>;<br></code></pre></td></tr></table></figure>
+
+<p>如果一个变量声明了，但是未赋值，那么该变量的值为 <code>undefined</code>，但是如果它同时也没有标注类型的话，默认类型为 <code>any</code>，<code>any</code> 类型后面有详细说明</p>
+<figure class="highlight autohotkey"><table><tr><td class="code"><pre><code class="hljs autohotkey">// 类型为 `number`，值为 `undefined`<br><span class="hljs-title">let a:</span> number<span class="hljs-comment">;</span><br>// 类型为 `any`，值为 `undefined`<br>let b<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201106104934839.png" alt="typescript"></p>
+<p>因为 <code>null</code> 和 <code>undefined</code> 都是其它类型的子类型，所以默认情况下会有一些隐藏的问题</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> a:number;<br>a = null;<br><span class="hljs-comment">// ok（实际运行是有问题的）</span><br>a.<span class="hljs-keyword">to</span><span class="hljs-constructor">Fixed(1)</span>;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>指定 <code>strictNullChecks</code> 配置为 <code>true</code>，可以有效的检测 <code>null</code> 或者 <code>undefined</code>，避免很多常见问题</p>
+</blockquote>
+<h3 id="对象类型"><a href="#对象类型" class="headerlink" title="对象类型"></a>对象类型</h3><h4 id="内置对象类型"><a href="#内置对象类型" class="headerlink" title="内置对象类型"></a>内置对象类型</h4><p>在 <code>JavaScript</code> 中，有许多的内置对象，比如：Object、Array、Date……，我们可以通过对象的 <u>构造函数</u> 或者 <u>类</u> 来进行标注</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">let</span> a: <span class="hljs-built_in">object</span> = &#123;&#125;;<br><span class="hljs-comment">// 数组这里标注格式有点不太一样，后面我们在数组标注中进行详细讲解</span><br><span class="hljs-keyword">let</span> arr: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">number</span>&gt; = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];<span class="hljs-comment">//也就是我们声明数组的时候就需要指定值的类型</span><br><span class="hljs-keyword">let</span> d1: <span class="hljs-built_in">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br></code></pre></td></tr></table></figure>
+
+<h4 id="自定义对象类型"><a href="#自定义对象类型" class="headerlink" title="自定义对象类型"></a>自定义对象类型</h4><p>另外一种情况，许多时候，我们可能需要自定义结构的对象。这个时候，我们可以：</p>
+<ul>
+<li>字面量标注</li>
+<li>接口</li>
+<li>定义 类或者 构造函数</li>
+</ul>
+<p><strong>字面量标注</strong></p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy">let <span class="hljs-attr">a:</span> &#123;<span class="hljs-attr">username:</span> string; <span class="hljs-attr">age:</span> number&#125; = &#123;<br>  <span class="hljs-symbol">username:</span> <span class="hljs-string">&#x27;zMouse&#x27;</span>,<br>  <span class="hljs-symbol">age:</span> <span class="hljs-number">35</span><br>&#125;;<br><span class="hljs-comment">// ok</span><br>a.username;<br>a.age;<br><span class="hljs-comment">// error</span><br>a.gender;<br></code></pre></td></tr></table></figure>
+
+<p><code>优点</code> : 方便、直接</p>
+<p><code>缺点</code> : 不利于复用和维护</p>
+<p><strong>接口</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 这里使用了 interface 关键字，在后面的接口章节中会详细讲解</span><br><span class="hljs-keyword">interface</span> Person &#123;<br>  username: <span class="hljs-built_in">string</span>;<br>  age: <span class="hljs-built_in">number</span>;<br>&#125;;<br><span class="hljs-keyword">let</span> a: Person = &#123;<br>  username: <span class="hljs-string">&#x27;zMouse&#x27;</span>,<br>  age: <span class="hljs-number">35</span><br>&#125;;<br><span class="hljs-comment">// ok</span><br>a.username;<br>a.age;<br><span class="hljs-comment">// error</span><br>a.gender;<br></code></pre></td></tr></table></figure>
+
+<p><code>优点</code> : 复用性高</p>
+<p><code>缺点</code> : 接口只能作为类型标注使用，不能作为具体值，它只是一种抽象的结构定义，并不是实体，没有具体功能实现</p>
+<p><strong>类与构造函数</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 类的具体使用，也会在后面的章节中讲解</span><br><span class="hljs-keyword">class</span> Person &#123;<br>	<span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> username: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> age: <span class="hljs-built_in">number</span></span>) &#123;<br>  &#125;<br>&#125;<br><span class="hljs-comment">// ok</span><br>a.username;<br>a.age;<br><span class="hljs-comment">// error</span><br>a.gender;<br></code></pre></td></tr></table></figure>
+
+<p><code>优点</code> : 功能相对强大，定义实体的同时也定义了对应的类型</p>
+<p><code>缺点</code> : 复杂，比如只想约束某个函数接收的参数结构，没有必要去定一个类，使用接口会更加简单</p>
+<h4 id="包装对象"><a href="#包装对象" class="headerlink" title="包装对象"></a>包装对象</h4><p>这里说的包装对象其实就是 <code>JavaScript</code> 中的 <code>String</code>、<code>Number</code>、<code>Boolean</code>，我们知道 <code>string</code> 类型 和 <code>String</code> 类型并不一样，在 <code>TypeScript</code> 中也是一样</p>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><code class="hljs lasso"><span class="hljs-keyword">let</span> a: <span class="hljs-built_in">string</span>;<br>a = <span class="hljs-string">&#x27;1&#x27;</span>;<br><span class="hljs-comment">// error String有的，string不一定有（对象有的，基础类型不一定有）</span><br>a = <span class="hljs-literal">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">&#x27;1&#x27;</span>);<br><br><span class="hljs-keyword">let</span> b: <span class="hljs-built_in">String</span>;<br>b = <span class="hljs-literal">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">&#x27;2&#x27;</span>);<br><span class="hljs-comment">// ok 和上面正好相反</span><br><span class="hljs-comment">// 基础类型又的 对象一定有</span><br>b = <span class="hljs-string">&#x27;2&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201106105808065.png" alt="typescript"></p>
+<h3 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h3><p><code>TypeScript</code> 中数组存储的类型必须一致，所以在标注数组类型的时候，同时要标注数组中存储的数据类型</p>
+<h4 id="使用泛型标注"><a href="#使用泛型标注" class="headerlink" title="使用泛型标注"></a>使用泛型标注</h4><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> &lt;number&gt; 表示数组中存储的数据类型，泛型具体概念后续会讲<br>let arr1: Array&lt;number&gt; = [];<br><span class="hljs-regexp">//</span> ok<br>arr1.push(<span class="hljs-number">100</span>);<br><span class="hljs-regexp">//</span> error<br>arr1.push(<span class="hljs-string">&#x27;乔越博客&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="简单标注"><a href="#简单标注" class="headerlink" title="简单标注"></a>简单标注</h4><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">let arr2: string[] = [];<br><span class="hljs-regexp">//</span> ok<br>arr2.push(<span class="hljs-string">&#x27;乔越博客&#x27;</span>);<br><span class="hljs-regexp">//</span> error<br>arr2.push(<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="元组类型"><a href="#元组类型" class="headerlink" title="元组类型"></a>元组类型</h3><p>元组类似数组，但是存储的元素类型不必相同，但是需要注意：</p>
+<ul>
+<li>初始化数据的个数以及对应位置标注类型必须一致</li>
+<li>越界数据必须是元组标注中的类型之一（标注越界数据可以不用对应顺序 - 联合类型）</li>
+</ul>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><code class="hljs gradle">let data1: [string, number] = [<span class="hljs-string">&#x27;开课吧&#x27;</span>, <span class="hljs-number">100</span>];<br><span class="hljs-comment">// ok</span><br>data1.<span class="hljs-keyword">push</span>(<span class="hljs-number">100</span>);<br><span class="hljs-comment">// ok</span><br>data1.<span class="hljs-keyword">push</span>(<span class="hljs-string">&#x27;100&#x27;</span>);<br><span class="hljs-comment">// error</span><br>data1.<span class="hljs-keyword">push</span>(<span class="hljs-keyword">true</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h3><p>枚举的作用组织收集一组关联数据的方式，通过枚举我们可以给一组有关联意义的数据赋予一些友好的名字</p>
+<figure class="highlight crystal"><table><tr><td class="code"><pre><code class="hljs crystal"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">HTTP_CODE</span> &#123;</span><br>  OK = <span class="hljs-number">200</span>,<br>  NOT_FOUND = <span class="hljs-number">404</span>,<br>  METHOD_NOT_ALLOWED<br>&#125;;<br>/<span class="hljs-regexp">/ 200</span><br><span class="hljs-regexp">HTTP_CODE.OK;</span><br><span class="hljs-regexp">/</span><span class="hljs-regexp">/ 405</span><br><span class="hljs-regexp">HTTP_CODE.METHOD_NOT_ALLOWED;</span><br><span class="hljs-regexp">/</span><span class="hljs-regexp">/ error</span><br><span class="hljs-regexp">HTTP_CODE.OK = 1;</span><br></code></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<ul>
+<li><u>key</u> 不能是数字</li>
+<li><u>value</u> 可以是数字，称为 <u>数字类型枚举</u>，也可以是字符串，称为 <u>字符串类型枚举</u>，但不能是其它值，默认为数字：<u>0</u></li>
+<li>枚举值可以省略，如果省略，则：<ul>
+<li>第一个枚举值默认为：0</li>
+<li>非第一个枚举值为上一个数字枚举值 + 1</li>
+</ul>
+</li>
+<li>枚举值为只读（常量），初始化后不可修改</li>
+</ul>
+<h4 id="字符串类型枚举"><a href="#字符串类型枚举" class="headerlink" title="字符串类型枚举"></a>字符串类型枚举</h4><p>枚举类型的值，也可以是字符串类型</p>
+<figure class="highlight crystal"><table><tr><td class="code"><pre><code class="hljs crystal"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">URLS</span>  &#123;</span><br>  USER_REGISETER = <span class="hljs-string">&#x27;/user/register&#x27;</span>,<br>  USER_LOGIN = <span class="hljs-string">&#x27;/user/login&#x27;</span>,<br>  /<span class="hljs-regexp">/ 如果前一个枚举值类型为字符串，则后续枚举项必须手动赋值</span><br><span class="hljs-regexp">  INDEX = 0</span><br><span class="hljs-regexp">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>如果前一个枚举值类型为字符串，则后续枚举项必须手动赋值</p>
+<h3 id="无值类型"><a href="#无值类型" class="headerlink" title="无值类型"></a>无值类型</h3><p>表示没有任何数据的类型，通常用于标注无返回值函数的返回值类型，函数默认标注类型为：<code>void</code></p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>():void &#123;<br>  	// 没有 <span class="hljs-keyword">return</span> <span class="hljs-type">或者</span> <span class="hljs-keyword">return</span> undefined<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在 <code>strictNullChecks</code> 为 <code>false</code> 的情况下，<code>undefined</code> 和 <code>null</code> 都可以赋值给 <code>void</code> </p>
+<p>但是当 <code>strictNullChecks</code> 为 <code>true</code> 的情况下，只有 <code>undefined</code> 才可以赋值给 <code>void</code></p>
+<h3 id="Never类型"><a href="#Never类型" class="headerlink" title="Never类型"></a>Never类型</h3><p>当一个函数永远不可能执行 <code>return</code> 的时候，返回的就是 <code>never</code> </p>
+<p>与 <u>void</u> 不同，<code>void</code> 是执行了 <code>return</code>， 只是没有值</p>
+<p><code>never</code> 是不会执行 <code>return</code>，比如抛出错误，导致函数终止执行</p>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><code class="hljs actionscript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span>: never </span>&#123;<br>  	<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error(<span class="hljs-string">&#x27;error&#x27;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="任意类型"><a href="#任意类型" class="headerlink" title="任意类型"></a>任意类型</h3><p>有的时候，我们并不确定这个值到底是什么类型或者不需要对该值进行类型检测，就可以标注为 <code>any</code> 类型</p>
+<figure class="highlight nim"><table><tr><td class="code"><pre><code class="hljs nim"><span class="hljs-keyword">let</span> a: <span class="hljs-built_in">any</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>一个变量申明未赋值且未标注类型的情况下，默认为 <code>any</code> 类型</li>
+<li>任何类型值都可以赋值给 <code>any</code> 类型</li>
+<li><code>any</code> 类型也可以赋值给任意类型</li>
+<li><code>any</code> 类型有任意属性和方法</li>
+</ul>
+<p>注意：标注为 <code>any</code> 类型，也意味着放弃对该值的类型检测，同时放弃 IDE 的智能提示</p>
+<blockquote>
+<p>小技巧：当指定 <code>noImplicitAny</code> 配置为 <code>true</code>，当函数参数出现隐含的 <code>any</code> 类型时报错</p>
+</blockquote>
+<h3 id="未知类型"><a href="#未知类型" class="headerlink" title="未知类型"></a>未知类型</h3><p><u>unknow</u>，3.0 版本中新增，属于安全版的 <u>any</u>，但是与 any 不同的是：</p>
+<ul>
+<li><u>unknow</u> 仅能赋值给 <u>unknow</u>、<u>any</u></li>
+<li><u>unknow</u> 没有任何属性和方法</li>
+</ul>
+<h3 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h3><p>在 <u>JavaScript</u> 函数是非常重要的，在 <u>TypeScript</u> 也是如此。</p>
+<p>同样的，函数也有自己的类型标注格式</p>
+<ul>
+<li>参数</li>
+<li>返回值</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript">函数名称( 参数<span class="hljs-number">1</span>: 类型, 参数<span class="hljs-number">2</span>: 类型... ): 返回值类型;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x: <span class="hljs-built_in">number</span>, y: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">number</span> </span>&#123;<br>  	<span class="hljs-keyword">return</span> x + y;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/981a8ed0/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>TypeScript接口Interface如何使用</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/d1b1d53e/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>TypeScript环境搭建基本配置项</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

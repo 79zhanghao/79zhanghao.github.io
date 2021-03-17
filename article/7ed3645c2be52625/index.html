@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>React-Redux可预测化的状态管理框架学习-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="React,Redux,状态管理,">
+<meta name="description" content="React-Redux可预测化的状态管理框架学习">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/React">React</a></li>
+            
+            <li><a href="/tags/Redux">Redux</a></li>
+            
+            <li><a href="/tags/状态管理">状态管理</a></li>
+            
+            
+        </ul>
+        <h1>React-Redux可预测化的状态管理框架学习</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-10-25 16:16:26</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h2><p>Redux 是一个独立的 JavaScript 状态管理库 与非 React 内容之一</p>
+<p>也就是我们不引入 react 也是可以使用的</p>
+<h3 id="createStore"><a href="#createStore" class="headerlink" title="createStore"></a>createStore</h3><figure class="highlight capnproto"><table><tr><td class="code"><pre><code class="hljs capnproto"><span class="hljs-keyword">import</span> &#123; createStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;redux&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后我们得到一个 <code>createStore</code></p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> store = create<span class="hljs-constructor">Store(<span class="hljs-params">reducer</span>, [<span class="hljs-params">preloadedState</span>], <span class="hljs-params">enhancer</span>)</span><br></code></pre></td></tr></table></figure>
+
+<p>创建一个 Redux store来以存放应用中所有的 state。</p>
+<p>而 Store 对象 是为了对 state，Reducer，action 进行统一管理和维护</p>
+<p><code>reducer</code>接收一个纯函数并且接受两个参数分别是当前的 state 和要处理的 action返回新的 state 树</p>
+<figure class="highlight pf"><table><tr><td class="code"><pre><code class="hljs pf">function reducer(<span class="hljs-keyword">state</span> = &#123;<br>	// 参数<br>  nub: <span class="hljs-number">1</span>,<br>  name: &#x27;qiaoblog&#x27;<br>&#125;, action) &#123;<br>	// 要怎么处理<br>  console.<span class="hljs-keyword">log</span>(action)<br>  switch (action.type) &#123;<br>    case <span class="hljs-string">&quot;DEIT&quot;</span>:<br>      return &#123;<br>        ...<span class="hljs-keyword">state</span>,<br>        nub: <span class="hljs-keyword">state</span>.nub + <span class="hljs-number">1</span><br>      &#125;<br>  &#125;<br>  // 一定返回哦<br>  return <span class="hljs-keyword">state</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里有几个概念 什么是 <code>state</code>  <code>action</code> </p>
+<h4 id="state-对象"><a href="#state-对象" class="headerlink" title="state 对象"></a>state 对象</h4><p>通常我们会把应用中的数据存储到一个对象树（Object Tree） 中进行统一管理，我们把这个对象树称为： <code>state</code> </p>
+<p><strong>state 是只读的</strong></p>
+<p>但是我们需要怎么去修改 state 中的数据呢？</p>
+<p>可以通过 纯函数进行修改  问题又来了什么是纯函数呢？</p>
+<ul>
+<li>相同的输入永远返回相同的输出</li>
+<li>不修改函数的输入值</li>
+<li>不依赖外部环境状态</li>
+<li>无任何副作用</li>
+</ul>
+<p>使用纯函数的好处 ：便于测试 , 有利重构 .</p>
+<h4 id="action-对象"><a href="#action-对象" class="headerlink" title="action 对象"></a>action 对象</h4><p>我们对 state 的修改是通过 reducer 纯函数来进行的，同时通过传入的 action 来执行具体的操作，action 是一个对象</p>
+<ul>
+<li>type 属性 : 表示要进行操作的动作类型，增删改查……</li>
+<li>payload属性 : 操作 state 的同时传入的数据</li>
+</ul>
+<p>但是这里需要注意的是，我们不直接去调用 Reducer 函数，而是通过 Store 对象提供的 dispatch 方法来调用</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">dispatch</span>(&#123;<br>    <span class="hljs-attribute">type</span>: <span class="hljs-string">&#x27;ADD_TODO&#x27;</span>,<br>    name: <span class="hljs-string">&#x27;qiaoblog&#x27;</span><br>  &#125;)<br></code></pre></td></tr></table></figure>
+
+<p>我们传递了两个参数一个是 Type 和 name 我们的type 值普遍使用全大写 </p>
+<p>然后我们纯函数的第二个参数 <code>action</code> 可以接收到这时候我们就可以根据 type 来进行一些相关操作</p>
+<p>我们还有定义其他的数据 比如上面的 name 参数也是一样可以接收到的</p>
+<h3 id="Store-方法"><a href="#Store-方法" class="headerlink" title="Store 方法"></a>Store 方法</h3><h4 id="getState"><a href="#getState" class="headerlink" title="getState()"></a>getState()</h4><p>返回应用当前的 state 树。 它与 store 的最后一个 reducer 返回值相同。</p>
+<p>也就是获取值 <code>state</code></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">store</span><span class="hljs-selector-class">.getState</span>()<br></code></pre></td></tr></table></figure>
+
+<h4 id="dispatch-action"><a href="#dispatch-action" class="headerlink" title="dispatch(action)"></a>dispatch(action)</h4><p>分发 action。</p>
+<p>这是触发 state 变化的惟一途径。</p>
+<p>会使用当前 <code>getState()</code> 的结果和传入的 <code>action</code> 以同步方式的调用 store 的 reduce 函数。</p>
+<p>返回值会被作为下一个 state。</p>
+<p>从现在开始，这就成为了 getState()`的返回值，同时变化监听器(change listener)会被触发。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; createStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;redux&#x27;</span><br><span class="hljs-comment">// 创建 store 对象</span><br><span class="hljs-keyword">let</span> store = createStore(todos, [ <span class="hljs-string">&#x27;Use Redux&#x27;</span> ])<br><span class="hljs-comment">//定一个函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">text</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> &#123;<br>    type: <span class="hljs-string">&#x27;ADD_TODO&#x27;</span>,<br>    text<br>  &#125;<br>&#125;<br><span class="hljs-comment">// 传递一个对象 因为上面的函数返回是一个对象 </span><br>store.dispatch(addTodo(<span class="hljs-string">&#x27;Read the docs&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h4 id="subscribe-listener"><a href="#subscribe-listener" class="headerlink" title="subscribe(listener)"></a>subscribe(listener)</h4><p>添加一个变化监听器。每当 dispatch action 的时候就会执行，state 树中的一部分可能已经变化。</p>
+<p>你可以在回调函数里调用 <code>getState()</code>来拿到当前 state。</p>
+<h2 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h2><p>Redux官方提供的 React 绑定库。 具有高效且灵活的特性。</p>
+<p>也就是 将redux与react结合起来</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i react-redux<br></code></pre></td></tr></table></figure>
+
+<h3 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h3><p><code>&lt;Provider store&gt;</code> 使组件层级中的 <code>connect()</code> 方法都能够获得 Redux store。</p>
+<p>正常情况下，你的根组件应该嵌套在 <code>&lt;Provider&gt;</code> 中才能使用 <code>connect()</code> 方法。</p>
+<p>如果你<strong>真的</strong>不想把根组件嵌套在 <code>&lt;Provider&gt;</code> 中，你可以把 <code>store</code> 作为 props 传递到每一个被 <code>connect()</code> 包装的组件，但是我们只推荐您在单元测试中对 <code>store</code> 进行伪造 (stub) 或者在非完全基于 React 的代码中才这样做。</p>
+<p>正常情况下，你应该使用 <code>&lt;Provider&gt;</code>。</p>
+<ul>
+<li><code>store</code> (Redux Store): 应用程序中唯一的 Redux store 对象</li>
+<li><code>children</code> (<em>ReactElement</em>) 组件层级的根组件。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">ReactDOM.render(<br>  &lt;Provider store=&#123;store&#125;&gt;<br>    &lt;MyRootComponent /&gt;<br>  &lt;/Provider&gt;,<br>  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)<br>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Connect"><a href="#Connect" class="headerlink" title="Connect"></a>Connect</h3><p>连接 React 组件与 Redux store</p>
+<p>连接操作不会改变原来的组件类</p>
+<p>反而<strong>返回</strong>一个新的已与 Redux store 连接的组件类</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">connect</span>(<span class="hljs-selector-attr">[mapStateToProps]</span>, <span class="hljs-selector-attr">[mapDispatchToProps]</span>, <span class="hljs-selector-attr">[mergeProps]</span>, <span class="hljs-selector-attr">[options]</span>)<br></code></pre></td></tr></table></figure>
+
+<p><code>connect()</code> 接收四个参数，它们分别是 <code>mapStateToProps</code>，<code>mapDispatchToProps</code>，<code>mergeProps</code>和<code>options</code>。</p>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><code class="hljs arcade"> connect(<span class="hljs-function">(<span class="hljs-params">store.state,props</span>))=&gt;</span>&#123;<br>    <span class="hljs-comment">// 允许 对 props 和 store 进行一个合并处理</span><br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-comment">//传递给组件的数据</span><br>    &#125;;<br>&#125;)(Inner);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight lisp"><table><tr><td class="code"><pre><code class="hljs lisp">connect(<span class="hljs-name">function</span>(<span class="hljs-name">store</span>中的state,父组件传入的props)&#123;<br>        return 要传递给组件的信息<br> &#125;)(要包装的组件)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>connect 在组件中获取 store 中的 state 和 dispatch 方法</p>
+<p>创建一个组件 <code>Inner</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Inner</span>(<span class="hljs-params">props</span>) </span>&#123;<br>    <span class="hljs-comment">// console.log(props);</span><br>    <span class="hljs-keyword">let</span> &#123; nub, dispatch &#125; = props;<br>    <span class="hljs-keyword">return</span> (<br>        &lt;div&gt;<br>            &lt;p&gt;nub:  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>&#123;nub&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span></span>&lt;/p&gt;<br>            &lt;button<br>                onClick=&#123;<span class="hljs-function">() =&gt;</span> &#123;<br>                    dispatch(&#123;<br>                        type: <span class="hljs-string">&quot;ADD&quot;</span><br>                    &#125;)<br>                &#125;&#125;<br>            &gt;加<span class="hljs-number">1</span>&lt;/button&gt;<br>        &lt;/div&gt;<br>    );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>导入<code>connect</code>包</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">connect</span> &#125; <span class="hljs-keyword">from</span> &quot;react-redux&quot;;<br></code></pre></td></tr></table></figure>
+
+<p>将 <code>Inner</code> 组件传进去然后会返回一个新的组件 </p>
+<figure class="highlight pf"><table><tr><td class="code"><pre><code class="hljs pf">connect((<span class="hljs-keyword">state</span>, props) =&gt; &#123;<br>    //console.<span class="hljs-keyword">log</span>(<span class="hljs-keyword">state</span>,props);<br>    return &#123;<br>        ...props,<br>        nub: <span class="hljs-keyword">state</span>.nub<br>    &#125;;<br>&#125;)(Inner);<br></code></pre></td></tr></table></figure>
+
+<p>传入一个组件 返回一个组件</p>
+<h2 id="redux-原则"><a href="#redux-原则" class="headerlink" title="redux 原则"></a>redux 原则</h2><ul>
+<li><p>单一数据源:</p>
+<p>整个应用的 state 被储存在一棵 object tree 中，并且这个 object tree 只存在于唯一一个 store 中</p>
+</li>
+<li><p>State 是只读的</p>
+<p>唯一改变 state 的方法就是触发 action，action 是一个用于描述已发生事件的普通对象</p>
+</li>
+<li><p>使用纯函数来执行修改</p>
+</li>
+</ul>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/7f04f5ebfccc2426/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>React-Redux-reducer状态拆分,数据拆分</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/a686bc074df42625/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>React-Router路由的学习与使用教程</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

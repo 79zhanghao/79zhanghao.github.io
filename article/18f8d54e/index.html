@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>React项目搭建完整解决方案(Hooks,Redux,Router)全家桶-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="React,Redux,Hooks,">
+<meta name="description" content="React项目完整搭建的一套完整的方案也就是React全家桶来构建React项目">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/React">React</a></li>
+            
+            <li><a href="/tags/Redux">Redux</a></li>
+            
+            <li><a href="/tags/Hooks">Hooks</a></li>
+            
+            
+        </ul>
+        <h1>React项目搭建完整解决方案(Hooks,Redux,Router)全家桶</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-11-17 08:36:29</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <p>写一个项目所需要的基本架构组成</p>
+<p>我们写项目完全可以按照这个模式去使用自己有拓展的地方在去增加</p>
+<p>说明： 本解决方案为<code>Hooks</code>加<code>Redux</code>加<code>Router</code>来构建项目的整体架构</p>
+<h4 id="基础包"><a href="#基础包" class="headerlink" title="基础包"></a>基础包</h4><p>我们使用脚手架生成React项目后 内置了React的基础包我们还需要按照一些</p>
+<p><strong>自带的包</strong></p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">&quot;react&quot;</span>: <span class="hljs-string">&quot;^17.0.1&quot;</span>,<br><span class="hljs-string">&quot;react-dom&quot;</span>: <span class="hljs-string">&quot;^17.0.1&quot;</span>,<br><span class="hljs-string">&quot;react-scripts&quot;</span>: <span class="hljs-string">&quot;4.0.0&quot;</span>,<br><span class="hljs-string">&quot;web-vitals&quot;</span>: <span class="hljs-string">&quot;^0.2.4&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>需安装的包</strong></p>
+<ul>
+<li>react-router-dom 路由</li>
+<li>redux 状态管理</li>
+<li>react-redux  React 专用状态管理的库</li>
+<li>redux-thunk 使用 <code>thunk</code> 等中间件可以帮助在 Redux 应用中实现异步性</li>
+</ul>
+<p>后面我们需要什么再进行安装 基础搭建这些就够了</p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>我们使用脚手架 <code>create-react-app</code> 生成项目后我们将没有用的东西进行删除</p>
+<p>留下来的目录和文件</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">my-app</span><br>├── <span class="hljs-selector-tag">README</span><span class="hljs-selector-class">.md</span><br>├── <span class="hljs-selector-tag">node_modules</span><br>├── <span class="hljs-selector-tag">package</span><span class="hljs-selector-class">.json</span><br>├── <span class="hljs-selector-class">.gitignore</span><br>├── <span class="hljs-selector-tag">public</span><br>│   ├── <span class="hljs-selector-tag">favicon</span><span class="hljs-selector-class">.ico</span><br>│   ├── <span class="hljs-selector-tag">index</span><span class="hljs-selector-class">.html</span><br>│   └── <span class="hljs-selector-tag">manifest</span><span class="hljs-selector-class">.json</span><br>└── <span class="hljs-selector-tag">src</span><br>    ├── <span class="hljs-selector-tag">App</span><span class="hljs-selector-class">.js</span><br>    └── <span class="hljs-selector-tag">index</span><span class="hljs-selector-class">.js</span><br></code></pre></td></tr></table></figure>
+
+<p>我们首先配置 <code>react-redux</code> 状态管理也就是数据管理</p>
+<h3 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h3><p>通过官方文档我们知道react-redux是react官方用来绑定redux的。</p>
+<p>我们将Provider放在最上层让redux的store在任何组件里都是可用的。</p>
+<p>然后使用connect()函数来链接react的组件和redux的store。</p>
+<p>在没有Provider的情况下不能单独使用connect();</p>
+<p>我们在 <code>index.js</code>文件中进行引入 后进行配置</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span>;<br><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App&#x27;</span>;<br><span class="hljs-comment">// 数据管理</span><br><span class="hljs-keyword">import</span> &#123; Provider &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-redux&#x27;</span><br><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./store/index&#x27;</span> <span class="hljs-comment">// 这里请关注</span><br>ReactDOM.render(<br>  &lt;Provider store=&#123;store&#125;&gt;<br>    &lt;App /&gt;<br>  &lt;/Provider&gt;,<br>  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)<br>);<br></code></pre></td></tr></table></figure>
+
+<p>从上段代码可以看出我们还没创建 <code>store</code> 文件 这个文件是干什么用的呢？</p>
+<p><code>store</code> ：里面存着数据状态的和 中间件 <code>redux-thunk</code> 的配置</p>
+<p>我们来创建这个文件夹 在<code>src</code>中我们创建一个文件夹名字为<code>store</code> 里面在分别创建两个文件夹 分别为<code>action</code>,<code>reducers</code></p>
+<p><code>reducers</code>: 来存放我们的数据 （我们需要有一个根的文件然后将其他的数据合并为一个state）</p>
+<p><code>action</code>: 来进行数据的操作</p>
+<p>我们在<code>store</code> 文件夹下创建一个 <code>index.js</code> 来进行配置</p>
+<p>我们最终创建的 <code>store</code> 文件夹为</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">store<br>├── index.js<br>├── reducers<br>│   ├── 数据一.js<br>│   ├── 数据二.js<br>│   └── index<span class="hljs-selector-class">.js</span> <span class="hljs-comment">// 归总使用</span><br>└── action<br>    ├── 处理逻辑一.js<br>    └── 处理逻辑二.js<br></code></pre></td></tr></table></figure>
+
+<p><code>reducers</code>归总的文件是将 数据一和数据二或者更多 统一成一个 然后导出一个对象给<code>store</code>下的<code>index.js</code></p>
+<p><code>action</code>里面是对数据进行处理的也就是逻辑调用 数据定义的方法</p>
+<p>然后就是我们 <code>store</code>下的<code>index.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; createStore, applyMiddleware, combineReducers &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;redux&#x27;</span><br><span class="hljs-keyword">import</span> Thunk <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;redux-thunk&#x27;</span><br><span class="hljs-comment">// 这里导入 reducers</span><br><span class="hljs-keyword">import</span> reducers <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./reducers/index&#x27;</span><br><span class="hljs-keyword">const</span> store = createStore(<br>		<span class="hljs-comment">// 合并</span><br>    combineReducers(reducers),<br>    <span class="hljs-comment">// 中间件</span><br>    applyMiddleware(Thunk)<br>)<br><span class="hljs-comment">// 这里不做什么东西只是合成一个store</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store<br></code></pre></td></tr></table></figure>
+
+<p><code>redux-thunk</code>中间件在这里进行一个异步的处理 </p>
+<p>中间就是在action与reducer之间又加了一层，没有中间件的Redux的过程是：<code>action -&gt; reducer</code>，而有了中间件的过程就是<code>action -&gt; middleware -&gt; reducer</code>，使用中间件我们可以对action也就是对dispatch方法进行装饰，我们可以用它来实现异步action、打印日志、错误报告等功能</p>
+<p><code>combineReducers</code>用于 Reducer 的拆分。</p>
+<p>你只要定义各个子 Reducer 函数，(也就是我们上面 <code>reducers</code>文件夹里面的东西) 然后用这个方法，将它们合成一个大的 Reducer。</p>
+<h4 id="reducers文件夹"><a href="#reducers文件夹" class="headerlink" title="reducers文件夹"></a>reducers文件夹</h4><p>我们如何进行编写呢？为一个纯函数并且接收两个参数 <code>state</code>自定义的数据,<code>action</code>传递的参数</p>
+<figure class="highlight pf"><table><tr><td class="code"><pre><code class="hljs pf">// lecturers.js<br>// 这里是直接倒出了<br>export <span class="hljs-keyword">default</span> function lecturers(<span class="hljs-keyword">state</span> = &#123;<br>		// 数据<br>    data: [],<br>&#125;, action) &#123;<br>		// 我们 传递的参数会在 action 中<br>    switch (action.type) &#123;<br>        case <span class="hljs-string">&quot;LOAD_LECTURERS&quot;</span>:<br>            return &#123;<br>                ...<span class="hljs-keyword">state</span>,<br>                data: action.data<br>            &#125;;<br>    &#125;<br>    return <span class="hljs-keyword">state</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们 需要在 函数体中进行处理 我们通过传递 <code>Type</code>来判断是什么操作进行数据的改变</p>
+<h4 id="action文件夹"><a href="#action文件夹" class="headerlink" title="action文件夹"></a>action文件夹</h4><p>我们可以在这个文件中配置 <code>axios</code> 进行一个ajax请求配置</p>
+<p>我们创建一个<code>http</code>文件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;axios&#x27;</span><br><span class="hljs-keyword">const</span> http = axios.create(&#123;<br>    baseURL: <span class="hljs-string">&#x27;/api&#x27;</span>,<br>    withCredentials: <span class="hljs-literal">true</span>,<br>&#125;)<br><span class="hljs-comment">// 这里为 http 请求配置</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> http<br></code></pre></td></tr></table></figure>
+
+<p>然后我们导入进行 别的文件就可以使用 <code>ajax</code>了</p>
+<p>我们创建一个文件来对数据的操作 创建一个 <code>getLecturer.js</code> 来呼应上我们上面在<code>reducers</code>文件夹中创建的 <code>lecturers.js</code> 文件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// getLecturer.js</span><br><span class="hljs-comment">// 导入 axios</span><br><span class="hljs-keyword">import</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./http&#x27;</span><br><span class="hljs-comment">// 导出</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getLectorer</span>(<span class="hljs-params"></span>) </span>&#123;<br>		<span class="hljs-comment">// 返回一个函数 </span><br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dispatch</span>) </span>&#123;<br>    		<span class="hljs-comment">// 第一个这里就跟 axios 文档一样了</span><br>        <span class="hljs-keyword">return</span> http.post(<span class="hljs-string">&#x27;/lecturer/lists?page=1&amp;rows=100&#x27;</span>, &#123;<br>            order: <span class="hljs-string">&quot;desc&quot;</span>,<br>            sort: <span class="hljs-string">&quot;sort&quot;</span>,<br>            category_id: <span class="hljs-number">2</span><br>        &#125;).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>        		<span class="hljs-comment">// 我们调用的时候需要将 dispatch 传递过来然后进行操作 lecturers.js 的数据</span><br>            dispatch(&#123;<br>                type: <span class="hljs-string">&quot;LOAD_LECTURERS&quot;</span>,<br>                data: res.data<br>            &#125;)<br>        &#125;)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们将数据管理配置完成了下一步我们来配置路由 </p>
+<h3 id="react-router-dom"><a href="#react-router-dom" class="headerlink" title="react-router-dom"></a>react-router-dom</h3><p>我们在<code>App.js</code>文件中进行引入 路由模块</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> &#123; BrowserRouter, Route, Switch  &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router-dom&#x27;</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> (<br>    &lt;BrowserRouter &gt;<br>      &lt;Switch&gt;<br>          &lt;Route path=&#123;路经&#125; exact=&#123;是否精确匹配&#125; render=&#123;回调返回模版&#125; /&gt;<br>       &lt;/Switch&gt;<br>    &lt;/BrowserRouter&gt;<br>  );<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;<br></code></pre></td></tr></table></figure>
+
+<h4 id="Route-组件"><a href="#Route-组件" class="headerlink" title="Route 组件"></a>Route 组件</h4><p>组件可以需要接收 <code>path</code>路经 <code>component</code>和 <code>render</code>二选一 都是渲染组件使用</p>
+<p>使用 <code>render</code> 可以方便地进行内联渲染和包装，而无需进行上文解释的不必要的组件重装。</p>
+<p>你可以传入一个函数，以在位置匹配时调用，而不是使用 <code>component</code> 创建一个新的 React 元素。</p>
+<p><code>render</code> 渲染方式接收所有与 <code>component</code> 方式相同的 route props。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 方便的内联渲染</span><br>&lt;Route path=<span class="hljs-string">&#x27;/myindex&#x27;</span> render=&#123;<span class="hljs-function">(<span class="hljs-params">props</span>) =&gt;</span> (<br>		&lt;Index &#123;...props&#125; /&gt;<br>)&#125; /&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>警告：<code>&lt;Route component&gt;</code> 优先于 <code>&lt;Route render&gt;</code>，因此不要在同一个 <code>&lt;Route&gt;</code> 中同时使用两者。</p>
+</blockquote>
+<h3 id="创建组件"><a href="#创建组件" class="headerlink" title="创建组件"></a>创建组件</h3><p>我们创建一个 组件 （这里你可以进行分文件夹）看你怎么方便这里只做演示组件内的数据管理怎么操作</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> &#123; connect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-redux&quot;</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Index</span>(<span class="hljs-params">props</span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> &#123; dispatch &#125; = props<br>    <span class="hljs-keyword">return</span> (<br>				&lt;div&gt;<br>					组件内容<br>				&lt;/div&gt;<br>    )<br>&#125;<br><span class="hljs-comment">// 重点</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> connect(<span class="hljs-function"><span class="hljs-params">props</span> =&gt;</span> (&#123; ...props.index &#125;))(Index)<br></code></pre></td></tr></table></figure>
+
+<p>我们在组件中导入 <code>react-redux</code> 然后我们进行配置 <code>connect</code></p>
+<p>我们导出的时候是将我们编写的 函数组件传递给 <code>connect</code> </p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><code class="hljs lisp">connect(接收的参数 =&gt; (返回的参数))(传递函数组件)<br></code></pre></td></tr></table></figure>
+
+<p>上面我们为什么 返回了 <code>props.index</code> 因为 props 中有很多数据 我们只要需要的数据（还记得我们上面reducers 文件夹吗） 这里返回的是一个新对象</p>
+<blockquote>
+<p>此解决方案为React 16.8 以后的版本 存在了Hooks 后的解决方案 不知道对不对 很多老项目还都是class 所以class 还是要学的！</p>
+</blockquote>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/d1514e5f/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>React使用Proxy进行代理配置来解决跨域问题</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/11280d7a/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>React函数方法事件如何传递参数</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

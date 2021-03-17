@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>Ajax轮询和SSE服务器推送数据与websocket模式的区别性学习-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="Ajax,SSE,websocket,">
+<meta name="description" content="学习Ajax轮询和SSE服务器推送数据与websocket模式对三种模式的方法进行一个区别和好处与坏处的区分进行更好的解决方案">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/Ajax">Ajax</a></li>
+            
+            <li><a href="/tags/SSE">SSE</a></li>
+            
+            <li><a href="/tags/websocket">websocket</a></li>
+            
+            
+        </ul>
+        <h1>Ajax轮询和SSE服务器推送数据与websocket模式的区别性学习</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-10-02 23:16:33</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <p>我们试想一下我们做个实时聊天的窗口有几种方法？</p>
+<p>在我们不刷新页面并且可以试试更新页面内容的方法 你这时候是不是想到了ajax没错确实可以</p>
+<h2 id="Ajax轮询"><a href="#Ajax轮询" class="headerlink" title="Ajax轮询"></a>Ajax轮询</h2><p>什么是轮询？顾名思义就是我轮着问你，规定一个时间然后我就问你 有新数据了吗？ 有新数据了吗？ 有新数据了吗？ 当有新数据的时候就更新页面。</p>
+<p>但是性能会很差。。。</p>
+<p>并且这是前台操作的 后端只需要查询数据库 设置好路由即可</p>
+<p><strong>Node后端</strong></p>
+<p>简单的说就是 后端设置一个路由然后进行查询数据获取想要的数据的操作</p>
+<figure class="highlight zephir"><table><tr><td class="code"><pre><code class="hljs zephir"><span class="hljs-keyword">const</span> Koa = <span class="hljs-keyword">require</span>(<span class="hljs-string">&quot;koa&quot;</span>);<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">static</span> = <span class="hljs-keyword">require</span>(<span class="hljs-string">&quot;koa-static&quot;</span>);<br><span class="hljs-keyword">const</span> Router = <span class="hljs-keyword">require</span>(<span class="hljs-string">&quot;koa-router&quot;</span>);<br><span class="hljs-keyword">const</span> mysql2 = <span class="hljs-keyword">require</span>(<span class="hljs-string">&quot;mysql2&quot;</span>);<br><span class="hljs-keyword">const</span> koaBody = <span class="hljs-keyword">require</span>(<span class="hljs-string">&quot;koa-body&quot;</span>);<br><span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> Koa();<br>app.<span class="hljs-keyword">use</span>(<span class="hljs-keyword">static</span>(__dirname+<span class="hljs-string">&quot;/static&quot;</span>));<br>app.<span class="hljs-keyword">use</span>(koaBody());<br><span class="hljs-comment">//连接数据库</span><br><span class="hljs-keyword">const</span> connection = mysql2.createConnection(&#123;<br>    host:<span class="hljs-string">&quot;localhost&quot;</span>,<br>    user:<span class="hljs-string">&quot;root&quot;</span>,<br>    password:<span class="hljs-string">&quot;123&quot;</span>,<br>    database:<span class="hljs-string">&quot;js04&quot;</span><br>&#125;)<br><span class="hljs-keyword">let</span> router = <span class="hljs-keyword">new</span> Router();<br><span class="hljs-comment">//访问此路由进行获取数据</span><br>router.get(<span class="hljs-string">&quot;/getData&quot;</span>,async ctx=&gt;&#123;<br>  <span class="hljs-keyword">let</span> [rows] = await connection.promise().query(<span class="hljs-string">&quot;SELECT * FROM message&quot;</span>);<br>  ctx.body = rows;<br>&#125;)<br><br>app.<span class="hljs-keyword">use</span>(router.routes());<br>app.listen(<span class="hljs-number">3000</span>);<br></code></pre></td></tr></table></figure>
+
+<p><strong>前端</strong></p>
+<p>前端我要访问这个路由然后获取数据  而ajax 是不会刷新页面的。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">$.ajax(&#123;<br>		<span class="hljs-regexp">//</span>访问路由<br>    url: <span class="hljs-string">&quot;/getData&quot;</span>,<br>    success(res) &#123;<br>    <span class="hljs-regexp">//</span>res 就是回的数据<br>        console.log(res);<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>怎么进行轮询呢？</p>
+<p>上面我们说什么 规定一个时间然后 每隔多长时间进行询问</p>
+<p>那么这不就是定时器吗</p>
+<p>我们将上面的ajax进行封装成方法里面 然后用定时器进行 轮询访问获取数据</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">setInterval</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>    render();<br>&#125;, <span class="hljs-number">500</span>);<br>   <br></code></pre></td></tr></table></figure>
+
+<p>这样我们是服务器资源很浪费会一直的进行访问api进行获取数据 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img20201003002711.png"></p>
+<p>我们说了 客户端不断的向服务端进行询问那么有没有 服务端主动向 客户端进行发送消息的呢 ？</p>
+<h2 id="SSE-server-send-event-服务器推送数据"><a href="#SSE-server-send-event-服务器推送数据" class="headerlink" title="SSE (server send event) 服务器推送数据"></a>SSE (server send event) 服务器推送数据</h2><p>其是基于http协议的，本质上是保持一个http长连接，客户端向服务端发送请求，在浏览器与服务器建立连接之后，等有数据更新后，服务端向浏览器主动发送消息。这样可以减少数量，减少服务器压力。</p>
+<p>而在我们服务端使用sse的时候要进行一些设置</p>
+<ul>
+<li><p>设置头部</p>
+<p><code>&quot;Content-type&quot;,&quot;text/event-stream&quot;</code></p>
+</li>
+<li><p>返还数据格式</p>
+<p>​    <code>data:</code>  声明数据开始</p>
+<p>​    <code>\r\n\r\n </code> 标志数据结尾</p>
+</li>
+</ul>
+<p><strong>服务器端Node</strong></p>
+<p>我们设置两个路由一个是返回首页 第二个路由是进行一些数据的返回也就是使用sse</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;http&quot;</span>);<br><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);<br><span class="hljs-comment">// res.write();  res.end();</span><br><span class="hljs-keyword">let</span> server = http.createServer(<span class="hljs-function">(<span class="hljs-params">req,res</span>)=&gt;</span>&#123;<br>    <span class="hljs-keyword">let</span> url = req.url;<br>    <span class="hljs-comment">//路由返回页面</span><br>    <span class="hljs-keyword">if</span>(url==<span class="hljs-string">&quot;/&quot;</span>)&#123;<br>        <span class="hljs-keyword">let</span> data =  fs.readFileSync(<span class="hljs-string">&quot;index.html&quot;</span>);<br>        res.end(data);<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(url==<span class="hljs-string">&quot;/sse&quot;</span>)&#123;<br>        res.setHeader(<span class="hljs-string">&quot;content-type&quot;</span>,<span class="hljs-string">&quot;text/event-stream;charset=utf-8&quot;</span>);<br>        <span class="hljs-comment">// 服务端端定时推送数据到客户端；</span><br>        <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>            res.write(<span class="hljs-string">&quot;data:时间是&quot;</span>+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()+<span class="hljs-string">&quot;\r\n\r\n&quot;</span>);<br>        &#125;, <span class="hljs-number">1000</span>);<br>    &#125;<br>&#125;)<br>server.listen(<span class="hljs-number">4000</span>);<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>客户端</strong></p>
+<p>我们需要创建一个 <code>EventSource</code>对象 然后在这个对象里面有几个事件</p>
+<ol>
+<li>open：当成功建立连接时产生</li>
+<li>message：当接收到消息时产生</li>
+<li>error：当出现错误时产生</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> source = <span class="hljs-keyword">new</span> EventSource(<span class="hljs-string">&quot;/sse&quot;</span>);<br>source.onopen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;连接成功....&quot;</span>);<br>    <span class="hljs-built_in">console</span>.log(source.readyState);<br>    <span class="hljs-comment">//这里的 readyState 会有几种状态</span><br>    <span class="hljs-comment">//- 0 CONNECTING (0) </span><br>    <span class="hljs-comment">//- 1 OPEN (1)</span><br>    <span class="hljs-comment">//- 2 CLOSED (2)</span><br>&#125;<br>source.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;获取到的数据是：&quot;</span>,e.data);<br>    <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;.exchange&quot;</span>).innerHTML = e.data;<br>&#125;<br>source.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(err);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里的 readyState 会有几种状态</p>
+<ul>
+<li>CONNECTING (0) </li>
+<li>OPEN (1)</li>
+<li>CLOSED (2)</li>
+</ul>
+<p>以上的两种方法虽然都能实现但是对性能都不是比较的友好 有没有更好的解决方案呢？</p>
+<h2 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h2><p>WebSocket 是 HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议</p>
+<p>浏览器和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输。</p>
+<p>我们后端使用的是 Node 所以我们需要借助 ws 模块创建 websocket 实例</p>
+<p>ws是一种易于使用，快速且经过全面测试的WebSocket客户端和服务器实现的方法。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight cmake"><table><tr><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> ws<br></code></pre></td></tr></table></figure>
+
+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p>首先我们需要导入ws并调用Server 服务端</p>
+<p>我们进行设置端口</p>
+<p><strong>服务端</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> WebSocketServer = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;ws&#x27;</span>).Server,<br>wss = <span class="hljs-keyword">new</span> WebSocketServer(&#123; <span class="hljs-attr">port</span>: <span class="hljs-number">8181</span> &#125;);<br>wss.on(<span class="hljs-string">&#x27;connection&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">ws</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;client connected&#x27;</span>);<br>    ws.on(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">message</span>) </span>&#123;<br>      	<span class="hljs-comment">//监听接收的数据</span><br>        <span class="hljs-built_in">console</span>.log(message);<br>    &#125;);<br>  	<span class="hljs-comment">// setInterval(() =&gt; &#123;</span><br>        <span class="hljs-keyword">let</span> somedata = &#123;<br>            name:<span class="hljs-string">&quot;张三&quot;</span>,<br>            age:<span class="hljs-number">20</span><br>        &#125;<br>        <span class="hljs-comment">//发送数据</span><br>        ws.send(<span class="hljs-built_in">JSON</span>.stringify(somedata));<br>    <span class="hljs-comment">// &#125;, 1000);</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><strong>客户端</strong></p>
+<p>建立握手</p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">var</span> ws = <span class="hljs-keyword">new</span> <span class="hljs-type">WebSocket</span>(<span class="hljs-string">&quot;ws://localhost:8181&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>打开协议</p>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><code class="hljs actionscript">ws.onopen = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>发送数据到服务端</p>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><code class="hljs abnf">ws.send(<span class="hljs-string">&quot;客户端数据&quot;</span>)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>关闭协议:关闭协议后不能发送数据</p>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><code class="hljs abnf">ws.close()<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>接收消息</p>
+<figure class="highlight fortran"><table><tr><td class="code"><pre><code class="hljs fortran">ws<span class="hljs-number">.</span>onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span></span>&#123;<br> 		// console<span class="hljs-number">.</span><span class="hljs-built_in">log</span>(e<span class="hljs-number">.</span><span class="hljs-keyword">data</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>完整点的代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 握手协议；</span><br><span class="hljs-keyword">var</span> ws = <span class="hljs-keyword">new</span> WebSocket(<span class="hljs-string">&quot;ws://localhost:8181&quot;</span>);<br>ws.onopen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;连接成功....&quot;</span>);<br>&#125;<br>ws.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>&#123;<br>    <span class="hljs-comment">// console.log(e.data);</span><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.parse(e.data));<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sub</span>(<span class="hljs-params"></span>)</span>&#123;<br>    ws.send(<span class="hljs-string">&quot;发送到服务端的数据&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img20201003002756.png"></p>
+<p>整体就是简单的了解客户端与服务端之间的交互问题后面会更加详细的进行学习</p>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/252a807135263303/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>Socket.IO学习基础功能和基本使用方法</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/f00c740c20f23330/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>MVC模式框架编程思想学习与理解</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

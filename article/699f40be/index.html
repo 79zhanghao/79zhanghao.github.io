@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>Flutter之Dart基础知识学习与使用-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="Flutter,Dart,">
+<meta name="description" content="Flutter之Dart基础知识学习与使用">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/Flutter">Flutter</a></li>
+            
+            <li><a href="/tags/Dart">Dart</a></li>
+            
+            
+        </ul>
+        <h1>Flutter之Dart基础知识学习与使用</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-12-16 11:10:11</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="Dart"><a href="#Dart" class="headerlink" title="Dart"></a>Dart</h2><p>因为在安装Flutter SDK的时候，它已经内置了Dart了，我们完全可以直接使用Flutter去进行Dart的编写并且运行。</p>
+<p>但是，如果你想单独学习Dart，并且运行自己的Dart代码，最好去安装一个Dart SDK。</p>
+<h3 id="Hello-Dart"><a href="#Hello-Dart" class="headerlink" title="Hello Dart"></a>Hello Dart</h3><p>接下来，就可以步入正题了。学习编程语言，从祖传的Hello World开始。</p>
+<p>新建一个<em>helloWorld.dart</em>文件</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// 俗称入口文件</span><br>main(<span class="hljs-built_in">List</span>&lt;<span class="hljs-built_in">String</span>&gt; args) &#123;<br>	<span class="hljs-comment">// 每行语句必须使用分号结尾</span><br>  <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Hello World&#x27;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后在终端执行<code>dart helloWorld.dart</code>，就能看到<em>Hello World</em>的结果了。</p>
+<p><code>List&lt;String&gt; args</code> 是接受命令行传递的参数</p>
+<h3 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h3><h4 id="明确声明-Explicit"><a href="#明确声明-Explicit" class="headerlink" title="明确声明(Explicit)"></a>明确声明(Explicit)</h4><p>这种就是我们能明确这个变量的类型是什么 从而规定好 类型进行声明</p>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><code class="hljs abnf">变量类型 变量名称 = 赋值<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>示例代码:</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-built_in">String</span> name = <span class="hljs-string">&#x27;qiao&#x27;</span>;<br><span class="hljs-built_in">int</span> age = <span class="hljs-number">20</span>;<br><span class="hljs-built_in">double</span> height = <span class="hljs-number">2.2</span>;<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$&#123;name&#125;</span>, <span class="hljs-subst">$&#123;age&#125;</span>, <span class="hljs-subst">$&#123;height&#125;</span>&#x27;</span>); <span class="hljs-comment">// 这里的拼接方式和 js 模版字符串很相似</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="类型推导-Type-Inference"><a href="#类型推导-Type-Inference" class="headerlink" title="类型推导(Type Inference)"></a>类型推导(Type Inference)</h4><p>就是我们声明变量类型由系统直接推断出来是什么类型 （也就是初始化值的类型）</p>
+<p>常用的 推断类型声明字符为 <code>var,dynamic,const,final </code></p>
+<h5 id="var的使用"><a href="#var的使用" class="headerlink" title="var的使用"></a>var的使用</h5><figure class="highlight actionscript"><table><tr><td class="code"><pre><code class="hljs actionscript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&quot;qiao&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>这样这个 <code>name</code> 的类型就是 <code>String</code> 类型</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">var age = <span class="hljs-number">18</span>; <span class="hljs-regexp">//</span> 这推断的是 int 类型<br>age = <span class="hljs-string">&#x27;why&#x27;</span>; <span class="hljs-regexp">//</span> 不可以将String赋值给一个int类型<br></code></pre></td></tr></table></figure>
+
+<h5 id="dynamic的使用"><a href="#dynamic的使用" class="headerlink" title="dynamic的使用"></a>dynamic的使用</h5><p>我们使用 <code>dynamic</code> 声明了变量 在后期赋值不是初始化值的类型也是可以的</p>
+<p>通常情况下不使用dynamic, 因为类型的变量会带来潜在的危险</p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><code class="hljs delphi"><span class="hljs-keyword">dynamic</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">&#x27;coderwhy&#x27;</span>;<br>print(<span class="hljs-keyword">name</span>.runtimeType); <span class="hljs-comment">// String</span><br><span class="hljs-keyword">name</span> = <span class="hljs-number">18</span>; <span class="hljs-comment">// 可以再次改变类型</span><br>print(<span class="hljs-keyword">name</span>.runtimeType); <span class="hljs-comment">// int</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="final-amp-const的使用"><a href="#final-amp-const的使用" class="headerlink" title="final&amp;const的使用"></a>final&amp;const的使用</h5><p>final和const都是用于定义常量的, 也就是定义之后值都不可以修改</p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><code class="hljs delphi">final <span class="hljs-keyword">name</span> = <span class="hljs-string">&#x27;coderwhy&#x27;</span>;<br><span class="hljs-keyword">name</span> = <span class="hljs-string">&#x27;kobe&#x27;</span>; <span class="hljs-comment">// 错误做法</span><br><br><span class="hljs-keyword">const</span> age = <span class="hljs-number">18</span>;<br>age = <span class="hljs-number">20</span>; <span class="hljs-comment">// 错误做法</span><br></code></pre></td></tr></table></figure>
+
+<p>final和const有什么区别呢?</p>
+<ul>
+<li>const在赋值时, 赋值的内容必须是在编译期间就确定下来的</li>
+<li>final在赋值时, 可以动态获取, 比如赋值一个函数</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-built_in">String</span> getName() &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;coderwhy&#x27;</span>;<br>&#125;<br><br>main(<span class="hljs-built_in">List</span>&lt;<span class="hljs-built_in">String</span>&gt; args) &#123;<br>  <span class="hljs-keyword">const</span> name = getName(); <span class="hljs-comment">// 错误的做法, 因为要执行函数才能获取到值</span><br>  <span class="hljs-keyword">final</span> name = getName(); <span class="hljs-comment">// 正确的做法</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><h4 id="数字类型"><a href="#数字类型" class="headerlink" title="数字类型"></a>数字类型</h4><p>对于数值来说，我们也不用关心它是否有符号，以及数据的宽度和精度等问题。</p>
+<p>只要记着整数用<code>int</code>，浮点数用<code>double</code>就行了。</p>
+<p>不过，要说明一下的是Dart中的<code>int</code>和<code>double</code>可表示的范围并不是固定的，它取决于运行Dart的平台。</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino"><span class="hljs-comment">// 1.整数类型int</span><br><span class="hljs-keyword">int</span> age = <span class="hljs-number">18</span>;<br><span class="hljs-keyword">int</span> hexAge = <span class="hljs-number">0x12</span>;<br><span class="hljs-built_in">print</span>(age);<br><span class="hljs-built_in">print</span>(hexAge);<br><br><span class="hljs-comment">// 2.浮点类型double</span><br><span class="hljs-keyword">double</span> <span class="hljs-built_in">height</span> = <span class="hljs-number">1.88</span>;<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">height</span>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="布尔类型"><a href="#布尔类型" class="headerlink" title="布尔类型"></a>布尔类型</h4><p>布尔类型中,Dart提供了一个bool的类型, 取值为true和false</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// 布尔类型</span><br><span class="hljs-keyword">var</span> isFlag = <span class="hljs-keyword">true</span>;<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$isFlag</span> <span class="hljs-subst">$&#123;isFlag.runtimeType&#125;</span>&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意: Dart中不能判断非0即真, 或者非空即真</p>
+</blockquote>
+<h4 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h4><figure class="highlight scala"><table><tr><td class="code"><pre><code class="hljs scala"><span class="hljs-comment">// 1.定义字符串的方式</span><br><span class="hljs-keyword">var</span> s1 = <span class="hljs-symbol">&#x27;Hello</span> <span class="hljs-type">World</span>&#x27;;<br><span class="hljs-keyword">var</span> s2 = <span class="hljs-string">&quot;Hello Dart&quot;</span>;<br><span class="hljs-keyword">var</span> s3 = <span class="hljs-symbol">&#x27;Hello</span>\<span class="hljs-symbol">&#x27;Fullte</span>r&#x27;;<br><span class="hljs-keyword">var</span> s4 = <span class="hljs-string">&quot;Hello&#x27;Fullter&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>我们可以创建多行字符串</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> <span class="hljs-number">2</span>.表示多行字符串的方式<br>var message1 = <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">哈哈哈</span><br><span class="hljs-string">呵呵呵</span><br><span class="hljs-string">嘿嘿嘿&#x27;&#x27;&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>字符串和其他变量或表达式拼接: 使用${expression}, 如果表达式是一个标识符, 那么{}可以省略</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// 3.拼接其他变量</span><br><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;coderwhy&#x27;</span>;<br><span class="hljs-keyword">var</span> age = <span class="hljs-number">18</span>;<br><span class="hljs-keyword">var</span> height = <span class="hljs-number">1.88</span>;<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;my name is <span class="hljs-subst">$&#123;name&#125;</span>, age is <span class="hljs-subst">$age</span>, height is <span class="hljs-subst">$height</span>&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="集合类型"><a href="#集合类型" class="headerlink" title="集合类型"></a>集合类型</h3><p>对于集合类型，Dart则内置了最常用的三种：<code>List / Set / Map</code>。</p>
+<p>其中，<code>List</code>可以这样来定义：</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// List定义</span><br><span class="hljs-comment">// 1.使用类型推导定义</span><br><span class="hljs-keyword">var</span> letters = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-string">&#x27;d&#x27;</span>];<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$letters</span> <span class="hljs-subst">$&#123;letters.runtimeType&#125;</span>&#x27;</span>);<br><br><span class="hljs-comment">// 2.明确指定类型</span><br><span class="hljs-built_in">List</span>&lt;<span class="hljs-built_in">int</span>&gt; numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$numbers</span> <span class="hljs-subst">$&#123;numbers.runtimeType&#125;</span>&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>其中，<code>set</code>可以这样来定义：</p>
+<ul>
+<li>其实，也就是把<code>[]</code>换成<code>&#123;&#125;</code>就好了。</li>
+<li><code>Set</code>和<code>List</code>最大的两个不同就是：<code>Set</code>是无序的，并且元素是不重复的。</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// Set的定义</span><br><span class="hljs-comment">// 1.使用类型推导定义</span><br><span class="hljs-keyword">var</span> lettersSet = &#123;<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-string">&#x27;d&#x27;</span>&#125;;<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$lettersSet</span> <span class="hljs-subst">$&#123;lettersSet.runtimeType&#125;</span>&#x27;</span>);<br><br><span class="hljs-comment">// 2.明确指定类型</span><br><span class="hljs-built_in">Set</span>&lt;<span class="hljs-built_in">int</span>&gt; numbersSet = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$numbersSet</span> <span class="hljs-subst">$&#123;numbersSet.runtimeType&#125;</span>&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>最后，<code>Map</code>是我们常说的字典类型，它的定义是这样的：</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// Map的定义</span><br><span class="hljs-comment">// 1.使用类型推导定义</span><br><span class="hljs-keyword">var</span> infoMap1 = &#123;<span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;why&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>: <span class="hljs-number">18</span>&#125;;<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$infoMap1</span> <span class="hljs-subst">$&#123;infoMap1.runtimeType&#125;</span>&#x27;</span>);<br><br><span class="hljs-comment">// 2.明确指定类型</span><br><span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-built_in">Object</span>&gt; infoMap2 = &#123;<span class="hljs-string">&#x27;height&#x27;</span>: <span class="hljs-number">1.88</span>, <span class="hljs-string">&#x27;address&#x27;</span>: <span class="hljs-string">&#x27;北京市&#x27;</span>&#125;;<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$infoMap2</span> <span class="hljs-subst">$&#123;infoMap2.runtimeType&#125;</span>&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="Map的操作"><a href="#Map的操作" class="headerlink" title="Map的操作"></a><code>Map</code>的操作</h4><p>由于它有key和value，因此无论是读取值，还是操作，都要明确是基于key的，还是基于value的，或者是基于key/value对的。</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// Map的操作</span><br><span class="hljs-comment">// 1.根据key获取value</span><br><span class="hljs-built_in">print</span>(infoMap1[<span class="hljs-string">&#x27;name&#x27;</span>]); <span class="hljs-comment">// why</span><br><br><span class="hljs-comment">// 2.获取所有的entries</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$&#123;infoMap1.entries&#125;</span> <span class="hljs-subst">$&#123;infoMap1.entries.runtimeType&#125;</span>&#x27;</span>); <span class="hljs-comment">// (MapEntry(name: why), MapEntry(age: 18)) MappedIterable&lt;String, MapEntry&lt;String, Object&gt;&gt;</span><br><br><span class="hljs-comment">// 3.获取所有的keys</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$&#123;infoMap1.keys&#125;</span> <span class="hljs-subst">$&#123;infoMap1.keys.runtimeType&#125;</span>&#x27;</span>); <span class="hljs-comment">// (name, age) _CompactIterable&lt;String&gt;</span><br><br><span class="hljs-comment">// 4.获取所有的values</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$&#123;infoMap1.values&#125;</span> <span class="hljs-subst">$&#123;infoMap1.values.runtimeType&#125;</span>&#x27;</span>); <span class="hljs-comment">// (why, 18) _CompactIterable&lt;Object&gt;</span><br><br><span class="hljs-comment">// 5.判断是否包含某个key或者value</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$&#123;infoMap1.containsKey(<span class="hljs-string">&#x27;age&#x27;</span>)&#125;</span> <span class="hljs-subst">$&#123;infoMap1.containsValue(<span class="hljs-number">18</span>)&#125;</span>&#x27;</span>); <span class="hljs-comment">// true true</span><br><br><span class="hljs-comment">// 6.根据key删除元素</span><br>infoMap1.remove(<span class="hljs-string">&#x27;age&#x27;</span>);<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;<span class="hljs-subst">$&#123;infoMap1&#125;</span>&#x27;</span>); <span class="hljs-comment">// &#123;name: why&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h4 id="函数的基本定义"><a href="#函数的基本定义" class="headerlink" title="函数的基本定义"></a>函数的基本定义</h4><p>Dart是一种真正的面向对象语言，所以即使函数也是对象，所有也有类型, 类型就是Function。</p>
+<p>这也就意味着函数可以作为变量定义或者作为其他函数的参数或者返回值.</p>
+<p>函数的定义方式:</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin">返回值类型 函数的名称(参数列表) &#123;<br>  函数体<br>  <span class="hljs-keyword">return</span> 返回值<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>按照上面的定义方式, 我们定义一个完整的函数:</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-built_in">int</span> sum(<span class="hljs-built_in">num</span> num1, <span class="hljs-built_in">num</span> num2) &#123;<br>  <span class="hljs-keyword">return</span> num1 + num2;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>另外, 如果函数中只有一个表达式, 那么可以使用箭头语法(<em>arrow</em> syntax)</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sum</span>(num<span class="hljs-number">1</span>, num<span class="hljs-number">2</span>) =&gt; num<span class="hljs-number">1</span> + num<span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意:这里面只能是一个表达式, 不能是一个语句</p>
+</blockquote>
+<h4 id="函数的参数问题"><a href="#函数的参数问题" class="headerlink" title="函数的参数问题"></a>函数的参数问题</h4><p>可选参数可以分为 <strong>命名可选参数</strong> 和 <strong>位置可选参数</strong></p>
+<figure class="highlight gcode"><table><tr><td class="code"><pre><code class="hljs gcode">命名可选参数: &#123;para<span class="hljs-name">m1</span>, para<span class="hljs-name">m2</span>, ...&#125;<br>位置可选参数: [para<span class="hljs-name">m1</span>, para<span class="hljs-name">m2</span>, ...]<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// 命名可选参数</span><br>printInfo1(<span class="hljs-built_in">String</span> name, &#123;<span class="hljs-built_in">int</span> age, <span class="hljs-built_in">double</span> height&#125;) &#123;<br>  <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;name=<span class="hljs-subst">$name</span> age=<span class="hljs-subst">$age</span> height=<span class="hljs-subst">$height</span>&#x27;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们在使用命名参数的时候我们想进行调用必须加上名字</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 命名可选参数的函数调用<br>printInfo1(<span class="hljs-string">&#x27;why&#x27;</span>, age: <span class="hljs-number">18</span>); <span class="hljs-regexp">//</span> name=why age=<span class="hljs-number">18</span> height=null<br></code></pre></td></tr></table></figure>
+
+<p>而我们使用 可选参数的时候 就按照这个去写就行 不想传递的参数可以不去传递</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart">printInfo2(<span class="hljs-string">&#x27;why&#x27;</span>, <span class="hljs-number">18</span>); <span class="hljs-comment">// name=why age=18 height=null// 定义位置可选参数</span><br>printInfo2(<span class="hljs-built_in">String</span> name, [<span class="hljs-built_in">int</span> age, <span class="hljs-built_in">double</span> height]) &#123;<br>  <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;name=<span class="hljs-subst">$name</span> age=<span class="hljs-subst">$age</span> height=<span class="hljs-subst">$height</span>&#x27;</span>);<br>&#125;<br><br><span class="hljs-comment">// 调用可选参数函数</span><br>printInfo2(<span class="hljs-string">&#x27;why&#x27;</span>, <span class="hljs-number">18</span>); <span class="hljs-comment">// name=why age=18 height=null</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h4><p>只有可选参数才可以有默认值, 必须参数不能有默认值</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// 参数的默认值</span><br>printInfo4(<span class="hljs-built_in">String</span> name, &#123;<span class="hljs-built_in">int</span> age = <span class="hljs-number">18</span>, <span class="hljs-built_in">double</span> height=<span class="hljs-number">1.88</span>&#125;) &#123;<br>  <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;name=<span class="hljs-subst">$name</span> age=<span class="hljs-subst">$age</span> height=<span class="hljs-subst">$height</span>&#x27;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h4><p>dart中的词法有自己明确的作用域范围，它是根据代码的结构({})来决定作用域范围的</p>
+<p>优先使用自己作用域中的变量，如果没有找到，则一层层向外查找。</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><code class="hljs dart"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;global&#x27;</span>;<br>main(<span class="hljs-built_in">List</span>&lt;<span class="hljs-built_in">String</span>&gt; args) &#123;<br>  <span class="hljs-comment">// var name = &#x27;main&#x27;;</span><br>  <span class="hljs-keyword">void</span> foo() &#123;<br>    <span class="hljs-comment">// var name = &#x27;foo&#x27;;</span><br>    <span class="hljs-built_in">print</span>(name);<br>  &#125;<br><br>  foo();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/f15d4dbe/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>Flutter基础之Widget小组件的使用与理解</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/07c19982/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>ReactNative路由导航与Tabbar基本设置</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

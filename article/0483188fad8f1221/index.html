@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>React组件化学习与理解函数式组件与类式组件-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="React,">
+<meta name="description" content="React组件化学习与理解函数式组件与类式组件">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/React">React</a></li>
+            
+            
+        </ul>
+        <h1>React组件化学习与理解函数式组件与类式组件</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-10-21 14:24:12</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="React组件化"><a href="#React组件化" class="headerlink" title="React组件化"></a>React组件化</h2><p>对具有一定独立功能的数据与方法的封装对外暴露接口</p>
+<p>有利于代码功能的复用且不用担心冲突问题</p>
+<p>有两种组件的方法</p>
+<ul>
+<li><p>函数式组件的方法</p>
+<ul>
+<li>函数的名称就是组件的名称</li>
+<li>函数的返回值就是组件要渲染的内容</li>
+</ul>
+</li>
+<li><p>类式组件的方法</p>
+<ul>
+<li><p>组件类必须继承 <code>React.Component</code></p>
+</li>
+<li><p>组件类必须有 <code>render</code> 方法</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="函数式组件"><a href="#函数式组件" class="headerlink" title="函数式组件"></a>函数式组件</h3><ol>
+<li>组件名称必须以大写字母开头</li>
+<li>组件的返回值只能有一个根元素</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Welcome</span>(<span class="hljs-params">props</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, &#123;props.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>该函数是一个有效的 React 组件，因为它接收唯一带有数据的 “props”（代表属性）对象与并返回一个 React 元素。这类组件被称为“函数组件”，因为它本质上就是 JavaScript 函数。</p>
+<p>我们打印一下 <code>props</code> 是什么</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Welcome</span>(<span class="hljs-params">props</span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(props)<br>  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, &#123;props.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们首先渲染到页面上</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ReactDOM</span>.</span></span>render(<br>  &lt;Welcome name=<span class="hljs-string">&quot;QiaoBlog&quot;</span> /&gt;,<br>  document.get<span class="hljs-constructor">ElementById(&#x27;<span class="hljs-params">root</span>&#x27;)</span><br>);<br></code></pre></td></tr></table></figure>
+
+<p>这里我们在控制台上面就可以看到 打印的结果</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201021144810587.png" alt="image-20201021144810587"></p>
+<p>我们将两部分 分开也就是 我渲染在一个文件里面 我函数在另外一个文件</p>
+<p>我们创建个文件 <code>fun01.js</code> 然后在里面写上</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Welcome</span>(<span class="hljs-params">props</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(props)<br>    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, &#123;props.name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;<br>&#125;<br><span class="hljs-comment">//导入函数组件</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Welcome;<br></code></pre></td></tr></table></figure>
+
+<p>然后我们在 <code>app.js</code> 页面进行导入</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span>;<br><span class="hljs-comment">//导入编写的函数组件</span><br><span class="hljs-keyword">import</span> Welcome <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./zujianfun&#x27;</span><br><br>ReactDOM.render(<br>  &lt;Welcome name=<span class="hljs-string">&quot;QiaoBlog&quot;</span> /&gt;,<br>  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)<br>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="类式组件"><a href="#类式组件" class="headerlink" title="类式组件"></a>类式组件</h3><p>也就是ES6形式的class</p>
+<p>但是这里需要继承父类 <code>React.Component</code></p>
+<p>在 <code>React.Component</code> 的子类中有个必须定义的 <code>render()</code>函数。</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ClassFun</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;<br>    constructor(props) &#123;<br>        <span class="hljs-keyword">super</span>(props)<br>        console.log(props)<br>    &#125;<br>    render() &#123;<br>        <span class="hljs-keyword">return</span> &lt;h1&gt;<span class="hljs-type">Hello</span>, &#123;<span class="hljs-keyword">this</span>.props.name&#125;&lt;/h1&gt;;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="State"><a href="#State" class="headerlink" title="State"></a>State</h4><p>我们可以自己定义变量并且进行修改</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ClassFun</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;<br>    constructor(props) &#123;<br>        <span class="hljs-keyword">super</span>(props)	<br>        <span class="hljs-keyword">this</span>.state = &#123;name: <span class="hljs-string">&quot;qiaoBlog&quot;</span>&#125;;<br>    &#125;<br>    render() &#123;<br>        <span class="hljs-keyword">return</span> &lt;h1&gt;<span class="hljs-type">Hello</span>, &#123;<span class="hljs-keyword">this</span>.props.name&#125;&lt;/h1&gt;;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="this-setState"><a href="#this-setState" class="headerlink" title="this.setState()"></a>this.setState()</h4><p>用来时刻更新组件 state</p>
+<p><strong>不要直接修改 State</strong></p>
+<p>此代码不会重新渲染组件：</p>
+<figure class="highlight pf"><table><tr><td class="code"><pre><code class="hljs pf">// Wrong<br>this.<span class="hljs-keyword">state</span>.comment = &#x27;Hello&#x27;;<br></code></pre></td></tr></table></figure>
+
+<p>而是应该使用 <code>setState()</code>:</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy"><span class="hljs-comment">// Correct</span><br><span class="hljs-built_in">this</span>.setState(&#123;<span class="hljs-attr">comment:</span> <span class="hljs-string">&#x27;Hello&#x27;</span>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>构造函数是唯一可以给 <code>this.state</code> 赋值的地方</p>
+<p><strong>State 的更新可能是异步的</strong></p>
+<p>出于性能考虑，React 可能会把多个 <code>setState()</code> 调用合并成一个调用。</p>
+<p>因为 <code>this.props</code> 和 <code>this.state</code> 可能会异步更新，所以你不要依赖他们的值来更新下一个状态</p>
+<p>此代码可能会无法更新</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">// Wrong</span><br><span class="hljs-keyword">this</span>.setState(&#123;<br>  counter: <span class="hljs-keyword">this</span>.state.counter + <span class="hljs-keyword">this</span>.props.increment,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h4 id="小案例"><a href="#小案例" class="headerlink" title="小案例"></a>小案例</h4><p><strong>组件</strong> <code>classfun.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ClassFun</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;<br>    <span class="hljs-keyword">constructor</span>(props) &#123;<br>        <span class="hljs-built_in">super</span>(props)<br>        <span class="hljs-built_in">console</span>.log(props)<br>    &#125;<br>    state = &#123;<br>        name: <span class="hljs-string">&#x27;qiao&#x27;</span>,<br>        age: <span class="hljs-number">19</span><br>    &#125;<br>    render() &#123;<br>        <span class="hljs-keyword">let</span> &#123; name, age &#125; = <span class="hljs-built_in">this</span>.state;<br>        <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">            <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>我叫：&#123;name&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span></span><br><span class="xml">            <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>我&#123;age&#125;岁<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br>            &lt;button<br>                onClick=&#123;(e) =&gt; &#123;<br>                    this.setState(function () &#123;<br>                        return &#123;<br>                            age: ++age<br>                        &#125;<br>                    &#125;);<br>                &#125;&#125;<br><span class="xml">            &gt;长一岁<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span> &gt;</span>);</span><br><span class="xml">    &#125;</span><br><span class="xml">&#125;</span><br><br><span class="xml">export default ClassFun;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>app.js</code> 主入口</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span>;<br><span class="hljs-keyword">import</span> ClassFun <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./classfun&#x27;</span><br><br>ReactDOM.render(<br>	<span class="hljs-comment">// 这里调用</span><br>  &lt;ClassFun /&gt;,<br>  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)<br>);<br></code></pre></td></tr></table></figure>
+
+<p>效果</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imganlit-21-202015-57-29.gif" alt="anlit-21-202015-57-29"></p>
+<p>这个案例使用了 三点</p>
+<ol>
+<li>state 定义变量</li>
+<li>setState 更新变量</li>
+<li>onClick 点击事件</li>
+</ol>
+<h3 id="props-和-state"><a href="#props-和-state" class="headerlink" title="props 和 state"></a>props 和 state</h3><ul>
+<li>props 父组件传递过来的参数</li>
+<li>state 组件自身状态<ul>
+<li>setState 更新</li>
+<li>多个 setState 合并</li>
+</ul>
+</li>
+</ul>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><p><strong>state</strong></p>
+<p>主要作用是用于组件保存、控制、修改<em>自己</em>的可变状态</p>
+<p>在组件内部进行初始化</p>
+<p>也可以在组件内部进行修改</p>
+<p>但是组件外部不能修改组件的 state</p>
+<p><strong>props</strong></p>
+<p>主要作用是让使用该组件的父组件可以传入参数来配置该组件</p>
+<p>它是外部传进来的配置参数</p>
+<p>组件内部无法控制也无法修改</p>
+<p><strong>总：</strong></p>
+<p>state 和 props 都可以决定组件的外观和显示状态</p>
+<p>通常props 做为不变数据或者初始化数据传递给组件</p>
+<p>可变状态使用 state</p>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/23319a1e40f71222/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>React组件通讯与跨组件通讯Context</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/1808249993773321/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>React基础学习与JSX的使用与了解</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

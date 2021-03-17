@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>React-Router路由的学习与使用教程-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="React,Router,路由,">
+<meta name="description" content="React-Router路由的学习与使用教程">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/React">React</a></li>
+            
+            <li><a href="/tags/Router">Router</a></li>
+            
+            <li><a href="/tags/路由">路由</a></li>
+            
+            
+        </ul>
+        <h1>React-Router路由的学习与使用教程</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-10-25 09:26:26</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><p>当应用变得复杂的时候，就需要分块的进行处理和展示，传统模式下，我们是把整个应用分成了多个页面，然后通过 URL 进行连接。</p>
+<p>通俗的说就是 访问不同的url展示的数据是不相同的</p>
+<h3 id="SPA"><a href="#SPA" class="headerlink" title="SPA"></a>SPA</h3><p>Single Page Application : 单页面应用，整个应用只加载一个页面（入口页面），后续在与用户的交互过程中，通过 DOM 操作在这个单页上动态生成结构和内容.</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>有更好的用户体验（减少请求和渲染和页面跳转产生的等待与空白），页面切换快</li>
+<li>重前端，数据和页面内容由异步请求（AJAX）+ DOM 操作来完成，前端处理更多的业务逻辑</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>首屏处理慢</li>
+<li>不利于 SEO</li>
+</ul>
+<h2 id="React-Router"><a href="#React-Router" class="headerlink" title="React Router"></a>React Router</h2><p>我们现在学习 基于 Web 的路由库 <a target="_blank" rel="noopener" href="https://reactrouter.com/web/guides/quick-start">react-router-dom </a>  </p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i react-router-dom<br></code></pre></td></tr></table></figure>
+
+<h3 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h3><p>如果我们希望页面中某个部分的内容需要根据 URL 来动态显示</p>
+<p>需要用到 Router 组件 ，该组件是一个容器组件</p>
+<p>只需要用它包裹 URL 对应的根组件即可</p>
+<p>而 Router 为我们提供了两种 方式 <code>BrowserRouter</code> 和 <code>HashRouter</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; BrowserRouter &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router-dom&#x27;</span><br><br>ReactDOM.render(<br>  &lt;BrowserRouter&gt;<br>    <span class="hljs-comment">//内容</span><br>  &lt;/BrowserRouter&gt;,<br>  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)<br>);<br></code></pre></td></tr></table></figure>
+
+<p>也就是说我们哪里需要使用路由进行替换的地方就进行嵌套</p>
+<p>而 <code>BrowserRouter</code> 和 <code>HashRouter</code> 这两个的区别就是在路由上面 带不带#的区别</p>
+<p>开发中更多的是使用 <code>BrowserRouter</code></p>
+<h3 id="Route-组件"><a href="#Route-组件" class="headerlink" title="Route 组件"></a>Route 组件</h3><p>通过该组件来设置应用单个路由信息，Route 组件所在的区域就是就是当 URL 与当前 Route 设置的 path 属性匹配的时候，后面 component 将要显示的区域</p>
+<p>通俗的说就是 你访问这个 url了 我需要给你返回什么东西 </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React, &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; Link, Route, Switch &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router-dom&#x27;</span><br><span class="hljs-comment">//引入页面</span><br><span class="hljs-keyword">import</span> Index <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./view/index&#x27;</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params">props</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> (<br>        &lt;div className=<span class="hljs-string">&quot;App&quot;</span>&gt;<br>        		<span class="hljs-comment">// 定义路由</span><br>             &lt;Route path=<span class="hljs-string">&#x27;/myindex&#x27;</span> component=&#123;Index&#125; /&gt;<br>        &lt;/div&gt;<br>    );<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;<br></code></pre></td></tr></table></figure>
+
+<p>在上面代码可以看出来 当访问 <code>http://localhost:3000/myindex</code> </p>
+<p>就可以看到 我们所导入的页面内容 </p>
+<h4 id="path-string"><a href="#path-string" class="headerlink" title="path: string"></a>path: string</h4><p>可以是 path-to-regexp 能够理解的任何有效的 URL 路径 (用户访问的url路由 )</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&quot;/users&quot;</span> <span class="hljs-attr">component</span>=<span class="hljs-string">&#123;User&#125;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>没有定义 <code>path</code> 的 <code>&lt;Route&gt;</code> 总是会被匹配。</p>
+<h4 id="component"><a href="#component" class="headerlink" title="component"></a>component</h4><p>指定只有当位置匹配时才会渲染的 React 组件，该组件会接收 route props作为属性。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> User = <span class="hljs-function">(<span class="hljs-params">&#123; match &#125;</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello &#123;match.params.username&#125;!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br>&#125;<br><br>&lt;Route path=<span class="hljs-string">&quot;/user/:username&quot;</span> component=&#123;User&#125; /&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="render-func"><a href="#render-func" class="headerlink" title="render: func"></a>render: func</h4><p>使用 <code>render</code> 可以方便地进行内联渲染和包装，而无需进行上文解释的不必要的组件重装。</p>
+<p>你可以传入一个函数，以在位置匹配时调用，而不是使用 <code>component</code> 创建一个新的 React 元素。</p>
+<p><code>render</code> 渲染方式接收所有与 <code>component</code> 方式相同的 route props。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 方便的内联渲染</span><br>&lt;Route path=<span class="hljs-string">&#x27;/myindex&#x27;</span> render=&#123;<span class="hljs-function">(<span class="hljs-params">props</span>) =&gt;</span> (<br>		&lt;Index &#123;...props&#125; /&gt;<br>)&#125; /&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>警告：<code>&lt;Route component&gt;</code> 优先于 <code>&lt;Route render&gt;</code>，因此不要在同一个 <code>&lt;Route&gt;</code> 中同时使用两者。</p>
+</blockquote>
+<h4 id="children-func"><a href="#children-func" class="headerlink" title="children: func"></a>children: func</h4><p>有时候不论 <code>path</code> 是否匹配位置，你都想渲染一些内容。在这种情况下，你可以使用 <code>children</code> 属性。除了不论是否匹配它都会被调用以外，它的工作原理与 <code>render</code> 完全一样</p>
+<p><code>children</code> 渲染方式接收所有与 <code>component</code> 和 <code>render</code> 方式相同的 route props</p>
+<p>除非路由与 URL 不匹配，不匹配时 <code>match</code> 为 <code>null</code></p>
+<p>这允许你可以根据路由是否匹配动态地调整用户界面</p>
+<figure class="highlight dust"><table><tr><td class="code"><pre><code class="hljs dust"><span class="xml">const ListItemLink = (</span><span class="hljs-template-variable">&#123; to, ...rest &#125;</span><span class="xml">) =&gt; (</span><br><span class="xml">	// 这里使用一个 children</span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=</span></span><span class="hljs-template-variable">&#123;to&#125;</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attr">children</span>=</span></span><span class="hljs-template-variable">&#123;(&#123; match &#125;</span><span class="xml"><span class="hljs-tag">) =&gt;</span> (</span><br><span class="xml">  	// 这里进行一个判断 是否为null</span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">className</span>=</span></span><span class="hljs-template-variable">&#123;match ? &#x27;active&#x27; : &#x27;&#x27;&#125;</span><span class="xml"><span class="hljs-tag">&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>我是有无数据<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="xml">  )&#125; /&gt;</span><br><span class="xml">)</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>警告：<code>&lt;Route component&gt;</code> 和 <code>&lt;Route render&gt;</code> 优先于 <code>&lt;Route children&gt;</code>，因此不要在同一个 <code>&lt;Route&gt;</code> 中同时使用多个。</p>
+</blockquote>
+<h4 id="exact-bool"><a href="#exact-bool" class="headerlink" title="exact: bool"></a>exact: bool</h4><p>如果为 <code>true</code>，则只有在 <code>path</code> 完全匹配 <code>location.pathname</code> 时才匹配。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">exact</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&quot;/admin&quot;</span> <span class="hljs-attr">component</span>=<span class="hljs-string">&#123;OneComponent&#125;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>通俗的来说就是 如果没有 开启 <code>exact</code> 那么你访问 <code>/admin/info</code> 也会携带着 <code>/admin</code> 的内容</p>
+<p>如果你加上了 <code>exact</code>  那么 <code>/admin</code>  就是自己    <code>/admin/info</code> 也不会渲染  <code>/admin</code>  的东西</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&#x27;/myindex&#x27;</span> <span class="hljs-attr">render</span>=<span class="hljs-string">&#123;(props)</span> =&gt;</span> (<br>		<span class="hljs-tag">&lt;<span class="hljs-name">Index</span> &#123;<span class="hljs-attr">...props</span>&#125; /&gt;</span><br>)&#125; /&gt;<br><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&#x27;/myindex/info&#x27;</span> <span class="hljs-attr">render</span>=<span class="hljs-string">&#123;(props)</span> =&gt;</span> (<br>		<span class="hljs-tag">&lt;<span class="hljs-name">About</span> &#123;<span class="hljs-attr">...props</span>&#125; /&gt;</span><br>)&#125; /&gt;<br></code></pre></td></tr></table></figure>
+
+<p>我们定义了两个路由分别是 <code>/myindex</code>  和 <code>/myindex/info</code></p>
+<p>我们先访问 一个查看</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201025082843577.png" alt="react-router"></p>
+<p>打印的结果没有错 那么我们在访问 第二个路由看看是什么结果</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201025083158224.png" alt="react-router"></p>
+<p>我们发现 你访问成功 属于 <code>/myindex</code> 的内容也打印出来了 这就是没有添加 <code>exact</code> 的结果。</p>
+<p>那么我们给 <code>/myindex</code> 路由添加上 <code>exact</code> 在看看 是什么结果</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&#x27;/myindex&#x27;</span> <span class="hljs-attr">exact</span> <span class="hljs-attr">render</span>=<span class="hljs-string">&#123;(props)</span> =&gt;</span> (<br>			<span class="hljs-tag">&lt;<span class="hljs-name">Index</span> &#123;<span class="hljs-attr">...props</span>&#125; /&gt;</span><br>)&#125; /&gt;<br><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&#x27;/myindex/info&#x27;</span> <span class="hljs-attr">render</span>=<span class="hljs-string">&#123;(props)</span> =&gt;</span> (<br>			<span class="hljs-tag">&lt;<span class="hljs-name">About</span> &#123;<span class="hljs-attr">...props</span>&#125; /&gt;</span><br>)&#125; /&gt;<br></code></pre></td></tr></table></figure>
+
+<p>我们直接访问 <code>/myindex/info </code> 看看 还有没有 <code>myindex</code> 的内容了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201025083520662.png" alt="react-router"></p>
+<p>这时候就没有 <code>/myadmin</code> 的内容了</p>
+<h3 id="Link-组件"><a href="#Link-组件" class="headerlink" title="Link 组件"></a>Link 组件</h3><p>为你的应用提供声明式的、可访问的导航链接。</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">import</span> &#123; Link &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router-dom&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&#x27;/&#x27;</span>&gt;</span>首页<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>｜<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&#x27;/about&#x27;</span>&gt;</span>关于我们<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>｜<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&#x27;/join&#x27;</span>&gt;</span>加入我们<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>｜<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&#x27;/login&#x27;</span>&gt;</span>登陆<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201025083909708.png" alt="react-router-link"></p>
+<h4 id="to-string"><a href="#to-string" class="headerlink" title="to: string"></a>to: string</h4><p>一个字符串形式的链接地址，通过 <code>pathname</code>、<code>search</code> 和 <code>hash</code> 属性创建</p>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><code class="hljs lasso">&lt;<span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span>=<span class="hljs-string">&#x27;/courses?sort=name&#x27;</span> /&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="to-object"><a href="#to-object" class="headerlink" title="to: object"></a>to: object</h4><p>一个对象形式的链接地址，可以具有以下任何属性：</p>
+<ul>
+<li><code>pathname</code> - 要链接到的路径</li>
+<li><code>search</code> - 查询参数</li>
+<li><code>hash</code> - URL 中的 hash，例如 #the-hash</li>
+<li><code>state</code> - 存储到 location 中的额外状态数据</li>
+</ul>
+<figure class="highlight handlebars"><table><tr><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">to</span>=</span></span><span class="hljs-template-variable">&#123;&#123;</span><br><span class="hljs-template-variable">  <span class="hljs-name">pathname:</span> <span class="hljs-string">&#x27;/courses&#x27;</span>,</span><br><span class="hljs-template-variable">  search: <span class="hljs-string">&#x27;?sort=name&#x27;</span>,</span><br><span class="hljs-template-variable">  hash: <span class="hljs-string">&#x27;#the-hash&#x27;</span>,</span><br><span class="hljs-template-variable">  state: &#123;</span><br><span class="hljs-template-variable">    fromDashboard: <span class="hljs-literal">true</span></span><br><span class="hljs-template-variable">  &#125;</span><br><span class="hljs-template-variable">&#125;&#125;</span><span class="xml"> /&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="others"><a href="#others" class="headerlink" title="others"></a>others</h4><p>你还可以传递一些其它属性，例如 <code>title</code>、<code>id</code> 或 <code>className</code> 等。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">&lt;Link <span class="hljs-attribute">to</span>=<span class="hljs-string">&quot;/About&quot;</span> <span class="hljs-attribute">className</span>=<span class="hljs-string">&quot;nav&quot;</span> <span class="hljs-attribute">title</span>=<span class="hljs-string">&quot;a标签title&quot;</span>&gt;About&lt;/Link&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="NavLink-组件"><a href="#NavLink-组件" class="headerlink" title="NavLink 组件"></a>NavLink 组件</h3><p>一个特殊版本的 <code>&lt;Link&gt;</code>，它会在与当前 URL 匹配时为其呈现元素添加样式属性。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; NavLink &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router-dom&#x27;</span>;<br><br>&lt;NavLink to=<span class="hljs-string">&quot;/about&quot;</span>&gt;About&lt;/NavLink&gt;<br></code></pre></td></tr></table></figure>
+
+<p>NavLink 与 Link 类似，但是它提供了两个特殊属性用来处理页面导航</p>
+<h4 id="activeStyle-object"><a href="#activeStyle-object" class="headerlink" title="activeStyle: object"></a>activeStyle: object</h4><p>当前 URL 与 NavLink 中的 to 匹配的时候，激活 activeStyle 中的样式</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> activeStyle = &#123;<br>  fontWeight: <span class="hljs-string">&#x27;bold&#x27;</span>,<br>  color: <span class="hljs-string">&#x27;red&#x27;</span><br>&#125;;<br><br>&lt;NavLink to=<span class="hljs-string">&quot;/faq&quot;</span> activeStyle=&#123;activeStyle&#125;&gt;FAQs&lt;/NavLink&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="activeClassName-string"><a href="#activeClassName-string" class="headerlink" title="activeClassName: string"></a>activeClassName: string</h4><p>当元素处于激活状态时应用的类，默认为 <code>active</code>。</p>
+<p>它将与 <code>className</code> 属性一起使用。</p>
+<p>与 activeStyle 类似，但是激活的是 className</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">&lt;NavLink <span class="hljs-attribute">to</span>=<span class="hljs-string">&quot;/faq&quot;</span> <span class="hljs-attribute">activeClassName</span>=<span class="hljs-string">&quot;selected&quot;</span>&gt;FAQs&lt;/NavLink&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="isActive-func"><a href="#isActive-func" class="headerlink" title="isActive: func"></a>isActive: func</h4><p>添加额外逻辑以确定链接是否处于激活状态的函数。如果你要做的不仅仅是验证链接的路径名与当前 URL 的路径名相匹配，那么应该使用它。</p>
+<p>默认情况下，匹配的是 URL 与 to 的设置，通过 isActive 可以自定义激活逻辑，isActive 是一个函数，返回布尔值。</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// 只有当事件 id 为奇数时才考虑激活</span><br>const oddEvent =<span class="hljs-function"> (<span class="hljs-params">match</span>, <span class="hljs-params">location</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">match</span>) &#123;<br>    return <span class="hljs-literal">false</span>;<br>  &#125;<br>  const eventID = parse<span class="hljs-constructor">Int(<span class="hljs-params">match</span>.<span class="hljs-params">params</span>.<span class="hljs-params">eventID</span>)</span>;<br>  return !is<span class="hljs-constructor">NaN(<span class="hljs-params">eventID</span>)</span><span class="hljs-operator"> &amp;&amp; </span>eventID % <span class="hljs-number">2</span><span class="hljs-operator"> === </span><span class="hljs-number">1</span>;<br>&#125;<br><br>&lt;NavLink <span class="hljs-keyword">to</span>=<span class="hljs-string">&quot;/events/123&quot;</span> isActive=&#123;oddEvent&#125;&gt;Event <span class="hljs-number">123</span>&lt;/NavLink&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="exact-bool-1"><a href="#exact-bool-1" class="headerlink" title="exact: bool"></a>exact: bool</h4><p>如果为 <code>true</code>，则只有在位置完全匹配时才应用激活类/样式。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">NavLink</span> <span class="hljs-attr">exact</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&quot;/profile&quot;</span>&gt;</span>Profile<span class="hljs-tag">&lt;/<span class="hljs-name">NavLink</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Switch组件"><a href="#Switch组件" class="headerlink" title="Switch组件"></a>Switch组件</h3><p>该组件只会渲染首个被匹配的组件</p>
+<p><code>&lt;Switch&gt;</code> 只会渲染一个路由</p>
+<p>仅仅定义一系列 <code>&lt;Route&gt;</code> 时，每一个与路径匹配的 <code>&lt;Route&gt;</code> 都将包含在渲染范围内</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&quot;/about&quot;</span> <span class="hljs-attr">component</span>=<span class="hljs-string">&#123;About&#125;</span> /&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&quot;/:user&quot;</span> <span class="hljs-attr">component</span>=<span class="hljs-string">&#123;User&#125;</span> /&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">component</span>=<span class="hljs-string">&#123;NoMatch&#125;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>如果 URL 是 <code>/about</code>，那么 <code>&lt;About&gt;</code>、<code>&lt;User&gt;</code> 和 <code>&lt;NoMatch&gt;</code> 将全部渲染，因为它们都与路径匹配</p>
+<p>这是通过设计，允许我们以很多方式将 <code>&lt;Route&gt;</code> 组合成我们的应用程序</p>
+<p>例如侧边栏和面包屑、引导标签等。</p>
+<p>但是，有时候我们只想选择一个 <code>&lt;Route&gt;</code> 来呈现。比如我们在 URL 为 <code>/about</code> 时不想匹配 <code>/:user</code>（或者显示我们的 404 页面）</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; Switch, Route &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router&#x27;</span>;<br><br>&lt;Switch&gt;<br>  &lt;Route exact path=<span class="hljs-string">&quot;/&quot;</span> component=&#123;Home&#125; /&gt;<br>  &lt;Route path=<span class="hljs-string">&quot;/about&quot;</span> component=&#123;About&#125; /&gt;<br>  &lt;Route path=<span class="hljs-string">&quot;/:user&quot;</span> component=&#123;User&#125; /&gt;<br>  &lt;Route component=&#123;NoMatch&#125; /&gt;<br>&lt;/Switch&gt;<br></code></pre></td></tr></table></figure>
+
+<p>现在，当我们在 <code>/about</code> 路径时，<code>&lt;Switch&gt;</code> 将开始寻找匹配的 <code>&lt;Route&gt;</code></p>
+<p>我们知道，<code>&lt;Route path=&quot;/about&quot; /&gt;</code> 将会被正确匹配，这时 <code>&lt;Switch&gt;</code> 会停止查找匹配项并立即呈现 <code>&lt;About&gt;</code> </p>
+<h3 id="Redirect组件"><a href="#Redirect组件" class="headerlink" title="Redirect组件"></a>Redirect组件</h3><p>使用 <code>&lt;Redirect&gt;</code> 会导航到一个新的位置。</p>
+<p>的位置将覆盖历史堆栈中的当前条目，例如服务器端重定向（HTTP 3xx）。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; Route, Redirect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router-dom&#x27;</span>;<br><br>&lt;Route exact path=<span class="hljs-string">&quot;/&quot;</span> render=&#123;<span class="hljs-function">() =&gt;</span> (<br>  loggedIn ? (<br>    &lt;Redirect to=<span class="hljs-string">&quot;/dashboard&quot;</span> /&gt;<br>  ) : (<br>    &lt;PublicHomePage /&gt;<br>  )<br>)&#125; /&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="to-string-1"><a href="#to-string-1" class="headerlink" title="to: string"></a>to: string</h4><p>要重定向到的 URL，可以是 path-to-regexp 能够理解的任何有效的 URL 路径。</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">&lt;Redirect <span class="hljs-keyword">to</span>=<span class="hljs-string">&quot;/somewhere/else&quot;</span> /&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="withRouter组件"><a href="#withRouter组件" class="headerlink" title="withRouter组件"></a>withRouter组件</h3><p>如果一个组件不是路由绑定组件，那么该组件的 props 中是没有路由相关对象的，</p>
+<p>虽然我们可以通过传参的方式传入，但是如果结构复杂，这样做会特别的繁琐。</p>
+<p>幸好，我们可以通过 withRouter 方法来注入路由对象</p>
+<p>把不是通过路由切换过来的组件中，将react-router 的 history、location、match 三个对象传入props对象上</p>
+<p> 导入我们的 <code>withRouter</code></p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">import</span> &#123;  Route, withRouter &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router-dom&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>定义一个组件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">About</span>(<span class="hljs-params">props</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(props)<br>    <span class="hljs-keyword">return</span> (<br>        &lt;p&gt;详细信息&lt;/p&gt;<br>    );<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后使用 <code>withRouter</code> 进行包裹</p>
+<figure class="highlight coq"><table><tr><td class="code"><pre><code class="hljs coq"><span class="hljs-keyword">About</span> = withRouter(<span class="hljs-keyword">About</span>)<br></code></pre></td></tr></table></figure>
+
+<p>然后我们直接调用就可以了</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&#x27;/about&#x27;</span> <span class="hljs-attr">component</span>=<span class="hljs-string">&#123;About&#125;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后我们可以看到 控制台已经打印出来了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201025092307410.png" alt="withRouter"></p>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/7ed3645c2be52625/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>React-Redux可预测化的状态管理框架学习</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/b7877892d3643324/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>React-Hooks钩子函数的学习与使用</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

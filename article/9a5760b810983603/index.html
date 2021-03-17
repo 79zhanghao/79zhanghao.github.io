@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>Hexo主题:一个简约扁平化的静态博客主题模版-Quiet-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="Hexo,Quiet,主题,静态主题,">
+<meta name="description" content="采用简约大方的扁平化Hexo-Quiet主题">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/Hexo">Hexo</a></li>
+            
+            <li><a href="/tags/Quiet">Quiet</a></li>
+            
+            <li><a href="/tags/主题">主题</a></li>
+            
+            <li><a href="/tags/静态主题">静态主题</a></li>
+            
+            
+        </ul>
+        <h1>Hexo主题:一个简约扁平化的静态博客主题模版-Quiet</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-11-03 20:33:36</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h3 align="center">一款简约扁平化的 Hexo 主题</h3>  
+
+<h3 id="⛱预览Dome"><a href="#⛱预览Dome" class="headerlink" title="⛱预览Dome"></a>⛱预览Dome</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.79bk.cn/">乔越博客</a></li>
+</ul>
+<p>（如果您正在使用 Quiet 主题，欢迎展示您的博客哦，只需在 <code>README.md</code> 文件中加入您的博客，提交 PR 即可。如果你喜欢这个主题想要收藏下请点下 Star 谢谢～～）</p>
+<h3 id="🚁快速使用"><a href="#🚁快速使用" class="headerlink" title="🚁快速使用"></a>🚁快速使用</h3><p>我们首先下载主题</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/QiaoBug/">GitHub-Quiet</a></li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">$ git clone https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/QiaoBug/</span>hexo-theme-quiet.git<br></code></pre></td></tr></table></figure>
+
+<p>然后我们修改Hexo根目录下的 <code>_config.yml</code> 文件启用 Quiet 主题：</p>
+<p>（大概在最后的位置 — 你需要将下载下来主题文件放在 themes里面并且将名字修改为 Quiet ）</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">theme:</span> Quiet<br></code></pre></td></tr></table></figure>
+
+<p>建议将每页展示的文章数量设置为 每页9篇</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-attribute">index_generator</span>:<br>  <span class="hljs-attribute">path</span>: <span class="hljs-string">&#x27;&#x27;</span><br>  <span class="hljs-attribute">per_page</span>: <span class="hljs-number">9</span><br>  <span class="hljs-attribute">order_by</span>: -date<br></code></pre></td></tr></table></figure>
+
+<p>将下面此项设置为跟我一样即可显示文章的代码高亮</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># 我的配置</span><br><span class="hljs-attr">highlight:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">line_number:</span> <span class="hljs-literal">false</span><br>  <span class="hljs-attr">auto_detect:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">tab_replace:</span> <span class="hljs-string">&#x27;&#x27;</span><br>  <span class="hljs-attr">wrap:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">hljs:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">prismjs:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">false</span><br>  <span class="hljs-attr">preprocess:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">line_number:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">tab_replace:</span> <span class="hljs-string">&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="🔧标签页"><a href="#🔧标签页" class="headerlink" title="🔧标签页"></a>🔧标签页</h4><p>进入根目录下的<code>source</code>文件夹下创建<code>tag</code>文件夹新建<code>index.md</code>文件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">tags</span><br><span class="hljs-attr">date:</span> <span class="hljs-number">2020-09-19 16:19:22</span><br><span class="hljs-attr">layout:</span> <span class="hljs-string">&quot;tags&quot;</span><br><span class="hljs-attr">author:</span> <span class="hljs-string">79bk.cn</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="🏂简介页"><a href="#🏂简介页" class="headerlink" title="🏂简介页"></a>🏂简介页</h4><p>进入根目录下的<code>source</code>文件夹下创建<code>about</code>文件夹新建<code>index.md</code>文件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">个人简介</span><br><span class="hljs-attr">date:</span> <span class="hljs-number">2020-11-03</span><br><span class="hljs-attr">aubot:</span> <span class="hljs-string">Cange-Q</span><br><span class="hljs-attr">portrait:</span> <span class="hljs-string">&#x27;https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgIMG_7327.jpeg&#x27;</span><br><span class="hljs-attr">describe:</span> <span class="hljs-string">&#x27;一个阳光快乐的BOY,在正合适的年龄里希望遇见正好的你。&#x27;</span><br><span class="hljs-attr">type:</span> <span class="hljs-string">&quot;about&quot;</span><br><span class="hljs-attr">layout:</span> <span class="hljs-string">&quot;about&quot;</span><br><span class="hljs-attr">author:</span> <span class="hljs-string">79bk.cn</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>解释</strong></p>
+<p><code>aubot</code> ：博主名称显示在 About 页面的最上面</p>
+<p><code>portrait</code> ：头像</p>
+<p><code>describe</code> ：简介（简短的描述下你自己）</p>
+<p>其他的不需要修改</p>
+<p><strong>内容</strong></p>
+<p>在简介页面你可以写很多的东西 你可以向写文章一样去写你的简介</p>
+<p>你只需将内容写在 <code>about</code>文件夹下<code>index.md</code>文件里面</p>
+<h4 id="🎉友情链接"><a href="#🎉友情链接" class="headerlink" title="🎉友情链接"></a>🎉友情链接</h4><p>进入根目录下的<code>source</code>文件夹下创建<code>links</code>文件夹新建<code>index.md</code>文件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">友情链接</span><br><span class="hljs-attr">date:</span> <span class="hljs-number">2020-09-19</span><br><span class="hljs-attr">type:</span> <span class="hljs-string">&quot;links&quot;</span><br><span class="hljs-attr">layout:</span> <span class="hljs-string">&quot;links&quot;</span><br><span class="hljs-attr">author:</span> <span class="hljs-string">79bk.cn</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>内容</strong></p>
+<p>你可能需要描述你的友情链接 那么你就需要将你想要描述的内容写在<code>links</code>文件夹下的<code>index.md</code>文件内</p>
+<p>你会发现和 简介页 内容写法是一样的</p>
+<h4 id="🎪分类页"><a href="#🎪分类页" class="headerlink" title="🎪分类页"></a>🎪分类页</h4><p>进入根目录下的<code>source</code>文件夹下创建<code>categories</code>文件夹新建<code>index.md</code>文件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">文章分类</span><br><span class="hljs-attr">date:</span> <span class="hljs-number">2020-11-02</span><br><span class="hljs-attr">type:</span> <span class="hljs-string">categories</span><br><span class="hljs-attr">layout:</span> <span class="hljs-string">categories</span><br><span class="hljs-attr">author:</span> <span class="hljs-string">79bk.cn</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="📖发布文章"><a href="#📖发布文章" class="headerlink" title="📖发布文章"></a>📖发布文章</h3><p>你需要在发布文章的时候写标头</p>
+<figure class="highlight subunit"><table><tr><td class="code"><pre><code class="hljs subunit">title: 一个简约扁平化的Hexo静态主题博客-Quiet<br>categories: 项目案例<br><span class="hljs-keyword">tags:</span><br>  - Hexo<br>  - Quiet<br>  - 主题<br>  - 静态主题<br>excerpt: 采用简约大方的扁平化Hexo-Quiet主题<br>date: 2020<span class="hljs-string">-11</span><span class="hljs-string">-03</span> 20:33:36<br>cover: &#x27;https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgQuietView.png&#x27;<br></code></pre></td></tr></table></figure>
+
+<p><strong>解释</strong></p>
+<p><code>title</code>：文章标题</p>
+<p><code>categories</code>：分类（最好只写一个）</p>
+<p><code>tags</code>：标签可以多个</p>
+<p><code>excerpt</code>：描述</p>
+<p><code>date</code>：创建日期</p>
+<p><code>cover</code>：缩略图（你不填就用默认的了）</p>
+<h3 id="🏆主题配置"><a href="#🏆主题配置" class="headerlink" title="🏆主题配置"></a>🏆主题配置</h3><p>我们进入主题根目录下的<code>themes</code>文件夹下的<code>Quiet</code>文件里面的<code>_config.yml</code>配置文件</p>
+<p>我们可以在里面 设置网站的标题,各种Logo图标</p>
+<p><strong>添加友情链接</strong></p>
+<p>在此配置文件中有个 <code>linksList</code> 我们可以仿照着去添加你的友情链接</p>
+<h3 id="📝-License"><a href="#📝-License" class="headerlink" title="📝 License"></a>📝 License</h3><p>根据 <a target="_blank" rel="noopener" href="https://github.com/QiaoBug/hexo-theme-quiet/blob/master/LICENSE">MIT</a> 协议开源</p>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/4e6a7035e5ae3605/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>Vuex核心概念的理解和基本用法</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/35af160494493603/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>Vue-CLI脚手架的学习与使用结合webpack</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>JavaScritp同步与异步和Promise学习理解-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="JavaScript,同步,异步,阻塞,动画针,Promise,">
+<meta name="description" content="JavaScritp同步与异步学习理解,动画针的理解,Promise,async,await">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/JavaScript">JavaScript</a></li>
+            
+            <li><a href="/tags/同步">同步</a></li>
+            
+            <li><a href="/tags/异步">异步</a></li>
+            
+            <li><a href="/tags/阻塞">阻塞</a></li>
+            
+            <li><a href="/tags/动画针">动画针</a></li>
+            
+            <li><a href="/tags/Promise">Promise</a></li>
+            
+            
+        </ul>
+        <h1>JavaScritp同步与异步和Promise学习理解</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-09-22 08:56:40</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="同步异步"><a href="#同步异步" class="headerlink" title="同步异步"></a>同步异步</h2><p> 同步和异步是一种消息通知机制</p>
+<h3 id="同步阻塞"><a href="#同步阻塞" class="headerlink" title="同步阻塞"></a>同步阻塞</h3><p>A调用B,B处理获得结果,才返回给A。</p>
+<p>A在这个过程中,一直等待的处理结果,没有拿到结果之前,需要A(调用者)一直等待和确认调用结果是否返回,拿到结果然后继续往下执行。</p>
+<p>做一件事,没有拿到结果之前,就一直在这等着,一直等到有结果了再去做下边的事</p>
+<h3 id="异步非阻塞"><a href="#异步非阻塞" class="headerlink" title="异步非阻塞"></a>异步非阻塞</h3><p>A调用B,无需等待B的结果,B通过状态,通知等来通知A或回调函数来处理。</p>
+<p>做一件事,不用等待事情的结果,然后就去忙别的了,有了结果,再通过状态来告诉我,或者通过回<br>调函数来处理。</p>
+<p>有一个同学小明去图书馆借书 图书馆需要去找这个树 找是需要时间的 如果又来了一个同学去借书 小明在等的时候就是堵塞了 如果这个等待时间 去干其他事了 那就是非阻塞 针对的主体是 小明</p>
+<p>同步和异步 是针对的图书管理员 异步是 有没有这本书 都会告诉你一声 而同步是 你得没事就得问管理员 你找到没有 你找到没有</p>
+<p>简单理解下</p>
+<h3 id="同步的过程"><a href="#同步的过程" class="headerlink" title="同步的过程"></a>同步的过程</h3><figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">console</span><span class="hljs-selector-class">.log</span>(<span class="hljs-string">&quot;1&quot;</span>)<br><span class="hljs-selector-tag">function</span> <span class="hljs-selector-tag">fn</span>()&#123;<br>	<span class="hljs-selector-tag">alert</span>(<span class="hljs-string">&quot;弹窗&quot;</span>)<br>	<span class="hljs-selector-tag">consol</span><span class="hljs-selector-class">.log</span>(<span class="hljs-string">&quot;2&quot;</span>)<br>&#125;<br><span class="hljs-selector-tag">fn</span>()<br><span class="hljs-selector-tag">consol</span><span class="hljs-selector-class">.log</span>(<span class="hljs-string">&quot;3&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>结果</p>
+<ol>
+<li>先打印出来1</li>
+<li>然后弹窗出来如果你不点击确定 那么将不会打印2和3这时候就堵塞上了 你不点什么也干不了</li>
+<li>点击后出现2 3</li>
+</ol>
+<h3 id="异步的过程"><a href="#异步的过程" class="headerlink" title="异步的过程"></a>异步的过程</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;1&quot;</span>)<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;2&quot;</span>)<br>	&#125;,<span class="hljs-number">1000</span>)<br>&#125;<br>fn()<br>consol.log(<span class="hljs-string">&quot;3&quot;</span>)<br><span class="hljs-comment">//===&gt;结果 1 ---&gt; 3 ---&gt; 2</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>移动一个方块到指定的位置</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span> move(ele, arg, target) &#123;<br>        <span class="hljs-keyword">let</span> start = parse<span class="hljs-constructor">Int(<span class="hljs-params">window</span>.<span class="hljs-params">getComputedStyle</span>(<span class="hljs-params">ele</span>, <span class="hljs-params">null</span>)</span><span class="hljs-literal">[<span class="hljs-identifier">arg</span>]</span>)<br>        <span class="hljs-keyword">let</span> dis = (target - start)<span class="hljs-operator"> / </span><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>abs(target - start)<br>        <span class="hljs-keyword">let</span> speed = dis<span class="hljs-operator"> * </span><span class="hljs-number">5</span><br>        <span class="hljs-keyword">function</span> fn<span class="hljs-literal">()</span> &#123;<br>            <span class="hljs-keyword">let</span> now = parse<span class="hljs-constructor">Int(<span class="hljs-params">window</span>.<span class="hljs-params">getComputedStyle</span>(<span class="hljs-params">ele</span>, <span class="hljs-params">null</span>)</span><span class="hljs-literal">[<span class="hljs-identifier">arg</span>]</span>)<br>            <span class="hljs-keyword">if</span> (now<span class="hljs-operator"> === </span>target) &#123;<br><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                ele.style<span class="hljs-literal">[<span class="hljs-identifier">arg</span>]</span> = now + speed + <span class="hljs-string">&quot;px&quot;</span><br>                window.request<span class="hljs-constructor">AnimationFrame(<span class="hljs-params">fn</span>)</span><br>            &#125;<br>        &#125;<br>        fn<span class="hljs-literal">()</span><br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>首先我想向右移动</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">let ele = document.querySelector(<span class="hljs-string">&#x27;#box1&#x27;</span>)<br><span class="hljs-function"><span class="hljs-title">move</span><span class="hljs-params">(ele, <span class="hljs-string">&quot;left&quot;</span>, <span class="hljs-number">200</span>)</span></span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgjsleft2.gif"></p>
+<p>很好的完成了运动</p>
+<p>然后我又想向下移动</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">move</span><span class="hljs-params">(ele, <span class="hljs-string">&quot;top&quot;</span>, <span class="hljs-number">200</span>)</span></span><br></code></pre></td></tr></table></figure>
+
+<p>理想的状态是这样移动</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img20200922093410.png"></p>
+<p>而实际上是 left 和 top 同时执行了！</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgjsyidong13.gif"></p>
+<p>解决就是加个回调函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">ele, arg, target, cb</span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> start = <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">window</span>.getComputedStyle(ele, <span class="hljs-literal">null</span>)[arg])<br>    <span class="hljs-keyword">let</span> dis = (target - start) / <span class="hljs-built_in">Math</span>.abs(target - start)<br>    <span class="hljs-keyword">let</span> speed = dis * <span class="hljs-number">5</span><br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-keyword">let</span> now = <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">window</span>.getComputedStyle(ele, <span class="hljs-literal">null</span>)[arg])<br>        <span class="hljs-keyword">if</span> (now === target) &#123;<br>            <span class="hljs-comment">// 运动完成</span><br>            cb &amp;&amp; cb(<span class="hljs-string">&quot;运动下一个&quot;</span>)<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            ele.style[arg] = now + speed + <span class="hljs-string">&quot;px&quot;</span><br>            <span class="hljs-built_in">window</span>.requestAnimationFrame(fn)<br>        &#125;<br>    &#125;<br>    fn()<br>&#125;<br><span class="hljs-keyword">let</span> ele = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#box1&#x27;</span>)<br>move(ele, <span class="hljs-string">&quot;left&quot;</span>, <span class="hljs-number">200</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(res)<br>    move(ele, <span class="hljs-string">&quot;top&quot;</span>, <span class="hljs-number">200</span>)<br>&#125;)<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imghuidiaoyidong.gif"></p>
+<p>但是这样写你会陷到无限回调的里面 这样后期很难维护</p>
+<p>只时候就可以使用 Promise 了 专门解决回调地狱的</p>
+<h3 id="知识点："><a href="#知识点：" class="headerlink" title="知识点："></a>知识点：</h3><h4 id="window-requestAnimationFrame-针动画"><a href="#window-requestAnimationFrame-针动画" class="headerlink" title="window.requestAnimationFrame() 针动画"></a>window.requestAnimationFrame() 针动画</h4><h5 id="屏幕刷新频率："><a href="#屏幕刷新频率：" class="headerlink" title="屏幕刷新频率："></a><strong>屏幕刷新频率：</strong></h5><p>屏幕每秒出现图像的次数。普通笔记本为60Hz</p>
+<h5 id="动画原理："><a href="#动画原理：" class="headerlink" title="动画原理："></a><strong>动画原理：</strong></h5><p>计算机每16.7ms刷新一次，由于人眼的视觉停留，所以看起来是流畅的移动。</p>
+<h5 id="优势："><a href="#优势：" class="headerlink" title="优势："></a><strong>优势：</strong></h5><p>由系统决定回调函数的执行时机。60Hz的刷新频率，那么每次刷新的间隔中会执行一次回调函数，不会引起丢帧，不会卡顿</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> progress = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">//回调函数</span><br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span>(<span class="hljs-params"></span>) </span>&#123;<br>     progress += <span class="hljs-number">1</span>; <span class="hljs-comment">//修改图像的位置</span><br>     <span class="hljs-keyword">if</span> (progress &lt; <span class="hljs-number">100</span>) &#123;<br>     <span class="hljs-comment">//在动画没有结束前，递归渲染</span><br>     <span class="hljs-built_in">window</span>.requestAnimationFrame(render);<br>     &#125;<br>    &#125;<br>    <span class="hljs-comment">//第一帧渲染</span><br>    <span class="hljs-built_in">window</span>.requestAnimationFrame(render);<br></code></pre></td></tr></table></figure>
+
+<h5 id="CPU节能："><a href="#CPU节能：" class="headerlink" title="CPU节能："></a><strong>CPU节能：</strong></h5><p>setTimeout：当页面被隐藏或最小化时，setTimeout 仍然在后台执行动画任务</p>
+<p>requestAnimationFrame：当页面处理未激活的状态下，该页面的屏幕刷新任务也会被系统暂停，因此跟着系统步伐走的requestAnimationFrame也会停止渲染，当页面被激活时，动画就从上次停留的地方继续执行，有效节省了CPU开销。</p>
+<p>由于页面处于不可见或不可用状态，刷新动画是没有意义的，完全是浪费CPU资源。</p>
+<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><p>用于表示一个异步操作的最终完成 (或失败), 及其结果值.</p>
+<p>它允许你为异步操作的成功和失败分别绑定相应的处理方法（handlers）</p>
+<p>这让异步方法可以像同步方法那样返回值</p>
+<p>但并不是立即返回最终执行结果</p>
+<p>而是一个能代表未来出现的结果的promise对象</p>
+<p>一个 <code>Promise</code>有以下几种状态:</p>
+<ul>
+<li><em>pending</em>: 初始状态，既不是成功，也不是失败状态。</li>
+<li><em>fulfilled</em>: 意味着操作成功完成。</li>
+<li><em>rejected</em>: 意味着操作失败。</li>
+</ul>
+<h3 id="小案例"><a href="#小案例" class="headerlink" title="小案例"></a>小案例</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadImg</span>(<span class="hljs-params"></span>)</span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve,reject</span>)=&gt;</span>&#123;<br>			<span class="hljs-keyword">let</span> img = <span class="hljs-keyword">new</span> Image()<br>			img.src = <span class="hljs-string">&quot;https://pic3.zhimg.com/v2-cf1c78890006e078a538842a0caa7127_1440w.jpg?source=172ae18b&quot;</span><br>			img.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>					resolve(<span class="hljs-string">&quot;图片加载成功&quot;</span>)<br>			&#125;<br>			img.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>					reject(<span class="hljs-string">&quot;图片加载失败&quot;</span>)<br>			&#125;<br>	&#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>那么这样就可以进行再次用.then进行处理了！</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">loadImg().then(<span class="hljs-function"><span class="hljs-params">res</span>=&gt;</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;成功&quot;</span>)<br>&#125;,<span class="hljs-function"><span class="hljs-params">err</span>=&gt;</span>&#123;<br>		<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;失败&quot;</span>)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h2 id="async和await"><a href="#async和await" class="headerlink" title="async和await"></a>async和await</h2><p>一个异步函数由<code>async</code>关键字定义。</p>
+<p>在一个异步函数中可以使用<code>await</code>关键字。</p>
+<p><code>async</code>和<code>await</code>关键字可以使得对有等待时间的（异步）</p>
+<p>以<code>Promise</code> 为基础的函数的定义更加简洁优雅，减少特意配置对于<code>promise </code>的链式调用。</p>
+<p>总结： 异步函数 —-&gt; 同步写法</p>
+<p>async函数的函数体可以被认为是由0个或者多个await表达式分割开来。</p>
+<p>当代码运行到await表达式的时候，该进程会进入等待模式并转让控制权，直到被等待的，异步的承诺(promise)被满足(resolved)或者拒绝(rejected)为止。</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-keyword">async</span> function myfn() &#123;<br>      <span class="hljs-regexp">//</span> <span class="hljs-keyword">await</span> 后面一定要跟一个 <span class="hljs-built_in">Promise</span> 对象<br>      <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">(res, rej)</span> =&gt;</span> &#123;<br>          <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>              <span class="hljs-built_in">console</span>.log(<span class="hljs-number">111</span>)<br>              res()<br>          &#125;, <span class="hljs-number">1000</span>);<br>      &#125;)<br>      <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">(res, rej)</span> =&gt;</span> &#123;<br>          <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>              <span class="hljs-built_in">console</span>.log(<span class="hljs-number">222</span>)<br>              res()<br>          &#125;, <span class="hljs-number">1000</span>);<br>      &#125;)<br>      <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">(res, rej)</span> =&gt;</span> &#123;<br>          <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>              <span class="hljs-built_in">console</span>.log(<span class="hljs-number">333</span>)<br>              res()<br>          &#125;, <span class="hljs-number">1000</span>);<br>      &#125;)<br>  &#125;<br>  myfn()<br></code></pre></td></tr></table></figure>
+
+<p>如果 是 reject的话就会停止运行</p>
+<p>那么就可以是用 try来捕捉错误</p>
+<p>总：async和await是用来简化 Promise 看着更加简洁</p>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/4d1513f1604e4123/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>JavaScript的Proxy进行数据拦截模仿Vue数据的操作</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/f63c4e227c502921/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>JavaScript面向对象思想实现贪吃蛇小游戏</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

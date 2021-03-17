@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>移动端事件Touch监测手机重力加速度与-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="移动端,Touch,函数节流,函数防抖,">
+<meta name="description" content="移动端事件Touch监测手机重力加速度与">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/移动端">移动端</a></li>
+            
+            <li><a href="/tags/Touch">Touch</a></li>
+            
+            <li><a href="/tags/函数节流">函数节流</a></li>
+            
+            <li><a href="/tags/函数防抖">函数防抖</a></li>
+            
+            
+        </ul>
+        <h1>移动端事件Touch监测手机重力加速度与</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-10-28 10:24:36</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="移动端事件"><a href="#移动端事件" class="headerlink" title="移动端事件"></a>移动端事件</h2><p>描述手指在触摸平面（触摸屏、触摸板等）的状态变化的事件</p>
+<p>这类事件用于描述一个或多个触点，使开发者可以检测触点的移动，触点的增加和减少，等等</p>
+<p>通俗的说就是你在手机屏幕上的手指的操作和数量</p>
+<p>我们定义一个div然后我们对其进行操作</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="touchstart"><a href="#touchstart" class="headerlink" title="touchstart"></a>touchstart</h3><p>当用户在触摸平面上放置了一个触点时触发。事件的目标 <code>element</code> 将是触点位置上的那个目标 <code>element</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">box.addEventListener(<span class="hljs-string">&quot;touchstart&quot;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;手指触碰&quot;</span>);<span class="hljs-comment">//手指在 box 上摁下</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="touchmove"><a href="#touchmove" class="headerlink" title="touchmove"></a>touchmove</h3><p>当一个触点被用户从触摸平面上移除（即用户的一个手指或手写笔离开触摸平面）时触发。当触点移出触摸平面的边界时也将触发。例如用户将手指划出屏幕边缘。</p>
+<p>事件的目标<code>element</code> 与触发 <code>touchstart</code> 事件的目标<code>element</code> 相同，即使 <code>touchend</code> 事件触发时，触点已经移出了该<code>element</code> 。</p>
+<p>已经被从触摸平面上移除的触点，可以在 <code>changedTouches</code> 属性定义的 <code>TouchList</code>中找到。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">box.addEventListener(<span class="hljs-string">&quot;touchmove&quot;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;手指移动&quot;</span>);<span class="hljs-comment">// 手指在元素上摁下之后，在屏幕中移动</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="touchend"><a href="#touchend" class="headerlink" title="touchend"></a>touchend</h3><p>当用户在触摸平面上移动触点时触发。事件的目标<code>element</code> 和触发 <code>touchstart</code> 事件的目标<code>element</code> 相同，即使当 <code>touchmove</code> 事件触发时，触点已经移出了该<code>element</code> 。</p>
+<p>当触点的半径、旋转角度以及压力大小发生变化时，也将触发此事件。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">box.addEventListener(<span class="hljs-string">&quot;touchend&quot;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;手指抬起&quot;</span>,<span class="hljs-built_in">this</span>);<span class="hljs-comment">//手指在 box 上摁下,在屏幕中抬起</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="touch和mouse的区别"><a href="#touch和mouse的区别" class="headerlink" title="touch和mouse的区别"></a>touch和mouse的区别</h3><p>1⃣️ <code>mousedown</code>只能在元素内进行移动才是有效的出了元素就没有用了 （不需要按下）</p>
+<p>2⃣️ <code>touchmove</code> 当你接触到元素只要在屏幕内移动可以的 出了元素也是可以的（必须按下才能执行）</p>
+<p>3⃣️ <code>touchend</code> 可以在元素外抬起 而<code>mouseup</code> 只能在当前元素上进行抬起</p>
+<h3 id="事件点透"><a href="#事件点透" class="headerlink" title="事件点透"></a>事件点透</h3><p>当我们只点击了一次却下层的事件也执行了</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">  <span class="hljs-selector-id">#box</span> &#123;</span><br>    position: absolute;<br>    left: 0;<br>    top: 0;<br><span class="css">    <span class="hljs-selector-tag">opacity</span>: <span class="hljs-selector-class">.5</span>;</span><br>    width: 260px;<br>    height: 260px;<br>    background: red;<br>    font: 28px/2 &quot;宋体&quot;;<br><span class="css">    <span class="hljs-selector-tag">color</span>: <span class="hljs-selector-id">#fff</span>;</span><br>  &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://www.baidu.com&quot;</span>&gt;</span>百度<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span>DIV<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> box = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#box&quot;</span>);<br>box.addEventListener(<span class="hljs-string">&quot;touchend&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>		<span class="hljs-comment">// 点击抬起 进行隐藏</span><br>		box.style.display = <span class="hljs-string">&quot;none&quot;</span>;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgdianjiaasf.gif" alt="事件点透"></p>
+<p>点击时上层元素消失，触发到下边被遮挡元素的事件;</p>
+<p>这就是 事件点透 但是是什么原因造成这样的后果呢？</p>
+<p><em>触碰元素之后，会立即执行 touch 事件,然后记录手指触碰的坐标点，延迟300ms（300ms 并不是精确值）, 在该坐标去找元素，查看该元素上是否有鼠标事件，有的话就执行。</em> </p>
+<p>a的href就是一个鼠标点击事件</p>
+<p><strong>解决办法：</strong></p>
+<p>🍁 给 touch 操作添加延迟</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> box = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#box&quot;</span>);<br>box.addEventListener(<span class="hljs-string">&quot;touchend&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>		<span class="hljs-comment">// 添加延时</span><br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>   		 box.style.display = <span class="hljs-string">&quot;none&quot;</span>;<br>    &#125;,<span class="hljs-number">300</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>🍂 在移动端不在使用鼠标事件（包括a 的 href）</p>
+<p>🍃 在 touch 事件中阻止默认事件</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> box = document.query<span class="hljs-constructor">Selector(<span class="hljs-string">&quot;#box&quot;</span>)</span>;<br>box.add<span class="hljs-constructor">EventListener(<span class="hljs-string">&quot;touchend&quot;</span>, <span class="hljs-params">function</span> (<span class="hljs-params">e</span>)</span> &#123;<br>    box.style.display = <span class="hljs-string">&quot;none&quot;</span>;<br>    <span class="hljs-comment">// 阻止默认行为</span><br>    e.prevent<span class="hljs-constructor">Default()</span>;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><strong>但是阻止了默认 会有很多新的问题</strong></p>
+<ul>
+<li>不允许双指缩放页面</li>
+<li>阻止完默认事件之后，该元素及其子元素鼠标事件都会失效</li>
+<li>输入框不能获得焦点，不能输入</li>
+<li>长按不能启动系统菜单</li>
+<li>禁止滚动条滚动</li>
+</ul>
+<h3 id="touchEvent对象"><a href="#touchEvent对象" class="headerlink" title="touchEvent对象"></a>touchEvent对象</h3><h4 id="touches"><a href="#touches" class="headerlink" title="touches"></a>touches</h4><p>会显示屏幕上所有手指的个数</p>
+<h4 id="targetTouches"><a href="#targetTouches" class="headerlink" title="targetTouches"></a>targetTouches</h4><p>点击元素上的手指个数</p>
+<h4 id="changedTouches"><a href="#changedTouches" class="headerlink" title="changedTouches"></a>changedTouches</h4><p>涉及当前(引发)事件的触摸点的列表</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> box = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#box&quot;</span>);<br>    box.addEventListener(<span class="hljs-string">&quot;touchmove&quot;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>&#123;<br>        <span class="hljs-built_in">this</span>.innerHTML = <span class="hljs-string">`</span><br><span class="hljs-string">            当前屏幕上的手指个数:<span class="hljs-subst">$&#123;e.touches.length&#125;</span>&lt;br/&gt;</span><br><span class="hljs-string">            当前元素上的手指个数:<span class="hljs-subst">$&#123;e.targetTouches.length&#125;</span>&lt;br/&gt;</span><br><span class="hljs-string">            触发当前事件的手指个数:<span class="hljs-subst">$&#123;e.changedTouches.length&#125;</span>&lt;br/&gt;</span><br><span class="hljs-string">        `</span>;<br>    &#125;);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201028150108244.png" alt="touchEvent"></p>
+<h3 id="orientationchange"><a href="#orientationchange" class="headerlink" title="orientationchange"></a>orientationchange</h3><p>监听横竖屏切换</p>
+<p>我们监听 <code>orientationchange</code> 事件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&quot;orientationchange&quot;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>   <span class="hljs-comment">// 我们当转换换了屏幕这里可以干一些事情</span><br>&#125;);  <br></code></pre></td></tr></table></figure>
+
+<h3 id="window-orientation"><a href="#window-orientation" class="headerlink" title="window.orientation"></a>window.orientation</h3><p>检测手机横竖屏</p>
+<p>横屏分别为 90和-90 竖屏分别为初始的0和180</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><code class="hljs lisp">alert(<span class="hljs-name">window</span>.orientation)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>我们可以在上面进行 使用 比如我们监听手机是否反转屏幕了 </p>
+<p>我们可以知道是 竖着的还是横着的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&quot;orientationchange&quot;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>    alert(<span class="hljs-built_in">window</span>.orientation);<br>&#125;);  <br></code></pre></td></tr></table></figure>
+
+<h3 id="devicemotion"><a href="#devicemotion" class="headerlink" title="devicemotion"></a>devicemotion</h3><p>监听手机加速度发生变化 里面有几个方法 </p>
+<h4 id="acceleration"><a href="#acceleration" class="headerlink" title="acceleration"></a>acceleration</h4><p>手机加速度检测 经典的案例 是微信的摇一摇</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&quot;devicemotion&quot;</span>,<span class="hljs-function">(<span class="hljs-params">e</span>)=&gt;</span>&#123;<br>    <span class="hljs-keyword">let</span> &#123;acceleration&#125; = e;<br>    <span class="hljs-keyword">let</span> &#123;x,y,z&#125; = acceleration; <span class="hljs-comment">//手机目前的移动速度 -- 加速度</span><br>    <span class="hljs-comment">//console.log(x,y,z);</span><br>    box.innerHTML = <span class="hljs-string">`</span><br><span class="hljs-string">        x:<span class="hljs-subst">$&#123;x.toFixed(<span class="hljs-number">5</span>)&#125;</span>&lt;br/&gt;</span><br><span class="hljs-string">        y:<span class="hljs-subst">$&#123;y.toFixed(<span class="hljs-number">5</span>)&#125;</span>&lt;br/&gt;</span><br><span class="hljs-string">        z:<span class="hljs-subst">$&#123;z.toFixed(<span class="hljs-number">5</span>)&#125;</span>&lt;br/&gt;</span><br><span class="hljs-string">    `</span>;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>是一个包括三轴（x、y、z）加速度信息的对象，每个轴都有自己的属性</p>
+<p>📱X：表示x轴（西到东）上的加速度</p>
+<p>⌚️Y：表示y轴（南到北）上的加速度</p>
+<p>💻Z：表示z轴（下到上）上的加速度</p>
+<h4 id="accelerationIncludingGravity"><a href="#accelerationIncludingGravity" class="headerlink" title="accelerationIncludingGravity"></a>accelerationIncludingGravity</h4><p>手机重力加速度检测 案例是体感游戏和飞机大战</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&quot;devicemotion&quot;</span>,<span class="hljs-function">(<span class="hljs-params">e</span>)=&gt;</span>&#123;<br>    <span class="hljs-keyword">let</span> &#123;accelerationIncludingGravity&#125; = e;<br>    <span class="hljs-keyword">let</span> &#123;x,y,z&#125; = accelerationIncludingGravity;<br>    <span class="hljs-comment">/*检测手机的移动速度 和 现在每个方向受到的重力加速度*/</span><br>    box.innerHTML = <span class="hljs-string">`</span><br><span class="hljs-string">        x:<span class="hljs-subst">$&#123;x.toFixed(<span class="hljs-number">0</span>)&#125;</span>&lt;br/&gt;</span><br><span class="hljs-string">        y:<span class="hljs-subst">$&#123;y.toFixed(<span class="hljs-number">0</span>)&#125;</span>&lt;br/&gt;</span><br><span class="hljs-string">        z:<span class="hljs-subst">$&#123;z.toFixed(<span class="hljs-number">0</span>)&#125;</span>&lt;br/&gt;</span><br><span class="hljs-string">    `</span>;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="检测是否是IOS"><a href="#检测是否是IOS" class="headerlink" title="检测是否是IOS"></a>检测是否是IOS</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getIos</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> u = <span class="hljs-built_in">window</span>.navigator.userAgent;<br>    <span class="hljs-keyword">return</span> !!u.match(<span class="hljs-regexp">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p><a target="_blank" rel="noopener" href="https://www.lodashjs.com/docs/latest">lodash</a> </p>
+<h3 id="函数防抖"><a href="#函数防抖" class="headerlink" title="函数防抖"></a>函数防抖</h3><p>多次调用一个函数，最终只执行一次</p>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><code class="hljs actionscript"><span class="hljs-comment">// 调用时，立即执行这个函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debounce</span><span class="hljs-params">(fn,delay=200,isStart = false)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> fn !== <span class="hljs-string">&quot;function&quot;</span>)&#123;<br>        <span class="hljs-keyword">return</span> console.error(<span class="hljs-string">&quot;请传入一个函数&quot;</span>);<br>    &#125;<br>    let timer = <span class="hljs-number">0</span>;<br>    let isFirst = <span class="hljs-literal">true</span>; <span class="hljs-comment">// 第一次触发</span><br>    <span class="hljs-comment">// 返回处理过防抖的新函数</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(<span class="hljs-rest_arg">...arg</span>)</span></span>&#123;<br>        let _this = <span class="hljs-keyword">this</span>;<br>        <span class="hljs-keyword">if</span>(isFirst&amp;&amp;isStart)&#123;<br>            fn.apply(_this,arg);<br>            isFirst = <span class="hljs-literal">false</span>;<br>        &#125;<br>        clearTimeout(timer);<br>        timer = setTimeout(() =&gt; &#123;<br>            (!isStart)&amp;&amp;(fn.apply(_this,arg));  <br>            isFirst = <span class="hljs-literal">true</span>; <br>        &#125;, delay);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h3><p>多次执行一个函数，但是我们希望能把函数的执行限定在一个可以接受的频率内</p>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><code class="hljs actionscript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span><span class="hljs-params">(fn,delay=200,start = true)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> fn !== <span class="hljs-string">&quot;function&quot;</span>)&#123;<br>        <span class="hljs-keyword">return</span> console.error(<span class="hljs-string">&quot;请传入一个函数&quot;</span>);<br>    &#125;<br>    let timer = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">// 返回处理过防抖的新函数</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(<span class="hljs-rest_arg">...arg</span>)</span></span>&#123;<br>        let _this = <span class="hljs-keyword">this</span>;<br>        <span class="hljs-keyword">if</span>(timer)&#123;<br>            <span class="hljs-keyword">return</span> ;<br>        &#125;<br>        start&amp;&amp;fn.apply(_this,arg); <br>        timer = setTimeout(() =&gt; &#123;<br>            (!start)&amp;&amp;fn.apply(_this,arg); <br>            timer = <span class="hljs-number">0</span>;<br>        &#125;, delay);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/c62b0402125f3630/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>蘑菇丁APP自动签到打卡脚本</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/095fc4521e252027/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>从零搭建React-Redux新闻项目完整架构项目目录</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

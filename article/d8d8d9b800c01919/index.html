@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>HTTP基础之跨域资源的共享CORS（五）-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="HTTP,跨域,CORS,">
+<meta name="description" content="HTTP基础之跨域资源的共享CORS">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/HTTP">HTTP</a></li>
+            
+            <li><a href="/tags/跨域">跨域</a></li>
+            
+            <li><a href="/tags/CORS">CORS</a></li>
+            
+            
+        </ul>
+        <h1>HTTP基础之跨域资源的共享CORS（五）</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2019-08-19 16:42:19</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="预检请求"><a href="#预检请求" class="headerlink" title="预检请求"></a>预检请求</h2><ol>
+<li>下列请求：PUT,DELETE,CONNECT,OPTIONS,TRACE或PATH</li>
+<li>不得认为设置：Accept ，accept-language content-language content-type</li>
+<li>Content-type 值仅限于下面<ol>
+<li>text/plain</li>
+<li>multipart/form-data</li>
+<li>application/x-www-form-urlencoded</li>
+</ol>
+</li>
+<li>需要先用options方法发生一个预检请求到服务器以获取服务器是否允许该实际请求</li>
+<li>可以避免跨域请求对服务器的用户数据产生未预期的影响</li>
+</ol>
+<h2 id="请求消息"><a href="#请求消息" class="headerlink" title="请求消息"></a>请求消息</h2><p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgzcZfesQ3dnHUTlV.png" alt="image.png"></p>
+<ol>
+<li>首部Access-Control-Request -method 表示post方法</li>
+<li>首部Access-Control-Request -Header 表示该请求携带 x-pingother首部字段</li>
+</ol>
+<h2 id="响应消息"><a href="#响应消息" class="headerlink" title="响应消息"></a>响应消息</h2><p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img745zm2bCY9tEUvu.png" alt="image.png"></p>
+<ol>
+<li>首部Access-Control-Allow -methods 表示允许 post get options请求方法</li>
+<li>首部Access-Control-allow -Headers 表示允许请求携带 x-pingother首部字段</li>
+<li>首部Access-Control-Max -Age 表示设置相应有效时间为 1728000秒 </li>
+</ol>
+<h2 id="认证请求是什么"><a href="#认证请求是什么" class="headerlink" title="认证请求是什么"></a>认证请求是什么</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">xmlHTTPRequest.withCredentials = True<br><span class="hljs-regexp">//</span>向服务器发送cookie <br><span class="hljs-regexp">//</span>返回<br>Access-control-allow-credentials：true<br><span class="hljs-regexp">//</span>如果未携带将不会把响应内容返回给请求的发送者<br></code></pre></td></tr></table></figure>
+
+<h2 id="CORS是什么"><a href="#CORS是什么" class="headerlink" title="CORS是什么"></a>CORS是什么</h2><p>被称为 跨域资源共享 允许服务器声明那些原站有权限访问那些资源</p>
+<ol>
+<li>简单请求<ol>
+<li>get head post</li>
+<li>不得人为设置Accept ，accept-language content-language content-type</li>
+<li>Content-type 值仅限于下面<ol>
+<li>text/plain</li>
+<li>multipart/form-data</li>
+<li>application/x-www-form-urlencoded</li>
+</ol>
+</li>
+<li>没有正常响应则请求方是不会收到任何数据 因此那些不允许跨域请求的网站无需为这一新的http访问控制担心</li>
+</ol>
+</li>
+<li>预检请求</li>
+<li>认证请求</li>
+</ol>
+<h3 id="请求消息-1"><a href="#请求消息-1" class="headerlink" title="请求消息"></a>请求消息</h3><p>首部字段 Origin 表示请求来源于那些网站 ip 域名</p>
+<h3 id="响应请求"><a href="#响应请求" class="headerlink" title="响应请求"></a>响应请求</h3><p>Access-Control-Allow-Origin 使用Origin 就可以完成最简单的访问控制</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">Access-Control-Allow-Origin:*<br><span class="hljs-regexp">//</span>为允许全部<br></code></pre></td></tr></table></figure>
+
+<h2 id="CORS预请求"><a href="#CORS预请求" class="headerlink" title="CORS预请求"></a>CORS预请求</h2><h3 id="允许的方法"><a href="#允许的方法" class="headerlink" title="允许的方法"></a>允许的方法</h3><p>GET HEAD POST</p>
+<h3 id="允许Content-type"><a href="#允许Content-type" class="headerlink" title="允许Content-type"></a>允许Content-type</h3><figure class="highlight fortran"><table><tr><td class="code"><pre><code class="hljs fortran">text/plain<br>multipart/<span class="hljs-keyword">form</span>-<span class="hljs-keyword">data</span><br>application/x-www-<span class="hljs-keyword">form</span>-urlencoded<br></code></pre></td></tr></table></figure>
+
+<h3 id="请求头限制"><a href="#请求头限制" class="headerlink" title="请求头限制"></a>请求头限制</h3><p>XMLHttpBequestUpload 对象均没有注册任何事件监听器</p>
+<h3 id="服务端进行头设置"><a href="#服务端进行头设置" class="headerlink" title="服务端进行头设置"></a>服务端进行头设置</h3><figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c">&#x27; Access -Control-Allow-Origin&#x27; : &#x27;*&#x27;,<br>&#x27; Access-Control-Allow-Headers&#x27;:&#x27;X-Test-Cors&#x27;,<br>&#x27; Access-Control-Allow-Methods&#x27;: &#x27;POST, PUT，Delete&#x27;,<br>&#x27; Access-Control-Max-Age&#x27;: &#x27;<span class="hljs-number">1000</span>&#x27;<br></code></pre></td></tr></table></figure>
+
+<h3 id="返回内容"><a href="#返回内容" class="headerlink" title="返回内容"></a>返回内容</h3><figure class="highlight scala"><table><tr><td class="code"><pre><code class="hljs scala"><span class="hljs-symbol">&#x27;Content</span>-<span class="hljs-class"><span class="hljs-keyword">type</span>&#x27;</span>:<span class="hljs-symbol">&#x27;text</span>/plain&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>请求是已经发送到服务端了 只是浏览器看到没有这个<code>Access -Control-Allow-Origin</code>允许的话浏览器就给返回结果屏蔽了并在控制台给你报错。</p>
+<h3 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h3><ol>
+<li><p>jsonp的核心原理就是目标页面回调本地页面的方法,并带入参数</p>
+</li>
+<li><p>我们常用的动态页面有jsp,php,aspx</p>
+</li>
+<li><p>原理</p>
+<p>在网页里,你如果引入其他网页的js,那这个页面的js是可以调用你网页的代码的</p>
+<p>直接请求js 和 请求的动态页面(jsp,php,aspx)里输出的javascript代码 效果一样</p>
+</li>
+</ol>
+<h4 id="用jquery的ajax请求jsonp"><a href="#用jquery的ajax请求jsonp" class="headerlink" title="用jquery的ajax请求jsonp"></a>用jquery的ajax请求jsonp</h4><figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js">$.ajax(&#123;<br>     url:<span class="hljs-string">&#x27;&#x27;</span>,<br>     type:<span class="hljs-string">&quot;GET&quot;</span>,<br>            dataType:<span class="hljs-string">&quot;jsonp&quot;</span>,<br>            jsonp: <span class="hljs-literal">false</span>, <br>            jsonpCallback: <span class="hljs-string">&quot;showjson&quot;</span>, <span class="hljs-comment">//这里的值需要和回调函数名一样</span><br>            success:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)</span>&#123;<br>                <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Script loaded and executed.&quot;</span>);<br>            &#125;,<br>            error:<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">textStatus</span>) </span>&#123; <span class="hljs-comment">//请求失败后调用的函数</span><br>                <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(textStatus));<br>            &#125;<br>&#125;);         <br></code></pre></td></tr></table></figure>
+
+<h3 id="http长连接"><a href="#http长连接" class="headerlink" title="http长连接"></a>http长连接</h3><p>HTTP1.1规定了默认保持长连接（HTTP persistent connection ，也有翻译为持久连接），数据传输完成了保持TCP连接不断开（不发RST包、不四次握手）</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">Connection :</span> <span class="hljs-string">keep-alive</span><br><span class="hljs-attr">keep-alive :</span> <span class="hljs-string">timeout</span> <span class="hljs-string">=</span> <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="http缓存-Cache-Control"><a href="#http缓存-Cache-Control" class="headerlink" title="http缓存 Cache-Control"></a>http缓存 Cache-Control</h3><figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span> (request.url === <span class="hljs-string">&#x27;/script.js&#x27;</span> )&#123;<br>		response. writeHead(<span class="hljs-number">200</span>,&#123;<br>			<span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;text/javascript&#x27;</span><br>  		<span class="hljs-string">&#x27;Cache-Control&#x27;</span>: <span class="hljs-string">&#x27;max-age=20&#x27;</span><br>		&#125;)<br>		response.end(<span class="hljs-string">&quot;console. log(&quot;</span>script loaded twice<span class="hljs-string">&quot;))</span><br><span class="hljs-string">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="可缓存性"><a href="#可缓存性" class="headerlink" title="可缓存性"></a>可缓存性</h4><figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql"><span class="hljs-built_in">public</span> 任何都可以进行访问缓存<br>private <br><span class="hljs-keyword">no</span>-<span class="hljs-keyword">cache</span> 任何都不可以访问缓存<br></code></pre></td></tr></table></figure>
+
+<h4 id="到期"><a href="#到期" class="headerlink" title="到期"></a>到期</h4><figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">max-age</span> = &lt;seconds&gt;<br><span class="hljs-attr">s-maxage</span> = &lt;seconds&gt;<br><span class="hljs-attr">max-stale</span> = &lt;seconds&gt; //浏览器用不到的<br></code></pre></td></tr></table></figure>
+
+<h4 id="重新验证"><a href="#重新验证" class="headerlink" title="重新验证"></a>重新验证</h4><figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">must-revalidate</span><br><span class="hljs-attribute">proxy-revalidate</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-literal">no</span><span class="hljs-string">-store</span> <span class="hljs-string">永远要去服务器拿</span><br><span class="hljs-literal">no</span><span class="hljs-string">-transform</span> <span class="hljs-string">不要随便改动服务器返回的内容</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Content-Security-Policy-安全策略"><a href="#Content-Security-Policy-安全策略" class="headerlink" title="Content-Security-Policy 安全策略"></a>Content-Security-Policy 安全策略</h2><p>限制资源获取 报告资源获取权限 </p>
+<h3 id="限制方式"><a href="#限制方式" class="headerlink" title="限制方式"></a>限制方式</h3><p>​    default-src限制全局</p>
+<p>​    资源类型有：connect-src、mainfest-src、img-src、font-src、media-src、style-src、frame-src、script-src</p>
+<h4 id="meta头也可以进行限制"><a href="#meta头也可以进行限制" class="headerlink" title="meta头也可以进行限制"></a>meta头也可以进行限制</h4><figure class="highlight csp"><table><tr><td class="code"><pre><code class="hljs csp">&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;<span class="hljs-keyword">default-src</span> <span class="hljs-string">&#x27;self&#x27;</span>; <span class="hljs-keyword">img-src</span> https://*; <span class="hljs-keyword">child-src</span> <span class="hljs-string">&#x27;none&#x27;</span>;&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p>详细介绍：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP</a></p>
+<h2 id="数据协商"><a href="#数据协商" class="headerlink" title="数据协商"></a>数据协商</h2><h3 id="Accept"><a href="#Accept" class="headerlink" title="Accept"></a>Accept</h3><p>请求头用来告知（服务器）客户端可以处理的内容类型</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">Accept</span><br><span class="hljs-keyword">Accept</span>-Encoding<br><span class="hljs-keyword">Accept</span>-Language<br>User-Agent<br></code></pre></td></tr></table></figure>
+
+<h3 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h3><p>在响应中，Content-Type标头告诉客户端实际返回的内容的内容类型。</p>
+<h2 id="资源验证"><a href="#资源验证" class="headerlink" title="资源验证"></a>资源验证</h2><p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgOk8sNaVRCJLntUz-20200922195951787.png" alt="img"></p>
+<h3 id="Last-Modified-上次修改事件"><a href="#Last-Modified-上次修改事件" class="headerlink" title="Last-Modified 上次修改事件"></a>Last-Modified 上次修改事件</h3><p>配合If-Modified-Since 或者 If-Unmodified-Since使用</p>
+<p>对比上次修改时间已验证资源是否需要更新</p>
+<p>验证是否使用缓存</p>
+<h3 id="Etag-数据签名"><a href="#Etag-数据签名" class="headerlink" title="Etag 数据签名"></a>Etag 数据签名</h3><p>配合If-Match 或者 If-Non—Match使用</p>
+<p>对比这个签名来判断是否需要修改 </p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>通过 Set-Cookie设置保存到浏览器中的数据 下次请求会带上 </p>
+<p>max-age 设置过期时间 </p>
+<p>域名设置 是不可以跨域的 比如设置的是 a.text.com。那么就只有在这个域名下才可以访问 比如你设置的是 text.com 那么这下面的所有二级域名都可以进行访问cookie</p>
+<h3 id="302重定义"><a href="#302重定义" class="headerlink" title="302重定义"></a>302重定义</h3><figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada">response.writeHead(<span class="hljs-number">302</span>,&#123;<br>	<span class="hljs-symbol">&#x27;Location</span><span class="hljs-string">&#x27;:&#x27;</span>/<span class="hljs-keyword">new</span>&#x27;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>只有定义为302才进行跳转 临时的</p>
+<p>302:是临时定义 总会先访问在跳转</p>
+<p>301:是永久的 也就是第一次访问是 先访问在跳转 第二次及以后是直接跳转</p>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/f568b174545b0228/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>java利用jxl读取excel和写入excel,ole错误</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/edf5ccbef2751918/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>HTTP基础之cookie的理解（四）</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

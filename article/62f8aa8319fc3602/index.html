@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>Vue-Router路由的基本用法-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="Vue,Router,">
+<meta name="description" content="Vue-Router路由的基本用法">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/Vue">Vue</a></li>
+            
+            <li><a href="/tags/Router">Router</a></li>
+            
+            
+        </ul>
+        <h1>Vue-Router路由的基本用法</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-11-02 11:17:36</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><h4 id="后端路由"><a href="#后端路由" class="headerlink" title="后端路由"></a>后端路由</h4><p>根据不同的用户url请求返回不同的内容 </p>
+<p>本质上是url请求地址与服务器资源之间的对应关系</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201102112528568.png" alt="image-20201102112528568"></p>
+<h4 id="前端路由"><a href="#前端路由" class="headerlink" title="前端路由"></a>前端路由</h4><p>根据不同的用户事件显示不同的页面内容</p>
+<p>本质上是 用户事件与事件处理函数之间的对应关系</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201102112350189.png" alt="image-20201102112350189"></p>
+<h2 id="VueRouter"><a href="#VueRouter" class="headerlink" title="VueRouter"></a>VueRouter</h2><h3 id="快速使用"><a href="#快速使用" class="headerlink" title="快速使用"></a>快速使用</h3><p>😘 第一步我们需要引入Vue 和 VueRouter</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/vue/dist/vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/vue-router/dist/vue-router.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>😇 第二步我们使用 <code>router-link</code> 来创建导航</p>
+<p><code>to</code>  属性指定链接 </p>
+<p><code>router-link</code>标签会被渲染成一个<code>a</code>标签</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">&lt;router-link <span class="hljs-keyword">to</span>=<span class="hljs-string">&quot;/foo&quot;</span>&gt;Go <span class="hljs-keyword">to</span> Foo&lt;/router-link&gt;<br>&lt;router-link <span class="hljs-keyword">to</span>=<span class="hljs-string">&quot;/bar&quot;</span>&gt;Go <span class="hljs-keyword">to</span> Bar&lt;/router-link&gt;<br></code></pre></td></tr></table></figure>
+
+<p>🤓 第三步我们需要给他定义一个路由的出口</p>
+<p>也就说我说我们匹配到的组件渲染在哪里</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-section">&lt;router-view&gt;</span><span class="hljs-section">&lt;/router-view&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>以上就是我们在<code>html</code>内写的所有内容了</p>
+<p>在<code>JavaScript</code>中我们需要进行实例化路由和定义路由我们继续</p>
+<p>🧐 第四步我们定义两个组件</p>
+<figure class="highlight nim"><table><tr><td class="code"><pre><code class="hljs nim">// 可以从其他文件 <span class="hljs-keyword">import</span> 进来<br><span class="hljs-keyword">const</span> <span class="hljs-type">Foo</span> = &#123; <span class="hljs-keyword">template</span>: &#x27;&lt;<span class="hljs-keyword">div</span>&gt;foo&lt;/<span class="hljs-keyword">div</span>&gt;&#x27; &#125;<br><span class="hljs-keyword">const</span> <span class="hljs-type">Bar</span> = &#123; <span class="hljs-keyword">template</span>: &#x27;&lt;<span class="hljs-keyword">div</span>&gt;bar&lt;/<span class="hljs-keyword">div</span>&gt;&#x27; &#125;<br></code></pre></td></tr></table></figure>
+
+<p>🤩 第五步我们根据需要定义路由</p>
+<p>每个路由应该映射一个组件 <code>component</code> 来接收组件</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy">const routes = [<br>  &#123; <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;/foo&#x27;</span>, <span class="hljs-attr">component:</span> Foo &#125;,<br>  &#123; <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;/bar&#x27;</span>, <span class="hljs-attr">component:</span> Bar &#125;<br>]<br></code></pre></td></tr></table></figure>
+
+<p>🥳 第六步我们实例化<code>router</code> 然后传入<code>routes</code> 配置（配置有很多目前只是基础的）</p>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><code class="hljs actionscript"><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> VueRouter(&#123;<br>  routes <span class="hljs-comment">// (缩写) 相当于 routes: routes</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>🥰 第七步我们在<code>app</code>根节点挂载实例</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">let</span> <span class="hljs-keyword">vm</span> = <span class="hljs-keyword">new</span> Vue(&#123;<br>			<span class="hljs-keyword">e</span><span class="hljs-variable">l:</span><span class="hljs-string">&#x27;#app&#x27;</span>,<br>			// 挂载路由<br>			router<br>		&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="路由重定向"><a href="#路由重定向" class="headerlink" title="路由重定向"></a>路由重定向</h3><p>有时候我们的需求是当你登陆了那么就不显示登陆页面了就直接到用户中心的页面</p>
+<p>所以我们这时候需要使用冲定向进行跳转</p>
+<p>重定向也是通过 <code>routes</code> 配置来完成，下面例子是从 <code>/a</code> 重定向到 <code>/b</code>：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css">&#123; <span class="hljs-attribute">path</span>: <span class="hljs-string">&#x27;/a&#x27;</span>, redirect: <span class="hljs-string">&#x27;/b&#x27;</span> &#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="路由嵌套"><a href="#路由嵌套" class="headerlink" title="路由嵌套"></a>路由嵌套</h3><p>我们首先要确定谁是父组件谁谁被嵌套的</p>
+<p>我们在父组件中写上路由规则</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript">const Bar = &#123; template: `<span class="javascript">&lt;div&gt;</span><br><span class="javascript">			&lt;h1&gt;bar&lt;/h1&gt;</span><br><span class="javascript">			<span class="hljs-comment">// 定义 a 标签 注意跳转链接</span></span><br><span class="javascript">			&lt;router-link to=<span class="hljs-string">&quot;/bar/tab1&quot;</span>&gt;tab1&lt;/router-link&gt;</span><br><span class="javascript">			&lt;router-link to=<span class="hljs-string">&quot;/bar/tab2&quot;</span>&gt;tab2&lt;/router-link&gt;</span><br><span class="javascript">			<span class="hljs-comment">// 给子路由渲染的位置</span></span><br><span class="javascript">			&lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="javascript">		&lt;/div&gt;</span>` &#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们需要定义这两个子组件</p>
+<figure class="highlight nim"><table><tr><td class="code"><pre><code class="hljs nim"><span class="hljs-keyword">const</span> <span class="hljs-type">Tab1</span> = &#123;<span class="hljs-keyword">template</span>: &#x27;&lt;<span class="hljs-keyword">div</span>&gt;tab1&lt;/<span class="hljs-keyword">div</span>&gt;&#x27;&#125;<br><span class="hljs-keyword">const</span> <span class="hljs-type">Tab2</span> = &#123;<span class="hljs-keyword">template</span>: &#x27;&lt;<span class="hljs-keyword">div</span>&gt;tab2&lt;/<span class="hljs-keyword">div</span>&gt;&#x27;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>✨然后我们最重要的地方 定义路由规则</p>
+<p>我们需要在原有的路由规则 添加 <code>children</code> 属性</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy"><span class="hljs-comment">// 定义路由</span><br>const routes = [<br>    &#123; <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;/foo&#x27;</span>, <span class="hljs-attr">component:</span> Foo &#125;,<br>    &#123; <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;/bar&#x27;</span>, <span class="hljs-attr">component:</span> Bar ,<span class="hljs-attr">children:</span>[<br>        &#123; <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;/bar/tab1&#x27;</span>, <span class="hljs-attr">component:</span> Tab1 &#125;,<br>        &#123; <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;/bar/tab2&#x27;</span>, <span class="hljs-attr">component:</span> Tab2 &#125;,<br>    ]&#125;<br>]<br></code></pre></td></tr></table></figure>
+
+<p>我们的父组件是 <code>Bar</code> 然后在里面嵌套了两个 子路由组件<code>Tab1</code> <code>Tab2</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgluyouqiantao.gif" alt="luyouqiantao"></p>
+<h3 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h3><p>我们先定义两个 <code>router-link</code></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&quot;/user/1&quot;</span>&gt;</span>user1<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&quot;/user/2&quot;</span>&gt;</span>user2<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>我们访问的 url是以user开始/后面是一个动态的值</p>
+<p>我们定义路由</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">const routes = [<br>		&#123; path: <span class="hljs-string">&#x27;/user/:id&#x27;</span>, component:<span class="hljs-built_in"> User </span>&#125;,<br>]<br></code></pre></td></tr></table></figure>
+
+<p>可以看出来我们路由定义的和之前不一样了 </p>
+<p>我们这次给 <code>user/</code>后面加了个<code>:id</code> </p>
+<p>然后我我们在 user组件中接收这个 id 值</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">const<span class="hljs-built_in"> User </span>= &#123; template: <span class="hljs-string">&#x27;&lt;div&gt;userID：&#123;&#123;$route.params.id&#125;&#125; &lt;/div&gt;&#x27;</span> &#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们是用<code>$route.params.id</code> 来进行接收的</p>
+<h3 id="路由传参"><a href="#路由传参" class="headerlink" title="路由传参"></a>路由传参</h3><p>在组件中使用 <code>$route</code> 会使之与其对应路由形成高度耦合，从而使组件只能在某些特定的 URL 上使用，限制了其灵活性。</p>
+<h4 id="布尔模式"><a href="#布尔模式" class="headerlink" title="布尔模式"></a>布尔模式</h4><p>如果 <code>props</code> 被设置为 <code>true</code>，<code>route.params</code> 将会被设置为组件属性。</p>
+<p>我们对上面的 User 组件进行改写</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">const<span class="hljs-built_in"> User </span>= &#123;<br>  props: [<span class="hljs-string">&#x27;id&#x27;</span>],<br>  template: <span class="hljs-string">&#x27;&lt;div&gt;UserID： &#123;&#123; id &#125;&#125;&lt;/div&gt;&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后将我们的路由上添加一条 <code>props:true</code></p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy">const routes = [<br>		&#123; <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;/user/:id&#x27;</span>, <span class="hljs-attr">component:</span> User, <span class="hljs-attr">props:</span> <span class="hljs-literal">true</span> &#125;,<br>]<br></code></pre></td></tr></table></figure>
+
+<h4 id="对象模式"><a href="#对象模式" class="headerlink" title="对象模式"></a>对象模式</h4><p>如果 <code>props</code> 是一个对象，它会被按原样设置为组件属性。</p>
+<p>当 <code>props</code> 是静态的时候有用。</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy">const <span class="hljs-attr">routes:</span> [<br>    &#123; <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;/user/id&#x27;</span>, <span class="hljs-attr">component:</span> User, <span class="hljs-attr">props:</span> &#123; <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;qiaoBlog&quot;</span> &#125; &#125;<br>]<br></code></pre></td></tr></table></figure>
+
+<h4 id="函数模式"><a href="#函数模式" class="headerlink" title="函数模式"></a>函数模式</h4><p>你可以创建一个函数返回 <code>props</code>。</p>
+<p>这样你便可以将参数转换成另一种类型，将静态值与基于路由的值结合等等。</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy">const <span class="hljs-attr">routes:</span> [<br>    &#123; <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;/search&#x27;</span>, <span class="hljs-attr">component:</span> SelectUser, <span class="hljs-attr">props:</span> (route) =&gt; (&#123; <span class="hljs-attr">query:</span> route.query.q &#125;) &#125;<br>]<br></code></pre></td></tr></table></figure>
+
+<p>URL <code>/search?q=vue</code> 会将 <code>&#123;query: &#39;vue&#39;&#125;</code> 作为属性传递给 <code>SearchUser</code> 组件。</p>
+<p>请尽可能保持 <code>props</code> 函数为无状态的，因为它只会在路由发生变化时起作用。</p>
+<p>如果你需要状态来定义 <code>props</code>，请使用包装组件，这样 Vue 才可以对状态变化做出反应。</p>
+<h3 id="命名路由"><a href="#命名路由" class="headerlink" title="命名路由"></a>命名路由</h3><p>你可以在创建 Router 实例的时候，在 <code>routes</code> 配置中给某个路由设置名称。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">const router = new VueRouter(&#123;<br>  routes: [<br>    &#123;<br>      path: <span class="hljs-string">&#x27;/user/:userId&#x27;</span>,<br>      name: <span class="hljs-string">&#x27;user&#x27;</span>,<br>      component: User<br>    &#125;<br>  ]<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>我们将上面的路由 的名字定义为了<code>user</code></p>
+<p>要链接到一个命名路由，可以给 <code>router-link</code> 的 <code>to</code> 属性传一个对象：</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><code class="hljs elixir">&lt;router-link <span class="hljs-symbol">:to=<span class="hljs-string">&quot;&#123; name: &#x27;user&#x27;, params: &#123; userId: 123 &#125;&#125;&quot;</span>&gt;User&lt;/router-link&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>params</code> 里面的参数要和你在路由里面定义的要一致</p>
+<h3 id="编程式导航"><a href="#编程式导航" class="headerlink" title="编程式导航"></a>编程式导航</h3><p>除了使用 <code>&lt;router-link&gt;</code> 创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。</p>
+<h4 id="router-push-location-onComplete-onAbort"><a href="#router-push-location-onComplete-onAbort" class="headerlink" title="router.push(location, onComplete?, onAbort?)"></a><code>router.push(location, onComplete?, onAbort?)</code></h4><blockquote>
+<p>注意：在 Vue 实例内部，你可以通过 <code>$router</code> 访问路由实例。因此你可以调用 <code>this.$router.push</code>。</p>
+</blockquote>
+<p>这个方法会向 history 栈添加一个新的记录，所以，当用户点击浏览器后退按钮时，则回到之前的 URL。</p>
+<p>🍣 <strong>声明式</strong>： <code>&lt;router-link :to=&quot;...&quot;&gt;</code></p>
+<p>🍤 <strong>编程式</strong>：<code>router.push(...)</code></p>
+<p>该方法的参数可以是一个字符串路径，或者一个描述地址的对象。</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-comment">// 字符串</span><br><span class="hljs-selector-tag">router</span><span class="hljs-selector-class">.push</span>(<span class="hljs-string">&#x27;home&#x27;</span>)<br><br><span class="hljs-comment">// 对象</span><br><span class="hljs-selector-tag">router</span><span class="hljs-selector-class">.push</span>(&#123; <span class="hljs-attribute">path</span>: <span class="hljs-string">&#x27;home&#x27;</span> &#125;)<br><br><span class="hljs-comment">// 命名的路由</span><br><span class="hljs-selector-tag">router</span><span class="hljs-selector-class">.push</span>(&#123; <span class="hljs-attribute">name</span>: <span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-attribute">params</span>: &#123; <span class="hljs-attribute">userId</span>: <span class="hljs-string">&#x27;123&#x27;</span> &#125;&#125;)<br><br><span class="hljs-comment">// 带查询参数，变成 /register?plan=private</span><br><span class="hljs-selector-tag">router</span><span class="hljs-selector-class">.push</span>(&#123; <span class="hljs-attribute">path</span>: <span class="hljs-string">&#x27;register&#x27;</span>, <span class="hljs-attribute">query</span>: &#123; <span class="hljs-attribute">plan</span>: <span class="hljs-string">&#x27;private&#x27;</span> &#125;&#125;)<br></code></pre></td></tr></table></figure>
+
+<h4 id="router-go-n"><a href="#router-go-n" class="headerlink" title="router.go(n)"></a><code>router.go(n)</code></h4><p>这个方法的参数是一个整数，意思是在 history 记录中向前或者后退多少步，类似 <code>window.history.go(n)</code>。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript"><span class="hljs-comment">// 在浏览器记录中前进一步，等同于 history.forward()</span><br>router.go(<span class="hljs-number">1</span>)<br><br><span class="hljs-comment">// 后退一步记录，等同于 history.back()</span><br>router.go(<span class="hljs-number">-1</span>)<br><br><span class="hljs-comment">// 前进 3 步记录</span><br>router.go(<span class="hljs-number">3</span>)<br><br><span class="hljs-comment">// 如果 history 记录不够用，那就默默地失败呗</span><br>router.go(<span class="hljs-number">-100</span>)<br>router.go(<span class="hljs-number">100</span>)<br></code></pre></td></tr></table></figure>
+
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/35af160494493603/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>Vue-CLI脚手架的学习与使用结合webpack</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/4dbc469478123602/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>Promise,Fetch,Axios,async/await基础用法</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

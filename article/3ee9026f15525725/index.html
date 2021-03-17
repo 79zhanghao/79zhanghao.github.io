@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>QiaoBug用Css画个小虫子并用动画动起来-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="css,bug,动画,">
+<meta name="description" content="QiaoBug用Css画个小虫子并用动画动起来">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/css">css</a></li>
+            
+            <li><a href="/tags/bug">bug</a></li>
+            
+            <li><a href="/tags/动画">动画</a></li>
+            
+            
+        </ul>
+        <h1>QiaoBug用Css画个小虫子并用动画动起来</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-09-25 21:47:57</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>总想买个域名但是又不知道买什么域名</p>
+<p>突然有个灵感 用我的姓氏Qiao然后我是搞前端开发的 最怕的就是Bug</p>
+<p>那么就是Qiao最怕Bug</p>
+<p>最后就形成了 <a target="_blank" rel="noopener" href="https://www.qiaobug.com/">QiaoBug.com</a></p>
+<p>既然域名都买了那就将我长期使用<a target="_blank" rel="noopener" href="https://github.com/QiaoBug">Github</a>和<a target="_blank" rel="noopener" href="https://gitee.com/QiaoBug">Gitee</a>一并改了吧！</p>
+<h3 id="Bug起源"><a href="#Bug起源" class="headerlink" title="Bug起源"></a>Bug起源</h3><p>然后我就查看<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/bug">维基百科</a>关于Bug的相关介绍</p>
+<p>在1947年9月9日，葛丽丝·霍普（Grace Hopper）发现了第一个电脑上的bug。当在 Mark II 计算机上工作时，整个团队都搞不清楚为什么电脑不能正常运作了。经过大家的深度挖掘，发现原来是一只飞蛾意外飞入了一台电脑内部而引起的故障（如图所示）。这个团队把错误解除了，并在日志本中记录下了这一事件。也因此，人们逐渐开始用“Bug”（原意为“虫子”）来称呼计算机中的隐错。现在在华盛顿的美国国家历史博物馆中还可以看到这个遗稿。</p>
+<p>总结：bug就是一个虫子飞进电脑内部导致短路</p>
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>得是一只虫子 得会飞</p>
+<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><p>然用css画个虫子吧 </p>
+<p>那么这个虫子应该找什么虫子的 维基百科说是飞蛾（感觉。。。）然后我试着在Google图片搜索<code>bug</code>那么出现了很多 七星瓢虫 我靠这个简单呀！</p>
+<p>那么好我就将虫子定义为 七星瓢虫</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img20200925220915.png"></p>
+<p>这是我自己抽象出来的样子那么好 既然我有这么好的画工就按这个画吧 </p>
+<h4 id="分解"><a href="#分解" class="headerlink" title="分解"></a>分解</h4><p>头那么不就是个椭圆吗</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><code class="hljs scss"><span class="hljs-attribute">width</span>: <span class="hljs-number">30px</span>;<br><span class="hljs-attribute">height</span>: <span class="hljs-number">20px</span>;<br><span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;<br></code></pre></td></tr></table></figure>
+
+<p>那么长和宽一样的话在加上<code>border-radius</code>为百分之五十的时候是个圆</p>
+<p>那么椭圆就把 长度弄小点小于宽度就可以了 </p>
+<p>身子也是个椭圆只是 这次宽度小于长度就ok 了 在去调整细节即可</p>
+<p>画两个 触角 就是两个长方形</p>
+<p>但是这里面用到 <code>transform</code>的<code>rotate</code></p>
+<p>翅膀也是用到了这个 </p>
+<h4 id="transform-rotate"><a href="#transform-rotate" class="headerlink" title="transform-rotate"></a>transform-rotate</h4><p>定义了一种将元素围绕一个定点旋转而不变形的转换</p>
+<p>而这个定点是由<code>transform-origin</code>属性指定</p>
+<p>指定 <code>rotate()</code> 的旋转程度。</p>
+<p>参数为正时，顺时针旋转；</p>
+<p>参数为负时，逆时针旋转。</p>
+<p>180° 旋转称为<em>点反演</em>。</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span>&gt;Normal&lt;/<span class="hljs-keyword">div</span>&gt;<br>&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;rotated&quot;</span>&gt;Rotated&lt;/<span class="hljs-keyword">div</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">div</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">80px</span>;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">80px</span>;<br>  <span class="hljs-attribute">background-color</span>: skyblue;<br>&#125;<br><br><span class="hljs-selector-class">.rotated</span> &#123;<br>  <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">45deg</span>); <span class="hljs-comment">/* Equal to rotateZ(45deg) */</span><br>  <span class="hljs-attribute">background-color</span>: pink;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img20200925221745.png"></p>
+<h4 id="transform-origin"><a href="#transform-origin" class="headerlink" title="transform-origin"></a>transform-origin</h4><p>让你更改一个元素变形的原点。</p>
+<p>可以使用一个，两个或三个值来指定，其中每个值都表示一个偏移量。 没有明确定义的偏移将重置为其对应的初始值。</p>
+<p>总结说就是换个原点 围绕着这个点进行旋转</p>
+<h4 id="虫子画完"><a href="#虫子画完" class="headerlink" title="虫子画完"></a>虫子画完</h4><p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img20200925222305.png"></p>
+<p>有人会问了这和上面的手绘版是一个虫子吗？</p>
+<p>我很严肃的告诉你 没错这就是同一个</p>
+<h3 id="翅膀动起来"><a href="#翅膀动起来" class="headerlink" title="翅膀动起来"></a>翅膀动起来</h3><p>虫子的样子画完了那么我就需要让这个翅膀 扑翅起来吧 营造一种飞的感觉</p>
+<p>我用的是 css的<code>animation</code>动画</p>
+<p>我先定义一个动画</p>
+<figure class="highlight coq"><table><tr><td class="code"><pre><code class="hljs coq">animation-name: <span class="hljs-built_in">left</span>-<span class="hljs-built_in">move</span>;<br></code></pre></td></tr></table></figure>
+
+<p>这是什么意思呢 就是告诉浏览器 我要弄个动画 这个动画名字叫 吧啦吧啦…</p>
+<p>我在告诉你这个动画执行的周期时间是多少你得在这时间内给我执行完</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><code class="hljs scss"><span class="hljs-attribute">animation-duration</span>: <span class="hljs-number">10s</span>;<br></code></pre></td></tr></table></figure>
+
+<p>不能扑哧一次就不飞了吧</p>
+<p>那么你给我一直扑哧</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><code class="hljs scss"><span class="hljs-attribute">animation-iteration-count</span>: infinite;<br></code></pre></td></tr></table></figure>
+
+<h4 id="执行动画"><a href="#执行动画" class="headerlink" title="执行动画"></a>执行动画</h4><p>下面的方式来定义上面的动画 名字要相对应</p>
+<figure class="highlight coq"><table><tr><td class="code"><pre><code class="hljs coq">@keyframes <span class="hljs-built_in">left</span>-<span class="hljs-built_in">move</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里面可以 定义为百分比 什么意思呢？就是 你不是 10秒吗 那么可以分为 0% 25% 50% 75% 100%分为着5块那么就是 <code>10/5=2s</code> 每块待2秒</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@keyframes</span> left-move &#123;<br>  0%&#123;&#125;<br>  25%&#123;&#125;<br>  50%&#123;&#125;<br>  75%&#123;&#125;<br>  100%&#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>0%的时候干啥呢？你想干啥都行然后就在 0%那个大括号里面写上你想干的事</p>
+<p>而我就偷懒了 这个还有个方法就是不用百分比的方式分割 而是直接定义开始和结束</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@keyframes</span> left-move &#123;<br>    <span class="hljs-selector-tag">from</span> &#123;&#125;<br>    <span class="hljs-selector-tag">to</span> &#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>效果其实和你只定义0%-100%是一样的</p>
+<p>那么开始翅膀是什么样子 </p>
+<p>结束的时候是什么样子</p>
+<p>这时候就需要再次使用 <code>transform-origin</code> 和 <code>transform: rotate</code> 进行重新定义 原点和旋转的角度了</p>
+<p>在加上动画时间执行的较快就形成了飞的感觉！！！</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgfeile.gif"></p>
+<h3 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h3><p>现在只是在原地扑哧翅膀 这是我们需要 我们鼠标点哪儿 你就飞哪里去</p>
+<p>下面是JavaScript了这里我用了jQuery</p>
+<p><strong>讲讲思路</strong></p>
+<p>首先获取鼠标点击位置的坐标</p>
+<p>那么在进行移动到这个坐标即可</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js">$(<span class="hljs-string">&#x27;html&#x27;</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>            <span class="hljs-keyword">var</span> xx = e.originalEvent.x || e.originalEvent.layerX || <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">var</span> yy = e.originalEvent.y || e.originalEvent.layerY || <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">if</span> ($(<span class="hljs-built_in">window</span>).width() &gt; <span class="hljs-string">&quot;700&quot;</span>) &#123;<br>                $(<span class="hljs-string">&quot;.bug&quot;</span>).animate(&#123; <span class="hljs-attr">left</span>: xx, <span class="hljs-attr">top</span>: yy &#125;);<br>                $(<span class="hljs-string">&quot;.bug&quot;</span>).attr(&#123; <span class="hljs-string">&#x27;transform&#x27;</span>: <span class="hljs-string">&#x27;rotate(110deg)&#x27;</span> &#125;)<br>            &#125;<br>        &#125;)<br></code></pre></td></tr></table></figure>
+
+<p>这里又来知识点了哈</p>
+<h4 id="animate"><a href="#animate" class="headerlink" title="animate()"></a>animate()</h4><p>animate() 方法执行 CSS 属性集的自定义动画。</p>
+<p>该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。</p>
+<p>只有数字值可创建动画（比如 “margin:30px”）。字符串值无法创建动画（比如 “background-color:red”）。</p>
+<p>那么我哪里用的是绝对定位 那么只需要更改 left top的值就可以了</p>
+<p>这时候还是有些生硬 这个虫子 不转头呀 ！！！</p>
+<h4 id="Math-Atan2"><a href="#Math-Atan2" class="headerlink" title="Math.Atan2"></a>Math.Atan2</h4><p>可返回从 x 轴到点 (x,y) 之间的角度。</p>
+<p>-PI 到 PI 之间的值，是从 X 轴正向逆时针旋转到点 (x,y) 时经过的角度。</p>
+<p>计算到这个角度后 然后用js给这个虫子整体加上 <code>transform-rotate</code>的属性参数就是计算出来的角度</p>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/d09d3ec902072726/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>Nunjucks模版引擎基础学习与语法理解</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/4b07a99ab7225725/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>Pug模版引擎学习与语法理解</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

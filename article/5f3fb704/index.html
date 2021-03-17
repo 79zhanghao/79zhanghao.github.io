@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>实现Vue数据响应化的代码和理解-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="vue,数据响应式,">
+<meta name="description" content="实现Vue数据响应化的代码和理解">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/vue">vue</a></li>
+            
+            <li><a href="/tags/数据响应式">数据响应式</a></li>
+            
+            
+        </ul>
+        <h1>实现Vue数据响应化的代码和理解</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-12-08 14:38:48</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h3 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h3><p><img src="https://cdn.jsdelivr.net/gh/duogongneng/OneMyBlogImg@master/shujuxiangyihua.gif" alt="shujuxiangyihua"></p>
+<p>实现数据的响应式渲染 在html中使用双大括号进行渲染数据可以使用类似v-text等指令</p>
+<h2 id="Vue原理分析"><a href="#Vue原理分析" class="headerlink" title="Vue原理分析"></a>Vue原理分析</h2><ul>
+<li><p><code>new Vue()</code> 首先执行初始化，对data执行响应化处理，这个过程发生在<code>Observer</code>中</p>
+</li>
+<li><p>同时对模板执行编译，找到其中动态绑定的数据，从data中获取并初始化视图，这个过程发生在</p>
+<p><code>Compile</code>中</p>
+</li>
+<li><p>同时定义一个更新函数和<code>Watcher</code>，将来对应数据变化时Watcher会调用更新函数</p>
+</li>
+<li><p>由于data的某个key在一个视图中可能出现多次，所以每个key都需要一个管家Dep来管理多个</p>
+<p><code>Watcher</code></p>
+</li>
+<li><p>将来<code>data</code>中数据一旦发生变化，会首先找到对应的<code>Dep</code>，通知所有<code>Watcher</code>执行更新函数</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/OneMyBlogImg@master/image-20201208145809520.png" alt="vue原理"></p>
+<h3 id="涉及类型介绍"><a href="#涉及类型介绍" class="headerlink" title="涉及类型介绍"></a>涉及类型介绍</h3><ul>
+<li>QVue:框架构造函数</li>
+<li>Observer:执行数据响应化(分辨数据是对象还是数组) </li>
+<li>Compile:编译模板，初始化视图，收集依赖(更新函数、watcher创建) </li>
+<li>Watcher:执行更新函数(更新dom)</li>
+<li>Dep:管理多个Watcher，批量更新</li>
+</ul>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>我们先创建我们的QVue构造函数</p>
+<p>作用就是执行初始化，对data执行响应化处理</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">QVue</span> </span>&#123;<br>    <span class="hljs-keyword">constructor</span>(options) &#123;<br>        <span class="hljs-comment">// 保存选项</span><br>        <span class="hljs-keyword">this</span>.$options = options<br>        <span class="hljs-keyword">this</span>.$<span class="hljs-keyword">data</span> = options.<span class="hljs-keyword">data</span><br>        <span class="hljs-comment">// 响应化处理</span><br>        observe(<span class="hljs-keyword">this</span>.$<span class="hljs-keyword">data</span>)<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>observe</code>我们需要对数据进行一个遍历然后进行全部的响应化处理</p>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><code class="hljs csharp"><span class="hljs-comment">//  根据类型决定如何做响应化</span><br><span class="hljs-keyword">class</span> <span class="hljs-title">Observer</span> &#123;<br>    constructor(<span class="hljs-keyword">value</span>) &#123;<br>        <span class="hljs-keyword">this</span>.<span class="hljs-keyword">value</span> = <span class="hljs-keyword">value</span><br>        <span class="hljs-comment">// 判断类型</span><br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">value</span> === <span class="hljs-string">&#x27;object&#x27;</span>) &#123;<br>            <span class="hljs-keyword">this</span>.walk(<span class="hljs-keyword">value</span>)<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">// 对象数据响应化</span><br>      Object.keys(<span class="hljs-keyword">value</span>).forEach(key =&gt; &#123;<br>     		 defineReactive(<span class="hljs-keyword">value</span>, key, <span class="hljs-keyword">value</span>[key])<br>      &#125;)<br>  <br>    <span class="hljs-comment">// 数组数据响应化（请看上一篇）</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><code>defineReactive</code>使用<code>Object.defineProperty()</code>进行数据的响应化</p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><code class="hljs haxe"><span class="hljs-comment">//对象响应式</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defineReactive</span></span>(obj, key, val) &#123;<br>    <span class="hljs-comment">// 递归 </span><br>    observe(val)<br>    <span class="hljs-comment">// 对传入对obj 进行拦截</span><br>    Object.defineProperty(obj, key, &#123;<br>        <span class="hljs-keyword">get</span>() &#123;<br>            console.log(<span class="hljs-string">&#x27;get&#x27;</span>)<br>            <span class="hljs-keyword">return</span> val<br>        &#125;,<br>        <span class="hljs-keyword">set</span>(<span class="hljs-keyword">new</span><span class="hljs-type">Val</span>) &#123;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span><span class="hljs-type">Val</span> !== val) &#123;<br>                console.log(<span class="hljs-string">&#x27;set&#x27;</span>)<br>                <span class="hljs-comment">// 有可能 传进来的还是个对象</span><br>                observe(<span class="hljs-keyword">new</span><span class="hljs-type">Val</span>)<br>                val = <span class="hljs-keyword">new</span><span class="hljs-type">Val</span><br><span class="hljs-type"></span>            &#125;<br>        &#125;<br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们这时候就可以去访问我们的页面了发现数据显示出来了</p>
+<p>然后我们发现更改数据的时候不对</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 我们需要带上<span class="hljs-variable">$data</span> 才能访问到数据<br>app.<span class="hljs-variable">$data</span>.coun<br></code></pre></td></tr></table></figure>
+
+<p>我们需要进行数据的代理然后进行一个数据访问</p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><code class="hljs haxe"><span class="hljs-comment">// 代理函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">proxy</span></span>(vm, sourceKey) &#123;<br>    Object.keys(vm[sourceKey]).forEach((key) =&gt; &#123;<br>        <span class="hljs-comment">// 将 $data中的key 代理到vm 属性中 </span><br>        Object.defineProperty(vm, key, &#123;<br>            <span class="hljs-keyword">get</span>() &#123;<br>                <span class="hljs-keyword">return</span> vm[sourceKey][key]<br>            &#125;,<br>            <span class="hljs-keyword">set</span>(<span class="hljs-keyword">new</span><span class="hljs-type">Value</span>) &#123;<br>                vm[sourceKey][key] = <span class="hljs-keyword">new</span><span class="hljs-type">Value</span><br><span class="hljs-type"></span>            &#125;<br>        &#125;)<br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="编译-Compile"><a href="#编译-Compile" class="headerlink" title="编译 Compile"></a>编译 Compile</h3><p><img src="https://cdn.jsdelivr.net/gh/duogongneng/OneMyBlogImg/image-20201208153114649.png" alt="Compile"></p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">// 编译器</span><br><span class="hljs-comment">// 递归遍历dom 树</span><br><span class="hljs-comment">// 判断节点类型  如果是文本 侧判断是不是 插值绑定</span><br><span class="hljs-comment">// 如果元素 则遍历其属性判断是否是指令或者是事件然后递归</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Compile</span> </span>&#123;<br>    <span class="hljs-comment">// el 是宿主元素</span><br>    <span class="hljs-comment">// vm是qvue 实例 </span><br>    <span class="hljs-keyword">constructor</span>(el, vm) &#123;<br>        <span class="hljs-keyword">this</span>.$vm = vm<br>        <span class="hljs-keyword">this</span>.$el = document.querySelector(el)<br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.$el) &#123;<br>            <span class="hljs-comment">// 编译</span><br>            <span class="hljs-keyword">this</span>.compile(<span class="hljs-keyword">this</span>.$el)<br>        &#125;<br>    &#125;<br><br>    compile(el) &#123;<br>        <span class="hljs-comment">// 遍历 el 树</span><br>        <span class="hljs-keyword">const</span> childNodes = el.childNodes<br>        Array.from(childNodes).forEach(node =&gt; &#123;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isElement(node)) &#123;<br>                console.log(<span class="hljs-string">&quot;编译元素&quot;</span>)<br>                <span class="hljs-keyword">this</span>.compileElement(node)<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isInter(node)) &#123;<br>                console.log(<span class="hljs-string">&quot;编译插值表达式&quot;</span>)<br>                <span class="hljs-keyword">this</span>.compileText(node)<br>            &#125;<br>            <span class="hljs-comment">// 递归 子节点</span><br>            <span class="hljs-keyword">if</span> (node.childNodes &amp;&amp; node.childNodes.length &gt; <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-keyword">this</span>.compile(node)<br>            &#125;<br>        &#125;);<br>    &#125;<br><br>    isElement(node) &#123;<br>        <span class="hljs-keyword">return</span> node.nodeType === <span class="hljs-number">1</span><br>    &#125;<br>    isInter(node) &#123;<br>        <span class="hljs-comment">// 首先是 文本 然后 是 &#123;&#123;xxxx&#125;&#125;</span><br>        <span class="hljs-keyword">return</span> node.nodeType === <span class="hljs-number">3</span> &amp;&amp; /\&#123;\&#123;(.*)\&#125;\&#125;/.test(node.textContent)<br>    &#125;<br><br>    <span class="hljs-comment">// </span><br>    compileText(node) &#123;<br><br>        <span class="hljs-keyword">this</span>.update(node, RegExp.$<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;text&#x27;</span>)<br>    &#125;<br><br>    compileElement(node) &#123;<br>        <span class="hljs-comment">//遍历 节点属性</span><br>        <span class="hljs-keyword">const</span> nodeAttrs = node.attributes<br>        Array.from(nodeAttrs).forEach((attr) =&gt; &#123;<br>            <span class="hljs-comment">// 规定指令 q-xx</span><br>            <span class="hljs-keyword">const</span> attrName = attr.name<br>            <span class="hljs-keyword">const</span> exp = attr.value<br>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isDirective(attrName)) &#123;<br>                <span class="hljs-keyword">const</span> dir = attrName.substring(<span class="hljs-number">2</span>)<br>                <span class="hljs-keyword">this</span>[dir] &amp;&amp; <span class="hljs-keyword">this</span>[dir](node, exp)<br>            &#125;<br>        &#125;)<br>    &#125;<br><br>    isDirective(attr) &#123;<br>        <span class="hljs-keyword">return</span> attr.indexOf(<span class="hljs-string">&#x27;q-&#x27;</span>) === <span class="hljs-number">0</span><br>    &#125;<br><br>    <span class="hljs-comment">//  更新</span><br>    update(node, exp, dir) &#123;<br>        <span class="hljs-comment">// 初始化</span><br>        <span class="hljs-comment">// 更新函数 xxupdate</span><br>        <span class="hljs-keyword">const</span> fn = <span class="hljs-keyword">this</span>[dir + <span class="hljs-string">&#x27;Updater&#x27;</span>]<br>        fn &amp;&amp; fn(node, <span class="hljs-keyword">this</span>.$vm[exp])<br><br>        <span class="hljs-comment">// 更新 </span><br>        <span class="hljs-comment">// 封装更新函数 可以更新dom 元素</span><br>        new Watcher(<span class="hljs-keyword">this</span>.$vm, exp, function (<span class="hljs-keyword">val</span>) &#123;<br>            fn &amp;&amp; fn(node, <span class="hljs-keyword">val</span>)<br>        &#125;)<br>    &#125;<br><br>    textUpdater(node, value) &#123;<br>        node.textContent = value<br>    &#125;<br><br>    <span class="hljs-comment">// q-text</span><br>    text(node, exp) &#123;<br>        <span class="hljs-keyword">this</span>.update(node, exp, <span class="hljs-string">&#x27;text&#x27;</span>)<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="依赖收集"><a href="#依赖收集" class="headerlink" title="依赖收集"></a>依赖收集</h3><p>视图中会用到data中某key，这称为依赖。</p>
+<p>同一个key可能出现多次，每次都需要收集出来用一个 Watcher来维护它们，此过程称为依赖收集。</p>
+<p>多个Watcher需要一个Dep来管理，需要更新时由Dep统一通知。 </p>
+<p>看下面案例，理出思路:</p>
+<figure class="highlight handlebars"><table><tr><td class="code"><pre><code class="hljs handlebars"><span class="xml">new Vue(&#123;</span><br><span class="xml">    template:</span><br><span class="xml">        `<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">name1</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">name2</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">name1</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">         <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>`,</span><br><span class="xml">    data: &#123;</span><br><span class="xml">        name1: &#x27;name1&#x27;,</span><br><span class="xml">        name2: &#x27;name2&#x27;</span><br><span class="xml">    &#125;</span><br><span class="xml">&#125;);</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/OneMyBlogImg@master/image-20201208153411545.png" alt="Watcher"></p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><ul>
+<li>defineReactive时为每一个key创建一个Dep实例</li>
+<li>初始化视图时读取某个key，例如name1，创建一个watcher1</li>
+<li>由于触发name1的getter方法，便将watcher1添加到name1对应的Dep中</li>
+<li>当name1更新，setter触发时，便可通过对应Dep通知其管理所有Watcher更新</li>
+</ul>
+<h4 id="创建watcher"><a href="#创建watcher" class="headerlink" title="创建watcher"></a>创建watcher</h4><figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">const</span> watchers = [];<span class="hljs-comment">//临时用于保存watcher测试用</span><br><span class="hljs-comment">// 监听器:负责更新视图 class Watcher &#123;</span><br><span class="hljs-keyword">constructor</span>(vm, key, updateFn) &#123; <span class="hljs-comment">// kvue实例</span><br><span class="hljs-keyword">this</span>.vm = vm;<br><span class="hljs-comment">// 依赖key</span><br><span class="hljs-keyword">this</span>.key = key;<br><span class="hljs-comment">// 更新函数</span><br><span class="hljs-keyword">this</span>.updateFn = updateFn;<br><span class="hljs-comment">// 临时放入watchers数组</span><br>    watchers.push(<span class="hljs-keyword">this</span>)<br>  &#125;<br><span class="hljs-comment">// 更新 update() &#123;</span><br>    <span class="hljs-keyword">this</span>.updateFn.call(<span class="hljs-keyword">this</span>.vm, <span class="hljs-keyword">this</span>.vm[<span class="hljs-keyword">this</span>.key]);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在更新函数中进行创建 watcher</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh">// 调用update函数执插值文本赋值 compileText(<span class="hljs-keyword">node</span><span class="hljs-title">) &#123;</span><br><span class="hljs-title">    // console</span>.log(RegExp.$<span class="hljs-number">1</span>);<br>    // node.textContent = this.$vm[RegExp.$<span class="hljs-number">1</span>];<br>    this.update(<span class="hljs-keyword">node</span><span class="hljs-title">, RegExp</span>.$<span class="hljs-number">1</span>, &#x27;text&#x27;)<br>&#125;<br>text(<span class="hljs-keyword">node</span><span class="hljs-title">, exp</span>) &#123;<br>this.update(<span class="hljs-keyword">node</span><span class="hljs-title">, exp</span>, &#x27;text&#x27;) <br>&#125;<br>html(<span class="hljs-keyword">node</span><span class="hljs-title">, exp</span>) &#123;<br>    this.update(<span class="hljs-keyword">node</span><span class="hljs-title">, exp</span>, &#x27;html&#x27;)<br>&#125;<br>update(<span class="hljs-keyword">node</span><span class="hljs-title">, exp</span>, dir) &#123;<br>    const fn = this[dir+&#x27;Updater&#x27;]<br>    fn &amp;&amp; fn(<span class="hljs-keyword">node</span><span class="hljs-title">, this</span>.$vm[exp])<br>    new Watcher(this.$vm, exp, function(val)&#123;<br>        fn &amp;&amp; fn(<span class="hljs-keyword">node</span><span class="hljs-title">, val</span>)<br>    &#125;)<br>&#125;<br>textUpdater(<span class="hljs-keyword">node</span><span class="hljs-title">, val</span>) &#123;<br>    node.textContent = val;<br>&#125;<br>htmlUpdater(<span class="hljs-keyword">node</span><span class="hljs-title">, val</span>) &#123;<br>    node.innerHTML = val<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="声明Dep"><a href="#声明Dep" class="headerlink" title="声明Dep"></a>声明Dep</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dep</span> </span>&#123;<br>    <span class="hljs-keyword">constructor</span> () &#123;<br>        <span class="hljs-built_in">this</span>.deps = []<br>    &#125;<br>    addDep (dep) &#123;<br>        <span class="hljs-built_in">this</span>.deps.push(dep)<br>&#125;<br>    notify() &#123;<br>        <span class="hljs-built_in">this</span>.deps.forEach(<span class="hljs-function"><span class="hljs-params">dep</span> =&gt;</span> dep.update());<br>&#125; &#125;<br></code></pre></td></tr></table></figure>
+
+<p>创建watcher时触发getter</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Watcher</span> </span>&#123;<br>  <span class="hljs-keyword">constructor</span>(vm, key, updateFn) &#123;<br>    Dep.target = <span class="hljs-keyword">this</span>;<br>    <span class="hljs-keyword">this</span>.vm[<span class="hljs-keyword">this</span>.key];<br>    Dep.target = <span class="hljs-literal">null</span>;<br>&#125; &#125;<br></code></pre></td></tr></table></figure>
+
+<p>依赖收集，创建Dep实例</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin">defineReactive(obj, key, <span class="hljs-keyword">val</span>) &#123;<br>  <span class="hljs-keyword">this</span>.observe(<span class="hljs-keyword">val</span>);<br><span class="hljs-keyword">const</span> dep = new Dep()<br>Object.defineProperty(obj, key, &#123;<br>    <span class="hljs-keyword">get</span>() &#123;<br>      Dep.target &amp;&amp; dep.addDep(Dep.target);<br><span class="hljs-keyword">return</span> <span class="hljs-keyword">val</span> &#125;,<br>    <span class="hljs-keyword">set</span>(newVal) &#123;<br>      <span class="hljs-keyword">if</span> (newVal === <span class="hljs-keyword">val</span>) <span class="hljs-keyword">return</span><br>      dep.notify()<br>&#125; &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="个人整体思路："><a href="#个人整体思路：" class="headerlink" title="个人整体思路："></a>个人整体思路：</h3><ul>
+<li>第一步你需要先去解析数据然后让他显示在页面上面</li>
+<li>使用 <code>Object.defineProperty</code>对数据进行一个响应化处理</li>
+<li>对属性进行解析</li>
+<li>重点监听watcher和Dep管理</li>
+<li>更新数据</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://wwa.lanzous.com/iwIYjj5wkub">完整代码</a></p>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/52382ed6/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>Angular基础知识之快速入门</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/b8576712/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>Vue2数据响应式的原理defineProperty来实现数据响应式监控</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

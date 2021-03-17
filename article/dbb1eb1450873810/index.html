@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>Flex基础语法学习与使用详细分析-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="Flex,弹性布局,">
+<meta name="description" content="Flex基础语法学习与使用详细分析">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/Flex">Flex</a></li>
+            
+            <li><a href="/tags/弹性布局">弹性布局</a></li>
+            
+            
+        </ul>
+        <h1>Flex基础语法学习与使用详细分析</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-09-10 10:49:38</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h2 id="flex布局"><a href="#flex布局" class="headerlink" title="flex布局"></a>flex布局</h2><ol>
+<li>目前web开发使用最多的布局方案</li>
+<li>flex布局（flexible布局，弹性布局）</li>
+<li>目前移动端用的最多 pc端也越来越多了</li>
+</ol>
+<h3 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h3><ol>
+<li>开启flex布局的叫做 flex-container</li>
+<li>内部的元素叫做 flex-items</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imge41ed1e2538c2-20200922203200807.png" alt="image.png"></p>
+<h3 id="开启flex布局"><a href="#开启flex布局" class="headerlink" title="开启flex布局"></a>开启flex布局</h3><p>外层设置 display</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/*开启flex布局*/</span><br><span class="hljs-selector-class">.box</span>&#123;<br>	<span class="hljs-attribute">display</span>:flex;<br>	<span class="hljs-comment">/*flex 块元素 inline-flex为行内元素*/</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>没有开启flex布局</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>flex<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><br><span class="css">        <span class="hljs-selector-class">.box</span>&#123;</span><br>            width: 600px;<br>            height: 600px;<br>            background: forestgreen;<br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.item1</span>&#123;</span><br>            width: 100px;<br>            height: 100px;<br>            background: rgb(50, 194, 238);<br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.item2</span>&#123;</span><br>            width: 100px;<br>            height: 100px;<br>            background: fuchsia;<br>        &#125;<br><span class="css">        <span class="hljs-selector-class">.item3</span>&#123;</span><br>            width: 100px;<br>            height: 100px;<br>            background: rgb(194, 62, 53);<br>        &#125;<br><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item1&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item2&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item3&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img017f068aeed1c.png" alt="image.png"></p>
+<p>没有开启flex布局的时候 div都是自己独占一行的块元素</p>
+<p>开启flex布局</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.box</span>&#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">600px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">600px</span>;<br>    <span class="hljs-attribute">background</span>: forestgreen;<br>    <span class="hljs-comment">/* 加上 flex */</span><br>    <span class="hljs-attribute">display</span>: flex;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img5d443fc89244f.png" alt="image.png"></p>
+<p>开启flex就不区分 块元素还是什么元素都是flex说了算</p>
+<h2 id="flex布局模型"><a href="#flex布局模型" class="headerlink" title="flex布局模型"></a>flex布局模型</h2><p><strong>重要</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgedfeaef26172b.png" alt="image.png"></p>
+<ol>
+<li>main axis 为主轴<ol>
+<li>main size 主轴大小</li>
+<li>main start 为开始的地方</li>
+<li>main end 为结束的地方</li>
+</ol>
+</li>
+<li>vross axis 交叉轴<ol>
+<li>vross size 主轴大小</li>
+<li>vross start 为开始的地方</li>
+<li>vross end 为结束的地方</li>
+</ol>
+</li>
+</ol>
+<h2 id="flex相关属性"><a href="#flex相关属性" class="headerlink" title="flex相关属性"></a>flex相关属性</h2><h3 id="应用在-flex-container-上的css属性"><a href="#应用在-flex-container-上的css属性" class="headerlink" title="应用在 flex-container 上的css属性"></a>应用在 flex-container 上的css属性</h3><ol>
+<li>flex-flow</li>
+<li>flex-direction </li>
+<li>flex-wrap</li>
+<li>justify-content</li>
+<li>align-items</li>
+<li>align-content</li>
+</ol>
+<h4 id="flex-direction-规定灵活项目的方向"><a href="#flex-direction-规定灵活项目的方向" class="headerlink" title="flex-direction 规定灵活项目的方向"></a>flex-direction 规定灵活项目的方向</h4><ol>
+<li><p>flex-items <strong>默认</strong>都是沿着main axis（主轴）从 main start 开始忘 main end 方向排布</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img21ab7c6e97e67.png" alt="image.png"></p>
+</li>
+<li><p>direction决定了 main axis的方向</p>
+<ol>
+<li><p>row（默认）</p>
+<ol>
+<li>绝对主轴的位置</li>
+<li>从左往右</li>
+</ol>
+</li>
+<li><p>row-reverse</p>
+<p>与row相反 是从右往左</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img21ab7c6e97e67.png" alt="image.png"></p>
+</li>
+<li><p>column</p>
+<ol>
+<li><p>主轴从上倒下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img2a6026dbd0f5e.png" alt="image.png"></p>
+</li>
+</ol>
+</li>
+<li><p>column-reverse</p>
+<ol>
+<li>从下到上</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imge5fb7d7258cca.png" alt="image.png"></p>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="justify-content-决定-items在-main-上的对齐方式"><a href="#justify-content-决定-items在-main-上的对齐方式" class="headerlink" title="justify-content 决定 items在 main 上的对齐方式"></a>justify-content 决定 items在 main 上的对齐方式</h4><ol>
+<li><p>flex-start（默认）与main start对齐</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><code class="hljs scss"><span class="hljs-attribute">justify-content</span>:flex-start;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>flex-end 与 main end对齐</p>
+</li>
+<li><p>center 局中对齐</p>
+</li>
+<li><p>space-between</p>
+<ol>
+<li>flex items 之间距离相等</li>
+<li>main start ，main end 两端对齐</li>
+<li><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgcc70f4db8113b.png" alt="image.png"></li>
+</ol>
+</li>
+<li><p>space-evenly</p>
+<ol>
+<li>flex items 之间距离相等</li>
+<li>flex items 与 main start ，main end 之间的距离等于 items之间的距离</li>
+<li><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgc1c307cd4ee3a.png" alt="image.png"></li>
+</ol>
+</li>
+<li><p>space-around</p>
+<ol>
+<li>flex items 之间距离相等</li>
+<li>flex items 与 main start ，main end 之间的距离是items之间的距离一半</li>
+<li><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img31d9dc8a0b352.png" alt="image.png"></li>
+</ol>
+</li>
+</ol>
+<h4 id="align-items-在cross-axis的对齐"><a href="#align-items-在cross-axis的对齐" class="headerlink" title="align-items 在cross axis的对齐"></a>align-items 在cross axis的对齐</h4><ol>
+<li><p>normal:在弹性布局中,效果和 stretch一样</p>
+</li>
+<li><p>stretch:当 flex items在cross axis方向的size为auto时,会自动拉伸至填充 flex container</p>
+<ol>
+<li>在没有给 高度的时候就会拉伸长度</li>
+</ol>
+<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img61f787d45f2ab.png" alt="image.png" style="zoom:50%;" />
+</li>
+<li><p>flex-start:与 cross start对齐 （顶部）</p>
+</li>
+<li><p>flex-end:与 cross end对齐 （底部）</p>
+</li>
+<li><p>center居中对齐</p>
+</li>
+<li><p>baseline:与基准线对齐</p>
+<ol>
+<li>如弹性盒子元素的行内轴与侧轴为同一条，则该值与’flex-start’等效</li>
+<li>是与第一个最后一行的为标准</li>
+<li><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img33e323d5db81d-20200922203448368.png" alt="image.png"></li>
+</ol>
+</li>
+</ol>
+<h4 id="flex-wrap-换行显示"><a href="#flex-wrap-换行显示" class="headerlink" title="flex-wrap 换行显示"></a>flex-wrap 换行显示</h4><p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img7117f5406c8c2.png" alt="image.png"></p>
+<ol>
+<li><p>nowrap (默认) 单行显示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img498842f330161-20200922203521280.png" alt="image.png"></p>
+</li>
+<li><p>wrap 多行显示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img02390e5fe2ed7-20200922203543336.png" alt="image.png"></p>
+</li>
+<li><p>wrap-reverse ：多行</p>
+<p>对比wrap cross-start 与 cross-end 相反</p>
+<p>在交叉轴上进行一个反转</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img59f651650a596.png" alt="image.png"></p>
+</li>
+</ol>
+<h4 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h4><p>flex-flow 属性是 flex-direction 和 flex-wrap 属性的复合属性。</p>
+<p>用于设置或检索弹性盒模型对象的子元素排列方式。</p>
+<p>flex-direction 属性规定灵活项目的方向。</p>
+<p>flex-wrap 属性规定灵活项目是否拆行或拆列。</p>
+<p>简单说就是同时设置 并减少了代码</p>
+<h4 id="align-content-决定多行flex-items-在交叉轴上的对齐方式"><a href="#align-content-决定多行flex-items-在交叉轴上的对齐方式" class="headerlink" title="align-content 决定多行flex-items 在交叉轴上的对齐方式"></a>align-content 决定多行flex-items 在交叉轴上的对齐方式</h4><p>align-content-决定了多行 flex items在 cross axis上的对齐方式,用法与 justify-content-类似</p>
+<ol>
+<li><p>stretch(默认值):与 align-items-的 stretch类似</p>
+</li>
+<li><p>flex- start:与 cross start对齐</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img67b99097d6713.png" alt="image.png"></p>
+</li>
+<li><p>flex-end:与 cross end对齐</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img89aa6be57ef78.png" alt="image.png"></p>
+</li>
+<li><p>center:居中对齐</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgc52ba84c5006d.png" alt="image.png"></p>
+</li>
+<li><p>space-between:</p>
+<ol>
+<li>flex items之间的距离相等</li>
+<li>与 cross start、 cross end两端对齐</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgae99987789677.png" alt="image.png"></p>
+</li>
+<li><p>space-around:</p>
+<ol>
+<li>flex items之间的距离相等</li>
+<li> flex items与 cross start、 cross end之间的距离是 flex items之间距离的一半</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img7ec1b085b5a8e.png" alt="image.png"></p>
+</li>
+<li><p>space-evenly</p>
+<ol>
+<li>flex items之间的距离相等</li>
+<li>flex items与 cross start、 cross end之间的距离等于 flex items之间的距离</li>
+</ol>
+</li>
+</ol>
+<h3 id="应用在-flex-items上的css属性"><a href="#应用在-flex-items上的css属性" class="headerlink" title="应用在 flex-items上的css属性"></a>应用在 flex-items上的css属性</h3><ol>
+<li>flex</li>
+<li>flex-grow</li>
+<li>flex-basis</li>
+<li>flex-shrink</li>
+<li>order</li>
+<li>align-self</li>
+</ol>
+<h4 id="order-排序"><a href="#order-排序" class="headerlink" title="order 排序"></a>order 排序</h4><p>觉得items 排列的顺序</p>
+<ol>
+<li>可以设置任何整数 0-&gt; 值越小越排在前面</li>
+<li>默认为0</li>
+</ol>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;<br>        &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item1&quot;</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;<br>        &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item2&quot;</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;<br>        &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item3&quot;</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;<br>    &lt;/<span class="hljs-keyword">div</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.box</span>&#123;<br>            <span class="hljs-attribute">width</span>: <span class="hljs-number">600px</span>;<br>            <span class="hljs-attribute">height</span>: <span class="hljs-number">600px</span>;<br>            <span class="hljs-attribute">background</span>: forestgreen;<br>            <span class="hljs-attribute">display</span>: flex;<br><br>        &#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.item1</span>&#123;<br>            <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;<br>            <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;<br>            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgb</span>(<span class="hljs-number">50</span>, <span class="hljs-number">194</span>, <span class="hljs-number">238</span>);<br>            <span class="hljs-attribute">order</span>: <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-selector-class">.item2</span>&#123;<br>            <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;<br>            <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;<br>            <span class="hljs-attribute">background</span>: fuchsia;<br>            <span class="hljs-attribute">order</span>: <span class="hljs-number">99</span>;<br>        &#125;<br>        <span class="hljs-selector-class">.item3</span>&#123;<br>            <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;<br>            <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;<br>            <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgb</span>(<span class="hljs-number">194</span>, <span class="hljs-number">62</span>, <span class="hljs-number">53</span>);<br>            <span class="hljs-attribute">order</span>: <span class="hljs-number">2</span>;<br>        &#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgd26f5b9f84685.png" alt="image.png"></p>
+<h4 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h4><p>items可以通过align-self 覆盖flex container 设置的align-items</p>
+<ol>
+<li>auto 默认值</li>
+<li>stretch flex-start flex-end center baseline 效果跟align-items一样的</li>
+</ol>
+<h4 id="flex-grow-分份-增加"><a href="#flex-grow-分份-增加" class="headerlink" title="flex-grow 分份 增加"></a>flex-grow 分份 增加</h4><p>主轴分出来然后在分给每个</p>
+<h5 id="flex-items-如何拓展"><a href="#flex-items-如何拓展" class="headerlink" title="flex items 如何拓展"></a>flex items 如何拓展</h5><ol>
+<li>可以设置任何非负数 （正小树 正整数 0） 默认值是0</li>
+<li>当 flex-container 在main axis 方向上有剩余的时候才会生效</li>
+</ol>
+<h5 id="如果flex-items-的flex-grow总和sum超过1-每个flexitem-拓展的size为"><a href="#如果flex-items-的flex-grow总和sum超过1-每个flexitem-拓展的size为" class="headerlink" title="如果flex items 的flex-grow总和sum超过1 每个flexitem 拓展的size为"></a>如果flex items 的flex-grow总和sum超过1 每个flexitem 拓展的size为</h5><p>flex contiainer 剩余size * flex-grow/sum</p>
+<h5 id="如果flex-items-的flex-grow总和sum不超过1-每个flexitem-拓展的size为"><a href="#如果flex-items-的flex-grow总和sum不超过1-每个flexitem-拓展的size为" class="headerlink" title="如果flex items 的flex-grow总和sum不超过1 每个flexitem 拓展的size为"></a>如果flex items 的flex-grow总和sum不超过1 每个flexitem 拓展的size为</h5><p>flex container 剩余 size * flex-grow</p>
+<h4 id="flex-shrink-减少"><a href="#flex-shrink-减少" class="headerlink" title="flex-shrink 减少"></a>flex-shrink 减少</h4><p>flex-shrink的默认值为1，如果没有显示定义该属性，将会自动按照默认值1在所有因子相加之后计算比率来进行空间收缩。</p>
+<ol>
+<li>flex -shrink-决定了 flex items如何收缩<ol>
+<li>可以设置任意非负数字(正小数、正整数、0),默认值是1</li>
+<li>当 flex items在 main axis方向上超过了 flex container的size,flex -shrink-属性才会有效</li>
+</ol>
+</li>
+<li>如果所有 flex items的flex- shrink总和超过1,每个 flex item收缩的size为<ol>
+<li> flex items超出 flex container的size*收缩比例/所有 flex items的收缩比例之和</li>
+</ol>
+</li>
+<li>*如果所有 flex items的flex- -shrink总和sum不超过1,每个 flex item收缩的size为<ol>
+<li> flex items超出 flex container的size<em>sum</em>收缩比例/所有 flex items的收缩比例之和</li>
+<li>收缩比例=flex -shrink-* flex item的 base size</li>
+<li>base size就是 flex item放入 flex container之前的size</li>
+</ol>
+</li>
+<li>flex items收缩后的最终size不能小于min -width-\min-height</li>
+</ol>
+<h4 id="flex-basis-用于设置或检索弹性盒伸缩基准值"><a href="#flex-basis-用于设置或检索弹性盒伸缩基准值" class="headerlink" title="flex-basis 用于设置或检索弹性盒伸缩基准值"></a>flex-basis 用于设置或检索弹性盒伸缩基准值</h4><p>设置默认大小</p>
+<p>优先级：</p>
+<pre><code>1. max-width \ max-height \ min-width \ min-height
+ 2. Flex-basis
+ 3. Width\height
+ 4. 内容本身的size</code></pre>
+<h4 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h4><p>flex是flex -grow- flex-shrink- flex–basi的简写flex属性可以指定1个,2个或3个值。</p>
+<h5 id="单值语法-值必须为以下其中之一"><a href="#单值语法-值必须为以下其中之一" class="headerlink" title="单值语法:值必须为以下其中之一"></a>单值语法:值必须为以下其中之一</h5><ol>
+<li>个无单位数():它会被当作的值。</li>
+<li>一个有效的宽度(width)值:它会被当作的值</li>
+<li>关键字none,auto或 initial.</li>
+</ol>
+<h5 id="双值语法-第一个值必须为一个无单位数-并且它会被当作的值。"><a href="#双值语法-第一个值必须为一个无单位数-并且它会被当作的值。" class="headerlink" title="双值语法:第一个值必须为一个无单位数,并且它会被当作的值。"></a>双值语法:第一个值必须为一个无单位数,并且它会被当作的值。</h5><ol>
+<li>第二个值必须为以下之一:</li>
+<li>一个无单位数:它会被当作的值。</li>
+<li>一个有效的宽度值:它会被当作的值。</li>
+</ol>
+<h5 id="三值语法"><a href="#三值语法" class="headerlink" title="三值语法:"></a>三值语法:</h5><ol>
+<li>第一个值必须为一个无单位数,并且它会被当作的值</li>
+<li>第二个值必须为一个无单位数,并且它会被当作的值。</li>
+<li>第三个值必须为一个有效的宽度值,并且它会被当作的值。</li>
+</ol>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/67cbf70953923816/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>ECMAScript6基础语法学习</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/d3b12b7964be3801/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>Fetch基础语法学习与使用</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

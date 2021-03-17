@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>正则表达式,匹配用户名,邮箱,数字等及语法介绍-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="基础知识,Java,正则表达式,">
+<meta name="description" content="正则表达式,匹配用户名,邮箱,数字等及语法介绍">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/基础知识">基础知识</a></li>
+            
+            <li><a href="/tags/Java">Java</a></li>
+            
+            <li><a href="/tags/正则表达式">正则表达式</a></li>
+            
+            
+        </ul>
+        <h1>正则表达式,匹配用户名,邮箱,数字等及语法介绍</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2018-08-08 18:26:06</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img5b8542c79e35b-20200918122039674.jpg" alt="正则表达式,匹配用户名，邮箱，数字等及语法介绍" title="正则表达式,匹配用户名，邮箱，数字等及语法介绍"></p>
+<p>1、常用正则表达式</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript">♥<span class="hljs-number">1.</span> 一个或多个汉字 ：^[\u0391-\uFFE5]+$ <br><br>♥<span class="hljs-number">2.</span> 邮政编码：^[<span class="hljs-number">1</span><span class="hljs-number">-9</span>]\d&#123;<span class="hljs-number">5</span>&#125;$<br><br>♥<span class="hljs-number">3.</span> QQ号码：^[<span class="hljs-number">1</span><span class="hljs-number">-9</span>]\d&#123;<span class="hljs-number">4</span>,<span class="hljs-number">10</span>&#125;$ <br><br>♥<span class="hljs-number">4.</span> 邮箱：^[a-zA-Z_]&#123;<span class="hljs-number">1</span>,&#125;[<span class="hljs-number">0</span><span class="hljs-number">-9</span>]&#123;<span class="hljs-number">0</span>,&#125;@(([a-zA-z0<span class="hljs-number">-9</span>]-*)&#123;<span class="hljs-number">1</span>,&#125;\.)&#123;<span class="hljs-number">1</span>,<span class="hljs-number">3</span>&#125;[a-zA-z\-]&#123;<span class="hljs-number">1</span>,&#125;$ <br><br>♥<span class="hljs-number">5.</span> 用户名（字母开头 + 数字/字母/下划线）：^[A-Za-z][A-Za-z1<span class="hljs-number">-9</span>_-]+$<br><br>♥<span class="hljs-number">6.</span> 手机号码：^<span class="hljs-number">1</span>[<span class="hljs-number">3</span>|<span class="hljs-number">4</span>|<span class="hljs-number">5</span>|<span class="hljs-number">8</span>][<span class="hljs-number">0</span><span class="hljs-number">-9</span>]\d&#123;<span class="hljs-number">8</span>&#125;$ <br><br>♥<span class="hljs-number">7.</span> URL：^((http|https):<span class="hljs-comment">//)?([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?$ </span><br><br>♥<span class="hljs-number">5.</span> <span class="hljs-number">18</span>位身份证号：^(\d&#123;<span class="hljs-number">6</span>&#125;)(<span class="hljs-number">18</span>|<span class="hljs-number">19</span>|<span class="hljs-number">20</span>)?(\d&#123;<span class="hljs-number">2</span>&#125;)([<span class="hljs-number">01</span>]\d)([<span class="hljs-number">0123</span>]\d)(\d&#123;<span class="hljs-number">3</span>&#125;)(\d|X|x)?$<br></code></pre></td></tr></table></figure>
+
+<p>2、正则表达式语法</p>
+<figure class="highlight taggerscript"><table><tr><td class="code"><pre><code class="hljs taggerscript">\<br>将下一个字符标记符、或一个向后引用、或一个八进制转义符。例如，“<span class="hljs-symbol">\\</span>n”匹配<span class="hljs-symbol">\n</span>。“<span class="hljs-symbol">\n</span>”匹配换行符。序列“<span class="hljs-symbol">\\</span>”匹配“<span class="hljs-symbol">\”</span>而“<span class="hljs-symbol">\(</span>”则匹配“(”。即相当于多种编程语言中都有的“转义字符”的概念。<br><br>^<br>匹配输入字符串的开始位置。如果设置了RegExp对象的Multiline属性，^也匹配“<span class="hljs-symbol">\n</span>”或“<span class="hljs-symbol">\r</span>”之后的位置。<br><br>$<br>匹配输入字符串的结束位置。如果设置了RegExp对象的Multiline属性，$也匹配“<span class="hljs-symbol">\n</span>”或“<span class="hljs-symbol">\r</span>”之前的位置。<br><br>*<br>匹配前面的子表达式任意次。例如，zo*能匹配“z”，“zo”以及“zoo”。*等价于&#123;0,&#125;。<br><br>+<br>匹配前面的子表达式一次或多次(大于等于1次）。例如，“zo+”能匹配“zo”以及“zoo”，但不能匹配“z”。+等价于&#123;1,&#125;。<br><br>?<br>匹配前面的子表达式零次或一次。例如，“do(es)?”可以匹配“do”或“does”中的“do”。?等价于&#123;0,1&#125;。<br><br>&#123;n&#125;<br>n是一个非负整数。匹配确定的n次。例如，“o&#123;2&#125;”不能匹配“Bob”中的“o”，但是能匹配“foot”中的两个o。<br><br>&#123;n,&#125;<br>n是一个非负整数。至少匹配n次。例如，“o&#123;2,&#125;”不能匹配“Bob”中的“o”，但能匹配“foooood”中的所有o。“o&#123;1,&#125;”等价于“o+”。“o&#123;0,&#125;”则等价于“o*”。<br><br>&#123;n,m&#125;<br>m和n均为非负整数，其中n&lt;=m。最少匹配n次且最多匹配m次。例如，“o&#123;1,3&#125;”将匹配“fooooood”中的前三个o。“o&#123;0,1&#125;”等价于“o?”。请注意在逗号和两个数之间不能有空格。<br><br>?<br>当该字符紧跟在任何一个其他限制符（*,+,?，&#123;n&#125;，&#123;n,&#125;，&#123;n,m&#125;）后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。例如，对于字符串“oooo”，“o+?”将匹配单个“o”，而“o+”将匹配所有“o”。<br><br>.点<br>匹配除“<span class="hljs-symbol">\r</span><span class="hljs-symbol">\n</span>”之外的任何单个字符。要匹配包括“<span class="hljs-symbol">\r</span><span class="hljs-symbol">\n</span>”在内的任何字符，请使用像“[<span class="hljs-symbol">\s</span><span class="hljs-symbol">\S</span>]”的模式。<br><br>(pattern)<br>匹配pattern并获取这一匹配。所获取的匹配可以从产生的Matches集合得到，在VBScript中使用SubMatches集合，在JScript中则使用$0…$9属性。要匹配圆括号字符，请使用“<span class="hljs-symbol">\(</span>”或“<span class="hljs-symbol">\)</span>”。<br><br>(?:pattern)<br>匹配pattern但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用或字符“(|)”来组合一个模式的各个部分是很有用。例如“industr(?:y|ies)”就是一个比“industry|industries”更简略的表达式。<br><br>(?=pattern)<br>正向肯定预查，在任何匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如，“Windows(?=95|98|NT|2000)”能匹配“Windows2000”中的“Windows”，但不能匹配“Windows3.1”中的“Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。<br><br>(?!pattern)<br>正向否定预查，在任何不匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如“Windows(?!95|98|NT|2000)”能匹配“Windows3.1”中的“Windows”，但不能匹配“Windows2000”中的“Windows”。<br><br>(?&lt;=pattern)<br>反向肯定预查，与正向肯定预查类似，只是方向相反。例如，“(?&lt;=95|98|NT|2000)Windows”能匹配“2000Windows”中的“Windows”，但不能匹配“3.1Windows”中的“Windows”。<br><br>(?&lt;!pattern)<br>反向否定预查，与正向否定预查类似，只是方向相反。例如“(?&lt;!95|98|NT|2000)Windows”能匹配“3.1Windows”中的“Windows”，但不能匹配“2000Windows”中的“Windows”。<br><br>x|y<br>匹配x或y。例如，“z|foot”能匹配“z”或“foot”或&quot;zood&quot;(此处请谨慎)。“(z|f)ood”则匹配“zood”或“foot”。<br><br>[xyz]<br>字符集合。匹配所包含的任意一个字符。例如，“[abc]”可以匹配“plain”中的“a”。<br><br>[^xyz]<br>负值字符集合。匹配未包含的任意字符。例如，“[^abc]”可以匹配“plain”中的“plin”。<br><br>[a-z]<br>字符范围。匹配指定范围内的任意字符。例如，“[a-z]”可以匹配“a”到“z”范围内的任意小写字母字符。<br>注意:只有连字符在字符组内部时,并且出现在两个字符之间时,才能表示字符的范围; 如果出字符组的开头,则只能表示连字符本身.<br><br>[^a-z]<br>负值字符范围。匹配任何不在指定范围内的任意字符。例如，“[^a-z]”可以匹配任何不在“a”到“z”范围内的任意字符。<br><br><span class="hljs-symbol">\b</span><br>匹配一个单词边界，也就是指单词和空格间的位置（即正则表达式的“匹配”有两种概念，一种是匹配字符，一种是匹配位置，这里的<span class="hljs-symbol">\b</span>就是匹配位置的）。例如，“er<span class="hljs-symbol">\b</span>”可以匹配“never”中的“er”，但不能匹配“verb”中的“er”。<br><br><span class="hljs-symbol">\B</span><br>匹配非单词边界。“er<span class="hljs-symbol">\B</span>”能匹配“verb”中的“er”，但不能匹配“never”中的“er”。<br><br><span class="hljs-symbol">\c</span>x<br>匹配由x指明的控制字符。例如，<span class="hljs-symbol">\c</span>M匹配一个Control-M或回车符。x的值必须为A-Z或a-z之一。否则，将c视为一个原义的“c”字符。<br><br><span class="hljs-symbol">\d</span><br>匹配一个数字字符。等价于[0-9]。<br><br><span class="hljs-symbol">\D</span><br>匹配一个非数字字符。等价于[^0-9]。<br><br><span class="hljs-symbol">\f</span><br>匹配一个换页符。等价于<span class="hljs-symbol">\x</span>0c和<span class="hljs-symbol">\c</span>L。<br><br><span class="hljs-symbol">\n</span><br>匹配一个换行符。等价于<span class="hljs-symbol">\x</span>0a和<span class="hljs-symbol">\c</span>J。<br><br><span class="hljs-symbol">\r</span><br>匹配一个回车符。等价于<span class="hljs-symbol">\x</span>0d和<span class="hljs-symbol">\c</span>M。<br><br><span class="hljs-symbol">\s</span><br>匹配任何不可见字符，包括空格、制表符、换页符等等。等价于[ <span class="hljs-symbol">\f</span><span class="hljs-symbol">\n</span><span class="hljs-symbol">\r</span><span class="hljs-symbol">\t</span><span class="hljs-symbol">\v</span>]。<br><br><span class="hljs-symbol">\S</span><br>匹配任何可见字符。等价于[^ <span class="hljs-symbol">\f</span><span class="hljs-symbol">\n</span><span class="hljs-symbol">\r</span><span class="hljs-symbol">\t</span><span class="hljs-symbol">\v</span>]。<br><br><span class="hljs-symbol">\t</span><br>匹配一个制表符。等价于<span class="hljs-symbol">\x</span>09和<span class="hljs-symbol">\c</span>I。<br><br><span class="hljs-symbol">\v</span><br>匹配一个垂直制表符。等价于<span class="hljs-symbol">\x</span>0b和<span class="hljs-symbol">\c</span>K。<br><br><span class="hljs-symbol">\w</span><br>匹配包括下划线的任何单词字符。类似但不等价于“[A-Za-z0-9_]”，这里的&quot;单词&quot;字符使用Unicode字符集。<br><br><span class="hljs-symbol">\W</span><br>匹配任何非单词字符。等价于“[^A-Za-z0-9_]”。<br><br><span class="hljs-symbol">\x</span>n<br>匹配n，其中n为十六进制转义值。十六进制转义值必须为确定的两个数字长。例如，“<span class="hljs-symbol">\x</span>41”匹配“A”。“<span class="hljs-symbol">\x</span>041”则等价于“<span class="hljs-symbol">\x</span>04&amp;1”。正则表达式中可以使用ASCII编码。<br><br><span class="hljs-symbol">\n</span>um<br>匹配num，其中num是一个正整数。对所获取的匹配的引用。例如，“(.)<span class="hljs-symbol">\1</span>”匹配两个连续的相同字符。<br><br><span class="hljs-symbol">\n</span><br>标识一个八进制转义值或一个向后引用。如果<span class="hljs-symbol">\n</span>之前至少n个获取的子表达式，则n为向后引用。否则，如果n为八进制数字（0-7），则n为一个八进制转义值。<br><br><span class="hljs-symbol">\n</span>m<br>标识一个八进制转义值或一个向后引用。如果<span class="hljs-symbol">\n</span>m之前至少有nm个获得子表达式，则nm为向后引用。如果<span class="hljs-symbol">\n</span>m之前至少有n个获取，则n为一个后跟文字m的向后引用。如果前面的条件都不满足，若n和m均为八进制数字（0-7），则<span class="hljs-symbol">\n</span>m将匹配八进制转义值nm。<br><br><span class="hljs-symbol">\n</span>ml<br>如果n为八进制数字（0-7），且m和l均为八进制数字（0-7），则匹配八进制转义值nml。<br><br><span class="hljs-symbol">\u</span>n<br>匹配n，其中n是一个用四个十六进制数字表示的Unicode字符。例如，<span class="hljs-symbol">\u</span>00A9匹配版权符号（&amp;copy;）。<br><br><span class="hljs-symbol">\&lt;</span> <span class="hljs-symbol">\&gt;</span><br>匹配词（word）的开始（<span class="hljs-symbol">\&lt;</span>）和结束（<span class="hljs-symbol">\&gt;</span>）。例如正则表达式<span class="hljs-symbol">\&lt;</span>the<span class="hljs-symbol">\&gt;</span>能够匹配字符串&quot;for the wise&quot;中的&quot;the&quot;，但是不能匹配字符串&quot;otherwise&quot;中的&quot;the&quot;。注意：这个元字符不是所有的软件都支持的。<br><br><span class="hljs-symbol">\(</span> <span class="hljs-symbol">\)</span><br>将 <span class="hljs-symbol">\(</span> 和 <span class="hljs-symbol">\)</span> 之间的表达式定义为“组”（group），并且将匹配这个表达式的字符保存到一个临时区域（一个正则表达式中最多可以保存9个），它们可以用 <span class="hljs-symbol">\1</span> 到<span class="hljs-symbol">\9</span> 的符号来引用。<br><br>|<br>将两个匹配条件进行逻辑“或”（Or）运算。例如正则表达式(him|her) 匹配&quot;it belongs to him&quot;和&quot;it belongs to her&quot;，但是不能匹配&quot;it belongs to them.&quot;。注意：这个元字符不是所有的软件都支持的。<br>+   <br>匹配1或多个正好在它之前的那个字符。例如正则表达式9+匹配9、99、999等。注意：这个元字符不是所有的软件都支持的。<br><br>?   <br>匹配0或1个正好在它之前的那个字符。注意：这个元字符不是所有的软件都支持的。<br><br>&#123;i&#125; &#123;i,j&#125;<br>匹配指定数目的字符，这些字符是在它之前的表达式定义的。例如正则表达式A[0-9]&#123;3&#125; 能够匹配字符&quot;A&quot;后面跟着正好3个数字字符的串，例如A123、A348等，但是不匹配A1234。而正则表达式[0-9]&#123;4,6&#125; 匹配连续的任意4个、5个或者6个数字<br></code></pre></td></tr></table></figure>
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/46c3a7b3c1434208/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>正则表达式匹配验证-验证Email是否正确</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/6f5062d146854505/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>Java类的继承,封装,重写和重载的区别</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

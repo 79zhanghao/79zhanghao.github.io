@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>Pug模版引擎学习与语法理解-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="模版引擎,Pug,">
+<meta name="description" content="Pug模版引擎学习与语法理解">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/模版引擎">模版引擎</a></li>
+            
+            <li><a href="/tags/Pug">Pug</a></li>
+            
+            
+        </ul>
+        <h1>Pug模版引擎学习与语法理解</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-09-25 15:09:57</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <p>模板引擎是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，用于网站的模板引擎就会生成一个标准的文档</p>
+<p><strong>就是将模板文件和数据通过模板引擎生成一个HTML代码</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img20200925174003.png"></p>
+<h2 id="Pug"><a href="#Pug" class="headerlink" title="Pug"></a>Pug</h2><p><strong>安装</strong></p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><code class="hljs cmake">$ npm <span class="hljs-keyword">install</span> pug<br></code></pre></td></tr></table></figure>
+
+<h3 id="编写标签"><a href="#编写标签" class="headerlink" title="编写标签"></a>编写标签</h3><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span> /&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span> /&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Pug模版引擎<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>将上面这段 html 基本的框架代码用我们的 pug 进行编写就变成了下面的这样的代码</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">&lt;!DOCTYPE html&gt;<br>html(<span class="hljs-attribute">lang</span>=<span class="hljs-string">&quot;en&quot;</span>)<br>    head<br>        meta(<span class="hljs-attribute">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>)<br>        meta(<span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;viewport&quot;</span>, <span class="hljs-attribute">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>)<br>        meta(<span class="hljs-attribute">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span>, <span class="hljs-attribute">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>)<br>        title Pug模版引擎<br>    body<br></code></pre></td></tr></table></figure>
+
+<p>可以看出Pug的标签是单标签并且是以缩进来表示层级关系的！</p>
+<p>我们需要在 <code>body</code> 内写个 <code>h1</code> 标签</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">&lt;!DOCTYPE html&gt;<br>html(<span class="hljs-attribute">lang</span>=<span class="hljs-string">&quot;en&quot;</span>)<br>    head<br>        meta(<span class="hljs-attribute">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>)<br>        meta(<span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;viewport&quot;</span>, <span class="hljs-attribute">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>)<br>        meta(<span class="hljs-attribute">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span>, <span class="hljs-attribute">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>)<br>        title Pug模版引擎<br>    body<br>    		h1 我是H1标签<br></code></pre></td></tr></table></figure>
+
+<p>那么我们的做法就是将<code>h1</code>标签进行锁进 就成为 <code>body</code>内的<code>h1</code>标签了</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>我是H1标签<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>如果你讲 <code>h1</code> 标签没有缩进 并且和<code>body</code> 同级别</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">body<br><span class="hljs-selector-tag">h1</span> 我是H1标签<br></code></pre></td></tr></table></figure>
+
+<p>那么转换成`html的格式就是</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>我是H1标签<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>其他的标签也是同样的原理</p>
+<h4 id="标签中的纯文本块"><a href="#标签中的纯文本块" class="headerlink" title="标签中的纯文本块"></a>标签中的纯文本块</h4><p>一个典型的例子就是用 <code>script</code> 和 <code>style</code> 内嵌 JavaScript 和 CSS 代码</p>
+<p>只需要在标签后面紧接一个点 <code>.</code></p>
+<figure class="highlight autoit"><table><tr><td class="code"><pre><code class="hljs autoit">script.<br>  <span class="hljs-keyword">if</span> (usingPug)<br>    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&#x27;这是明智的选择。&#x27;</span>)<br>  <span class="hljs-keyword">else</span><br>    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&#x27;请用 Pug。&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br>  if (usingPug)<br><span class="javascript">    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;这是明智的选择。&#x27;</span>)</span><br><span class="javascript">  <span class="hljs-keyword">else</span></span><br><span class="javascript">    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;请用 Pug。&#x27;</span>)</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="标签属性"><a href="#标签属性" class="headerlink" title="标签属性"></a>标签属性</h3><p>标签属性和 HTML 语法非常相似，但它们的值就是普通的 JavaScript 表达式。您可以用逗号作为属性分隔符，不过不加逗号也是允许的。</p>
+<p>使用 <code>pug</code> 创建个<code>a</code> 标签并加上跳转地址<code>href</code></p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">a</span><span class="hljs-params">(href=<span class="hljs-string">&#x27;79bk.cn&#x27;</span>)</span></span> 乔博客<br></code></pre></td></tr></table></figure>
+
+<p>转换后的效果就是</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;79bk.cn&quot;</span>&gt;</span>乔博客<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="多行属性"><a href="#多行属性" class="headerlink" title="多行属性"></a>多行属性</h4><p>如果使用<code>pug</code>的时候编写一个标签有多个属性</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">input</span>(<br>  <span class="hljs-keyword">type</span>=<span class="hljs-string">&#x27;checkbox&#x27;</span><br>  <span class="hljs-type">name</span>=<span class="hljs-string">&#x27;agreement&#x27;</span><br>  checked<br>)<br></code></pre></td></tr></table></figure>
+
+<p>转换后的效果</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">&lt;<span class="hljs-keyword">input</span> <span class="hljs-keyword">type</span>=&quot;checkbox&quot; <span class="hljs-type">name</span>=&quot;agreement&quot; checked=&quot;checked&quot; /&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="用引号括起来的属性"><a href="#用引号括起来的属性" class="headerlink" title="用引号括起来的属性"></a>用引号括起来的属性</h4><p>如果您的属性名称中含有某些奇怪的字符，并且可能会与 JavaScript 语法产生冲突的话，请您将它们使用 <code>&quot;&quot;</code> 或者 <code>&#39;&#39;</code> 括起来。您还可以使用逗号来分割不同的属性。</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><code class="hljs scala"><span class="hljs-comment">//- 在这种情况下，`(click)` 会被当作函数调用而不是</span><br><span class="hljs-comment">//- 属性名称，这会导致一些稀奇古怪的错误。</span><br>div(<span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-symbol">&#x27;div</span>-<span class="hljs-class"><span class="hljs-keyword">class</span>&#x27; (<span class="hljs-params">click</span>)</span>=<span class="hljs-symbol">&#x27;play</span>()&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p>上面的代码会出现以下的错误</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><code class="hljs asciidoc">index.pug:3:11<br><span class="hljs-code">    1| //- 在这种情况下，`(click)` 会被当作函数调用而不是</span><br><span class="hljs-code">    2| //- 属性名称，这会导致一些稀奇古怪的错误。</span><br><span class="hljs-code">  &gt; 3| div(class=&#x27;div-class&#x27; (click)=&#x27;play()&#x27;)</span><br>-----------------^<br><br>Syntax Error: Assigning to rvalue<br></code></pre></td></tr></table></figure>
+
+<p>正确的写法</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><code class="hljs lisp">div(<span class="hljs-name">class=</span>&#x27;div-class&#x27;, (<span class="hljs-name">click</span>)=&#x27;play()&#x27;)<br>div(<span class="hljs-name">class=</span>&#x27;div-class&#x27; &#x27;(click)&#x27;=&#x27;play()&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p>转换的结果</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;div-class&quot;</span> (click)=<span class="hljs-string">&quot;play()&quot;</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;<br>&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;div-class&quot;</span> (click)=<span class="hljs-string">&quot;play()&quot;</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="变量属性"><a href="#变量属性" class="headerlink" title="变量属性"></a>变量属性</h4><p>那么有两个问题</p>
+<ol>
+<li>如何在pug文件声明变量</li>
+<li>如何调用变量</li>
+</ol>
+<p><strong>声明变量</strong></p>
+<p>在前面加上一个 <code>-</code> 然后写上一个空格 就可以按照js的方式声明变量了</p>
+<figure class="highlight qml"><table><tr><td class="code"><pre><code class="hljs qml">- <span class="hljs-keyword">let</span> <span class="hljs-built_in">url</span> = <span class="hljs-string">&#x27;pug-test.html&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p><strong>调用</strong></p>
+<p>直接在变量的下面的内容里面写上 变量名称即可</p>
+<figure class="highlight qml"><table><tr><td class="code"><pre><code class="hljs qml">- <span class="hljs-keyword">var</span> <span class="hljs-built_in">url</span> = <span class="hljs-string">&#x27;pug-test.html&#x27;</span>;<br>a(href=<span class="hljs-string">&#x27;/&#x27;</span> + <span class="hljs-built_in">url</span>) 链接<br></code></pre></td></tr></table></figure>
+
+<p>转换的结果</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/pug-test.html&quot;</span>&gt;</span>链接<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="布尔值属性"><a href="#布尔值属性" class="headerlink" title="布尔值属性"></a>布尔值属性</h4><p>在 Pug 中，布尔值属性是经过映射的，这样布尔值（<code>true</code> 和 <code>false</code>）就能接受了。当没有指定值的时候，默认是 <code>true</code>。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">input(<span class="hljs-attribute">type</span>=<span class="hljs-string">&#x27;checkbox&#x27;</span> checked)<br>input(<span class="hljs-attribute">type</span>=<span class="hljs-string">&#x27;checkbox&#x27;</span> <span class="hljs-attribute">checked</span>=<span class="hljs-literal">true</span>)<br>input(<span class="hljs-attribute">type</span>=<span class="hljs-string">&#x27;checkbox&#x27;</span> <span class="hljs-attribute">checked</span>=<span class="hljs-literal">false</span>)<br>input(<span class="hljs-attribute">type</span>=<span class="hljs-string">&#x27;checkbox&#x27;</span> <span class="hljs-attribute">checked</span>=<span class="hljs-literal">true</span>.toString())<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight fsharp"><table><tr><td class="code"><pre><code class="hljs fsharp">&lt;input <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">&quot;checkbox&quot;</span> checked=<span class="hljs-string">&quot;checked&quot;</span> /&gt;<br>&lt;input <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">&quot;checkbox&quot;</span> checked=<span class="hljs-string">&quot;checked&quot;</span> /&gt;<br>&lt;input <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">&quot;checkbox&quot;</span> /&gt;<br>&lt;input <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">&quot;checkbox&quot;</span> checked=<span class="hljs-string">&quot;true&quot;</span> /&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="样式属性"><a href="#样式属性" class="headerlink" title="样式属性"></a>样式属性</h4><p><code>style</code>（样式）属性可以是一个字符串（就像其他普通的属性一样）还可以是一个对象，这在部分样式是由 JavaScript 生成的情况下非常方便。</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">a</span><span class="hljs-params">(style=&#123;color: <span class="hljs-string">&#x27;red&#x27;</span>, background: <span class="hljs-string">&#x27;green&#x27;</span>&#125;)</span></span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color:red;background:green;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="类属性"><a href="#类属性" class="headerlink" title="类属性"></a>类属性</h4><figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript">div(<span class="hljs-keyword">class</span>=&quot;<span class="hljs-symbol">mydiv</span>&quot;) 我是类名为<span class="hljs-symbol">mydiv</span>的<span class="hljs-symbol">div</span><br></code></pre></td></tr></table></figure>
+
+<p>转换的结果</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript">&lt;div <span class="hljs-keyword">class</span>=&quot;<span class="hljs-symbol">mydiv</span>&quot;&gt;我是类名为<span class="hljs-symbol">mydiv</span>的<span class="hljs-symbol">div</span>&lt;/<span class="hljs-symbol">div</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="类或ID的字面值"><a href="#类或ID的字面值" class="headerlink" title="类或ID的字面值"></a>类或ID的字面值</h4><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.button</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript">&lt;a <span class="hljs-keyword">class</span>=&quot;<span class="hljs-symbol">button</span>&quot;&gt;&lt;/<span class="hljs-symbol">a</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<p>下面是不写前面的标签显示的是div标签</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">.mydiv2(style=&#123;<span class="hljs-built_in">width</span>:<span class="hljs-string">&quot;100px&quot;</span>,<span class="hljs-built_in">height</span>:<span class="hljs-string">&quot;100px&quot;</span>,<span class="hljs-built_in">background</span>:<span class="hljs-string">&quot;blue&quot;</span>&#125;) 我是div2<br><span class="hljs-meta">#myid 我是id为myid的div</span><br></code></pre></td></tr></table></figure>
+
+<p>转换的结果</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;mydiv2&quot;</span> style=<span class="hljs-string">&quot;width:100px;height:100px;background:blue;&quot;</span>&gt;我是div2&lt;/<span class="hljs-keyword">div</span>&gt;<br>&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;myid&quot;</span>&gt;我是<span class="hljs-built_in">id</span>为myid的<span class="hljs-keyword">div</span>&lt;/<span class="hljs-keyword">div</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="分支条件"><a href="#分支条件" class="headerlink" title="分支条件"></a>分支条件</h3><h4 id="Case"><a href="#Case" class="headerlink" title="Case"></a>Case</h4><p>这个跟js当中的 switch语句 一样的</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">- var friends = 10<br>case friends<br>  when 0<br>    p 您没有朋友<br>  when 1<br>    p 您有一个朋友<br>  default<br>    p 您有 #&#123;friends&#125; 个朋友<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>您有 10 个朋友<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>Case传递会在遇到非空的语法块前一直进行下去。</p>
+<p>在某些情况下，如果您不想输出任何东西的话，您可以明确地加上一个原生的 <code>break</code> 语句：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">- var friends = 0<br>case friends<br>  when 0<br>    - break<br>  when 1<br>    p 您的朋友很少<br>  default<br>    p 您有 #&#123;friends&#125; 个朋友<br></code></pre></td></tr></table></figure>
+
+<p>这样就什么也不会打印出来了</p>
+<p>如果这种情况下你没有进行添加 <code>- break</code> 语句那么就会打印出 ：您的朋友很少 </p>
+<h4 id="条件if"><a href="#条件if" class="headerlink" title="条件if"></a>条件if</h4><p>可以在pug 当中使用<code>if else if else </code>语句</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">- <span class="hljs-selector-tag">var</span> user = &#123; description: <span class="hljs-string">&#x27;foo bar baz&#x27;</span> &#125;<br>- <span class="hljs-selector-tag">var</span> authorised = false<br>#user<br>  <span class="hljs-keyword">if</span> user.description<br>    <span class="hljs-selector-tag">h2</span><span class="hljs-selector-class">.green</span> 描述<br>    <span class="hljs-selector-tag">p</span>.description= user.description<br>  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> authorised<br>    <span class="hljs-selector-tag">h2</span><span class="hljs-selector-class">.blue</span> 描述<br>    <span class="hljs-selector-tag">p</span><span class="hljs-selector-class">.description</span>.<br>      用户没有添加描述。<br>      不写点什么吗……<br>  <span class="hljs-keyword">else</span><br>    <span class="hljs-selector-tag">h2</span><span class="hljs-selector-class">.red</span> 描述<br>    <span class="hljs-selector-tag">p</span><span class="hljs-selector-class">.description</span> 用户没有描述<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript">&lt;div id=<span class="hljs-string">&quot;user&quot;</span>&gt;<br>  &lt;h2 <span class="hljs-keyword">class</span>=&quot;<span class="hljs-symbol">green</span>&quot;&gt;描述&lt;/<span class="hljs-symbol">h2</span>&gt;<br>  &lt;<span class="hljs-symbol">p</span> <span class="hljs-symbol">class</span>=&quot;<span class="hljs-symbol">description</span>&quot;&gt;<span class="hljs-symbol">foo</span> <span class="hljs-symbol">bar</span> <span class="hljs-symbol">baz</span>&lt;/<span class="hljs-symbol">p</span>&gt;<br>&lt;/<span class="hljs-symbol">div</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<p>Pug 同样也提供了它的反义版本 <code>unless</code></p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">unless <span class="hljs-keyword">user</span>.isAnonymous<br>  p 您已经以 #&#123;<span class="hljs-keyword">user</span>.name&#125; 的身份登录。<br></code></pre></td></tr></table></figure>
+
+<p>等同于</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">if</span> !<span class="hljs-keyword">user</span>.isAnonymous<br>  p 您已经以 #&#123;<span class="hljs-keyword">user</span>.name&#125; 的身份登录。<br></code></pre></td></tr></table></figure>
+
+<h3 id="循环迭代"><a href="#循环迭代" class="headerlink" title="循环迭代"></a>循环迭代</h3><p>Pug 目前支持两种主要的迭代方式： <code>each</code> 和 <code>while</code>。 但是for也可以写</p>
+<h4 id="each"><a href="#each" class="headerlink" title="each"></a>each</h4><figure class="highlight perl"><table><tr><td class="code"><pre><code class="hljs perl">ul<br>  <span class="hljs-keyword">each</span> val, <span class="hljs-keyword">index</span> in [<span class="hljs-string">&#x27;〇&#x27;</span>, <span class="hljs-string">&#x27;一&#x27;</span>, <span class="hljs-string">&#x27;二&#x27;</span>]<br>    li= <span class="hljs-keyword">index</span> + <span class="hljs-string">&#x27;: &#x27;</span> + val<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>0: 〇<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1: 一<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>2: 二<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>您还能添加一个 <code>else</code> 块，这个语句块将会在数组与对象没有可供迭代的值时被执行</p>
+<figure class="highlight maxima"><table><tr><td class="code"><pre><code class="hljs maxima">- <span class="hljs-built_in">var</span> <span class="hljs-built_in">values</span> = [];<br>ul<br>  each val <span class="hljs-keyword">in</span> <span class="hljs-built_in">values</span><br>    <span class="hljs-built_in">li</span>= val<br>  <span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">li</span> 没有内容<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>没有内容<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="for"><a href="#for" class="headerlink" title="for"></a>for</h4><p>可以直接替换掉 <code>each</code></p>
+<figure class="highlight maxima"><table><tr><td class="code"><pre><code class="hljs maxima">- <span class="hljs-built_in">var</span> <span class="hljs-built_in">values</span> = [];<br>ul<br>  <span class="hljs-keyword">for</span> val <span class="hljs-keyword">in</span> <span class="hljs-built_in">values</span><br>  	<span class="hljs-built_in">li</span>= val<br>  <span class="hljs-keyword">else</span><br>  	<span class="hljs-built_in">li</span> 没有内容<br></code></pre></td></tr></table></figure>
+
+<p>和<code>each</code> 是同等的效果</p>
+<h4 id="while"><a href="#while" class="headerlink" title="while"></a>while</h4><figure class="highlight excel"><table><tr><td class="code"><pre><code class="hljs excel">- <span class="hljs-built_in">var</span> <span class="hljs-built_in">n</span> = <span class="hljs-number">0</span>;<br>ul<br>  while <span class="hljs-built_in">n</span> &lt; <span class="hljs-number">4</span><br>    li= <span class="hljs-built_in">n</span>++<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="混入-Mixin"><a href="#混入-Mixin" class="headerlink" title="混入 Mixin"></a>混入 Mixin</h3><p>混入是一种允许您在 Pug 中重复使用一整个代码块的方法。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript"><span class="hljs-comment">//- 定义</span><br><span class="hljs-keyword">mixin</span> list<br>  ul<br>    li foo<br>    li bar<br>    li baz<br><span class="hljs-comment">//- 使用</span><br>+list<br>+list<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>foo<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>bar<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>baz<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>foo<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>bar<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>baz<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>也可以携带一些参数</p>
+<figure class="highlight isbl"><table><tr><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">mixin</span> <span class="hljs-function"><span class="hljs-title">pet</span>(<span class="hljs-variable">name</span>)</span><br>  <span class="hljs-variable">li.pet</span>= <span class="hljs-variable">name</span><br><span class="hljs-variable">ul</span><br>  +<span class="hljs-function"><span class="hljs-title">pet</span>(<span class="hljs-string">&#x27;猫&#x27;</span>)</span><br>  +<span class="hljs-function"><span class="hljs-title">pet</span>(<span class="hljs-string">&#x27;狗&#x27;</span>)</span><br>  +<span class="hljs-function"><span class="hljs-title">pet</span>(<span class="hljs-string">&#x27;猪&#x27;</span>)</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript">&lt;ul&gt;<br>  &lt;li <span class="hljs-keyword">class</span>=&quot;<span class="hljs-symbol">pet</span>&quot;&gt;猫&lt;/<span class="hljs-symbol">li</span>&gt;<br>  &lt;<span class="hljs-symbol">li</span> <span class="hljs-symbol">class</span>=&quot;<span class="hljs-symbol">pet</span>&quot;&gt;狗&lt;/<span class="hljs-symbol">li</span>&gt;<br>  &lt;<span class="hljs-symbol">li</span> <span class="hljs-symbol">class</span>=&quot;<span class="hljs-symbol">pet</span>&quot;&gt;猪&lt;/<span class="hljs-symbol">li</span>&gt;<br>&lt;/<span class="hljs-symbol">ul</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="混入的属性"><a href="#混入的属性" class="headerlink" title="混入的属性"></a>混入的属性</h4><p>混入也可以隐式地，从“标签属性”得到一个参数 <code>attributes</code>：</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">mixin link(href, <span class="hljs-type">name</span>)<br>  //- attributes == &#123;<span class="hljs-keyword">class</span>: &quot;btn&quot;&#125;<br>  a(<span class="hljs-keyword">class</span>!=attributes.<span class="hljs-keyword">class</span> href=href)= <span class="hljs-type">name</span><br><br>+link(<span class="hljs-string">&#x27;/foo&#x27;</span>, <span class="hljs-string">&#x27;foo&#x27;</span>)(<span class="hljs-keyword">class</span>=&quot;btn&quot;)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript">&lt;a <span class="hljs-keyword">class</span>=&quot;<span class="hljs-symbol">btn</span>&quot; <span class="hljs-symbol">href</span>=&quot;/<span class="hljs-symbol">foo</span>&quot;&gt;<span class="hljs-symbol">foo</span>&lt;/<span class="hljs-symbol">a</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="包含Include"><a href="#包含Include" class="headerlink" title="包含Include"></a>包含Include</h3><p>在编写网站的时候 有时候我们的头部和底部是一样的传统写法我们会写出很多重复的代码后期会很难进行维护</p>
+<p>那么我们就可以进行一次编写多次引入</p>
+<p>编写头部</p>
+<figure class="highlight isbl"><table><tr><td class="code"><pre><code class="hljs isbl"><span class="hljs-comment">//- includes/head.pug</span><br><span class="hljs-variable">head</span><br>  <span class="hljs-variable">title</span> 我的网站<br>  <span class="hljs-function"><span class="hljs-title">script</span>(<span class="hljs-variable">src</span>=<span class="hljs-string">&#x27;/javascripts/jquery.js&#x27;</span>)</span><br>  <span class="hljs-function"><span class="hljs-title">script</span>(<span class="hljs-variable">src</span>=<span class="hljs-string">&#x27;/javascripts/app.js&#x27;</span>)</span><br></code></pre></td></tr></table></figure>
+
+<p>编写底部</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>- includes/foot.pug<br>footer<span class="hljs-comment">#footer</span><br>  p Copyright (c) foobar<br></code></pre></td></tr></table></figure>
+
+<p>然后我们只需要在需要的页面进行引入就可以了</p>
+<p>那么我们在首页进行引入</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus"><span class="hljs-comment">//- index.pug</span><br>doctype html<br>html<br>  include includes/head.pug<br>  body<br>    <span class="hljs-selector-tag">h1</span> 我的网站<br>    <span class="hljs-selector-tag">p</span> 欢迎来到我这简陋得不能再简陋的网站。<br>    include includes/foot.pug<br></code></pre></td></tr></table></figure>
+
+<p>我们打开首页的到的结果就是</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>我的网站<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/javascripts/jquery.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/javascripts/app.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>我的网站<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>欢迎来到我这简陋得不能再简陋的网站。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">footer</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;footer&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Copyright (c) foobar<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>带输出的注释和 JavaScript 的单行注释类似</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus"><span class="hljs-comment">// 一些内容</span><br><span class="hljs-selector-tag">p</span> foo<br><span class="hljs-selector-tag">p</span> bar<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 一些内容--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>foo<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>bar<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>不输出的注释，只需要加上一个横杠</p>
+<p>这些内容仅仅会出现在 Pug 模板之中，<em>不会</em>出现在渲染后的 HTML 中</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus"><span class="hljs-comment">//- 这行不会出现在结果里</span><br><span class="hljs-selector-tag">p</span> foo<br><span class="hljs-selector-tag">p</span> bar<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>foo<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>bar<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="块注释"><a href="#块注释" class="headerlink" title="块注释"></a>块注释</h4><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">body<br>  <span class="hljs-regexp">//</span>-<br>    给模板写的注释<br>    随便写多少字<br>    都没关系。<br>  <span class="hljs-regexp">//</span><br>    给生成的 HTML 写的注释<br>    随便写多少字<br>    都没关系。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-comment">&lt;!--给生成的 HTML 写的注释</span><br><span class="hljs-comment">随便写多少字</span><br><span class="hljs-comment">都没关系。--&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/3ee9026f15525725/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>QiaoBug用Css画个小虫子并用动画动起来</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/f70215f753720924/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>Node.js模块Fs文件操作模块的学习</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>

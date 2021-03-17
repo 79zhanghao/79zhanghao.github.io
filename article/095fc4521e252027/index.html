@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		
+<title>从零搭建React-Redux新闻项目完整架构项目目录-乔越博客</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+
+<meta name="keywords" content="React,Redux,资讯项目,新闻项目,">
+<meta name="description" content="从零搭建React-Redux新闻项目完整架构项目目录">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4b5fe1472f22fa9408e735ea7967bb2a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+	<meta name="generator" content="Hexo 5.2.0"></head>
+
+	<body>
+		
+<link rel="stylesheet" href="/css/page.css">
+
+    
+<link rel="stylesheet" href="/css/page_cente.css">
+
+        
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+            
+<link rel="stylesheet" href="/css/header.css">
+
+<div class="header">
+	<div class="header-top">
+		<div class="h-left">
+			<a href="/">
+				<img src="/image/logo.png" alt="">
+			</a>
+		</div>
+		<div class="h-right">
+			<ul>
+				
+				
+				<li>
+					<a href="/">HOME</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/archives">ARCHIVE</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/categories">CATEGORIES</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/tags">TAGS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/links">LINKS</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+				
+				<li>
+					<a href="/about">ABOUT</a>
+					<span class="dot"></span>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<div class="h-right-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+				<path fill="none" d="M0 0h24v24H0z" />
+				<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+			</svg>
+		</div>
+	</div>
+</div>
+<div class="sidebar">
+    <div class="topo">
+        <h2>CHANGEQ</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'
+    style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'>
+</div>
+<style>
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(255, 255, 255);
+        z-index: 999;
+        text-align: center;
+        box-shadow: -6px 0px 20px rgba(98, 94, 94, 0.815);
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url('https://api.ixiaowai.cn/gqapi/gqapi.php') no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0px 0px 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box;
+
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url('/image/pattern.png');
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px;
+    }
+</style>
+
+<script>
+    $(function () { $('.h-right-close>svg').click(function () { $('.sidebar').animate({ width: "66%" }, 500); $('.shelter').fadeIn("slow") }); $('.shelter').click(function (e) { $('.sidebar').animate({ width: "0" }, 500); $('.shelter').fadeOut("slow") }) })
+</script>
+<script>
+	$(function () { $(window).scroll(function () { if ($(document).scrollTop() > 100) { $(".header-top").removeClass("header-move2"); $('.header-top').addClass('header-move1') } else { $(".header-top").removeClass("header-move1"); $('.header-top').addClass('header-move2') } }) });
+</script>
+                <div class="header-bg bg-content-img">
+    <div class="bg-content">
+        <ul class="tag">
+            
+            
+            <li><a href="/tags/React">React</a></li>
+            
+            <li><a href="/tags/Redux">Redux</a></li>
+            
+            <li><a href="/tags/资讯项目">资讯项目</a></li>
+            
+            <li><a href="/tags/新闻项目">新闻项目</a></li>
+            
+            
+        </ul>
+        <h1>从零搭建React-Redux新闻项目完整架构项目目录</h1>
+        <div class="article-info">
+            <div class="article-author">
+                
+                <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                    <path
+                        d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                        p-id="2902" fill="#ffffff"></path>
+                </svg>
+                
+                <span> <a href="">CHANGEQ</a></span>
+                <p>2020-10-27 14:20:20</p>
+            </div>
+        </div>
+    </div>
+</div>
+                    <div class="article-content">
+    <div id="article" class="content">
+        <h3 id="create-react-app"><a href="#create-react-app" class="headerlink" title="create-react-app"></a>create-react-app</h3><p>初次构建项目 <code>create-react-app</code> 会包含一些东西</p>
+<p>安装 <code>create-react-app</code> 需要先初始化 <code>npm init -y</code></p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript">$ <span class="hljs-built_in">npm</span> i create-react-app<br></code></pre></td></tr></table></figure>
+
+<p>安装好后我们构建初级的 React 项目</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><code class="hljs dsconfig">$ <span class="hljs-string">npx </span><span class="hljs-built_in">create-react-app</span> 名称<br></code></pre></td></tr></table></figure>
+
+<h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">my-app</span><br>├── <span class="hljs-selector-tag">README</span><span class="hljs-selector-class">.md</span><br>├── <span class="hljs-selector-tag">node_modules</span><br>├── <span class="hljs-selector-tag">package</span><span class="hljs-selector-class">.json</span><br>├── <span class="hljs-selector-class">.gitignore</span><br>├── <span class="hljs-selector-tag">public</span><br>│   ├── <span class="hljs-selector-tag">favicon</span><span class="hljs-selector-class">.ico</span><br>│   ├── <span class="hljs-selector-tag">index</span><span class="hljs-selector-class">.html</span><br>│   └── <span class="hljs-selector-tag">manifest</span><span class="hljs-selector-class">.json</span><br>└── <span class="hljs-selector-tag">src</span><br>    ├── <span class="hljs-selector-tag">App</span><span class="hljs-selector-class">.css</span><br>    ├── <span class="hljs-selector-tag">App</span><span class="hljs-selector-class">.js</span><br>    ├── <span class="hljs-selector-tag">App</span><span class="hljs-selector-class">.test</span><span class="hljs-selector-class">.js</span><br>    ├── <span class="hljs-selector-tag">index</span><span class="hljs-selector-class">.css</span><br>    ├── <span class="hljs-selector-tag">index</span><span class="hljs-selector-class">.js</span><br>    ├── <span class="hljs-selector-tag">logo</span><span class="hljs-selector-class">.svg</span><br>    └── <span class="hljs-selector-tag">serviceWorker</span><span class="hljs-selector-class">.js</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="自带的包"><a href="#自带的包" class="headerlink" title="自带的包"></a>自带的包</h4><figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">&quot;react&quot;</span>: <span class="hljs-string">&quot;^17.0.1&quot;</span>,<br><span class="hljs-string">&quot;react-dom&quot;</span>: <span class="hljs-string">&quot;^17.0.1&quot;</span>,<br><span class="hljs-string">&quot;react-scripts&quot;</span>: <span class="hljs-string">&quot;4.0.0&quot;</span>,<br><span class="hljs-string">&quot;web-vitals&quot;</span>: <span class="hljs-string">&quot;^0.2.4&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>我们主要安装需要的东西 </p>
+<p>首先我们配置 <code>react-redux</code> 状态管理</p>
+<h3 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h3><p>首先我们安装上 相关的包</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">&quot;redux&quot;</span>: <span class="hljs-string">&quot;^4.0.5&quot;</span>,<br><span class="hljs-string">&quot;react-redux&quot;</span>: <span class="hljs-string">&quot;^7.2.2&quot;</span>,<br><span class="hljs-string">&quot;redux-thunk&quot;</span>: <span class="hljs-string">&quot;^2.3.0&quot;</span>,<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript">$ <span class="hljs-built_in">npm</span> i redux react-redux redux-thunk<br></code></pre></td></tr></table></figure>
+
+<p>我们这里做一个Reducer拆分的处理</p>
+<p>我们在 src 中创建一个文件夹 名为 ： <code>store</code>  这里放我们 Reducer 数据相关</p>
+<p>里面有个 <code>index.js</code> 构建我们的 <code>store</code> 对象 并且把中间件弄好</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 创建 createStore对象  合并 数据Reducer applyMiddleware传入中间件</span><br><span class="hljs-keyword">import</span> &#123; createStore, combineReducers, applyMiddleware &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;redux&quot;</span>;<br><span class="hljs-comment">// 中间件</span><br><span class="hljs-keyword">import</span> thunk <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;redux-thunk&quot;</span>;<br><span class="hljs-comment">// 数据拆分</span><br><span class="hljs-keyword">import</span> list <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./reducer/list&quot;</span>;<br><span class="hljs-comment">//  合并</span><br><span class="hljs-keyword">const</span> Sorte = createStore(combineReducers(&#123;<br>    list<br>&#125;), applyMiddleware(thunk));<br><span class="hljs-comment">// 导出</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Sorte<br></code></pre></td></tr></table></figure>
+
+<p>上面会有一个数据的拆分</p>
+<p>我们在当前目录下创建一个<code>reducer</code> 文件夹 里面存放数据的相关处理</p>
+<p>如上面的 list</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// 定义函数方法</span><br><span class="hljs-function">function <span class="hljs-title">list</span><span class="hljs-params">(<span class="hljs-built_in">list</span> = &#123;</span></span><br><span class="hljs-function"><span class="hljs-params">		<span class="hljs-comment">// 定义数据</span></span></span><br><span class="hljs-function"><span class="hljs-params">    loading: <span class="hljs-literal">true</span>,</span></span><br><span class="hljs-function"><span class="hljs-params">    data: []</span></span><br><span class="hljs-function"><span class="hljs-params">&#125;, action)</span> </span>&#123;<br>    <span class="hljs-keyword">switch</span> (action.type) &#123;<br>    		<span class="hljs-comment">// 对数据的相关操作</span><br>        <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;LIST_ADD&quot;</span>:<br>            <span class="hljs-keyword">return</span> &#123;<br>                loading: <span class="hljs-literal">true</span>,<br>                data: []<br>            &#125;<br>        <span class="hljs-comment">// Expected a default case default-case</span><br>        <span class="hljs-keyword">default</span>:<br>        <span class="hljs-comment">// do nothing</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">list</span>;<br>&#125;<br><br><span class="hljs-comment">// 导出</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-built_in">list</span>;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgimage-20201027143250481.png" alt="目录结构"></p>
+<p>我们在 根目录下的 <code>index.js</code> 中进行引入的操作</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><code class="hljs clean"><span class="hljs-comment">// 导入 store</span><br><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./store/index&#x27;</span><br><span class="hljs-comment">// 引入 状态管理数据配置</span><br><span class="hljs-keyword">import</span> &#123; Provider &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-redux&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>然后我们用 <code>Provider</code> 包裹住根然后进行一个 store的传递</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">ReactDOM.render(<br>  &lt;Provider store=&#123;store&#125;&gt;<br>    &lt;App /&gt;<br>  &lt;/Provider&gt;,<br>  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)<br>);<br></code></pre></td></tr></table></figure>
+
+<p>这样我们就完成了数据的拆分和中间件等的配置</p>
+<h3 id="react-router-dom"><a href="#react-router-dom" class="headerlink" title="react-router-dom"></a>react-router-dom</h3><p>对路由进行一个管理  </p>
+<p>使用React构建的单页面应用，要想实现页面间的跳转，首先想到的就是使用路由</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript">$ <span class="hljs-built_in">npm</span> i react-router-dom<br></code></pre></td></tr></table></figure>
+
+<p>我们在 根目录的 <code>index.js</code> 中进行一个引入 然后我们包住 app</p>
+<p>这里有一个先后顺序</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">import</span> &#123; BrowserRouter &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router-dom&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>这里数据放在最外层 确保哪里都可以 拿到数据</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">ReactDOM.render(<br>  &lt;Provider store=&#123;store&#125;&gt;<br>    &lt;BrowserRouter&gt;<br>      &lt;App /&gt;<br>    &lt;/BrowserRouter&gt;<br>  &lt;/Provider&gt;,<br>  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)<br>);<br></code></pre></td></tr></table></figure>
+
+<p>我们在 <code> src</code>中创建一个  <code>routes</code> 文件我们来存放 路由相关内容</p>
+<p>我们在创建一个 <code>component</code> 文件存放一些公共的组件 比如头部和底部等</p>
+<h3 id="组件编写"><a href="#组件编写" class="headerlink" title="组件编写"></a>组件编写</h3><p>在<code>component</code>  里面创建一个头部组件 <code>Header</code> </p>
+<p>我们在组件当中会用到 样式的组件 这时候我们 就可以使用 Ant Design</p>
+<h3 id="Ant-Design"><a href="#Ant-Design" class="headerlink" title="Ant Design"></a>Ant Design</h3><p><code>antd</code> 是基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。</p>
+<p>我们进行安装</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript">$ <span class="hljs-built_in">npm</span> i antd<br></code></pre></td></tr></table></figure>
+
+<p>然后我们配置 按需加载css</p>
+<p>此时我们需要对 create-react-app 的默认配置进行自定义，这里我们使用 craco（一个对 create-react-app 进行自定义配置的社区解决方案）。</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript">$ <span class="hljs-built_in">npm</span> i @craco/craco<br></code></pre></td></tr></table></figure>
+
+<p>修改 <code>package.json</code> 里的 <code>scripts</code> 属性。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/* package.json */</span><br><span class="hljs-string">&quot;scripts&quot;</span>: &#123;<br>-   <span class="hljs-string">&quot;start&quot;</span>: <span class="hljs-string">&quot;react-scripts start&quot;</span>,<br>-   <span class="hljs-string">&quot;build&quot;</span>: <span class="hljs-string">&quot;react-scripts build&quot;</span>,<br>-   <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-string">&quot;react-scripts test&quot;</span>,<br>+   <span class="hljs-string">&quot;start&quot;</span>: <span class="hljs-string">&quot;craco start&quot;</span>,<br>+   <span class="hljs-string">&quot;build&quot;</span>: <span class="hljs-string">&quot;craco build&quot;</span>,<br>+   <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-string">&quot;craco test&quot;</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">&quot;scripts&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;start&quot;</span>: <span class="hljs-string">&quot;craco start&quot;</span>,<br>    <span class="hljs-string">&quot;build&quot;</span>: <span class="hljs-string">&quot;craco build&quot;</span>,<br>    <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-string">&quot;craco test&quot;</span>,<br>    <span class="hljs-string">&quot;eject&quot;</span>: <span class="hljs-string">&quot;react-scripts eject&quot;</span><br>  &#125;,<br></code></pre></td></tr></table></figure>
+
+<p>然后在项目根目录创建一个 <code>craco.config.js</code> 用于修改默认配置。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/* craco.config.js */</span><br>module.exports = &#123;<br>  <span class="hljs-regexp">//</span> ...<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>我们在安装 <code>npm i babel-plugin-import</code> </p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript">$ <span class="hljs-built_in">npm</span> i babel-plugin-<span class="hljs-keyword">import</span><br></code></pre></td></tr></table></figure>
+
+<p>配置文件<code>craco.config.js</code></p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span> = &#123;<br>  babel: &#123;<br>    plugins: [<br>      [<span class="hljs-string">&#x27;import&#x27;</span>, &#123; libraryName: <span class="hljs-string">&#x27;antd&#x27;</span>, style: <span class="hljs-string">&#x27;css&#x27;</span> &#125;],<br>    ]<br>  &#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>如果要结合less配置，可参照antd官网下面给出完整配置</p>
+<p>然后安装 <code>craco-less</code> 并修改 <code>craco.config.js</code> 文件如下。</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><code class="hljs cmake">$ npm i craco-<span class="hljs-keyword">less</span><br></code></pre></td></tr></table></figure>
+
+<p>将  <code>craco.config.js</code>  文件 修改成以下内容</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">const</span> <span class="hljs-string">CracoLessPlugin</span> <span class="hljs-string">=</span> <span class="hljs-string">require(&#x27;craco-less&#x27;);</span><br><span class="hljs-string">module.exports</span> <span class="hljs-string">=</span> &#123;<br>    <span class="hljs-attr">plugins:</span> [<br>        &#123;<br>            <span class="hljs-attr">plugin:</span> <span class="hljs-string">CracoLessPlugin</span>,<br>            <span class="hljs-attr">options:</span> &#123;<br>                <span class="hljs-attr">lessLoaderOptions:</span> &#123;<br>                    <span class="hljs-attr">lessOptions:</span> &#123;<br>                        <span class="hljs-attr">modifyVars:</span> &#123; <span class="hljs-string">&quot;@primary-color&quot;</span><span class="hljs-string">:</span> <span class="hljs-string">&quot;#1DA57A&quot;</span> &#125;,<br>                        <span class="hljs-attr">javascriptEnabled:</span> <span class="hljs-literal">true</span>,<br>                    &#125;,<br>                &#125;,<br>            &#125;,<br>        &#125;,<br>    ],<br>    <span class="hljs-attr">babel:</span> &#123;<br>        <span class="hljs-attr">plugins:</span> [<br>            [<span class="hljs-string">&#x27;import&#x27;</span>, &#123; <span class="hljs-attr">libraryName:</span> <span class="hljs-string">&#x27;antd&#x27;</span>, <span class="hljs-attr">style:</span> <span class="hljs-literal">true</span> &#125;],<br>        ]<br>    &#125;,<br>&#125;<span class="hljs-string">;</span><br></code></pre></td></tr></table></figure>
+
+<p>这里利用了 less-loader的 <code>modifyVars</code> 来进行主题配置</p>
+<p>变量和其他配置方式可以参考 <a target="_blank" rel="noopener" href="https://ant.design/docs/react/customize-theme-cn">配置主题</a> 文档</p>
+<p>修改后重启 <code>yarn start</code> </p>
+<p>这时候你就可以 使用 antd 的组件了</p>
+<h3 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h3><p>我们需要发送请求 到服务端然后 获取到数据</p>
+<p>安装</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><code class="hljs coffeescript">$ <span class="hljs-built_in">npm</span> i axios<br></code></pre></td></tr></table></figure>
+
+<p>我们在 <code>store</code> 文件中进行引入调用 我们创建一个 <code>http.js</code> 文件 然后我们在创建个文件 进行调用</p>
+<h3 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h3><p>看看我写成什么🐶样了 还不是很熟悉</p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/imgFB2515D32C2C41D82D78C5CC04647833.jpg" alt="React-redux-项目"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg@master/img77.png" alt="React-redux-项目"></p>
+<p><a target="_blank" rel="noopener" href="https://wwa.lanzous.com/ilgDkhsx3cd">资源下载</a></p>
+
+    </div>
+</div>
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 109;
+        width: 600px !important;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            width: 88%
+        }
+    }
+</style>
+<script>
+    $(function () {
+        $('#article').click(function (e) {
+            if (e.target.tagName == "IMG") {
+                if ($('#nonediv').length == 0) {
+                    let MImg = `<div id='noneimg'><img src='${e.target.currentSrc}'></div>`;
+                    let MDiv = "<div id='nonediv' style='cursor: pointer;display: none; position: fixed;left: 0;top: 0; right: 0;bottom: 0;background-color: #333;opacity:0.5;z-index: 108;'></div>";
+                    $('#article').append(MDiv);
+                    $('#article').append(MImg);
+                    $("#nonediv").fadeIn("slow");
+                    $("#noneimg img").fadeIn("slow");
+                }
+            } else {
+                if ($('#nonediv').length !== 0) {
+                    $("#noneimg ").fadeOut("slow");
+                    $("#nonediv").fadeOut("slow");
+                    setTimeout(function () {
+                        $('#nonediv').remove();
+                        $('#noneimg').remove();
+                    }, 500);
+                }
+            }
+        });
+        $('.article-content').addClass('content-move')
+    });
+</script>
+                        <div class="Last-Next">
+    
+    <a href="/article/e1a227ca24383628/">
+        <div class="last">
+            <span>上一篇</span>
+            <p>移动端事件Touch监测手机重力加速度与</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/article/7ec10d1c56cd5526/">
+        <div class="next">
+            <span>下一篇</span>
+            <p>AntDesign-React使用和样式的按需引入的高级配置</p>
+        </div>
+    </a>
+    
+</div>
+		
+<link rel="stylesheet" href="/css/food.css">
+
+<div class="footer">
+	<div class="Copyright">
+		©2021 By CHANGEQ. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/qiaobug">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: block;
+            border-radius: 50%;
+            width: 66px;
+            height: 66px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            transition: border .5s;
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 30px;
+            height: 30px;
+            margin-top: 17.5px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $('#js-go_top').gotoTop({ offset: 500, speed: 300, animationShow: { 'transform': 'translate(0,0)', 'transition': 'transform .5s ease-in-out' }, animationHide: { 'transform': 'translate(100px,0)', 'transition': 'transform .5s ease-in-out' } });
+</script>
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+
+</html>
